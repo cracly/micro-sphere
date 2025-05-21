@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { Cloud, Sun, CloudRain, CloudLightning, Wind } from 'lucide-react';
 import {
   formatTemperature,
   formatPrecipitation,
@@ -29,242 +30,25 @@ function getWeatherBackgroundType(
   return 'default';
 }
 
-// Animated SVG backgrounds for each weather type using framer-motion for smooth transitions
-const WeatherBackgrounds = {
-  sunny: (
-    <motion.div
-      key="sunny"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 1 }}
-      className="absolute inset-0 w-full h-full z-0 pointer-events-none"
-    >
-      <svg viewBox="0 0 1440 900" fill="none" className="w-full h-full">
-        <defs>
-          <radialGradient id="sunnyGradient" cx="50%" cy="40%" r="80%">
-            <stop offset="0%" stopColor="#ffe066" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#fbbf24" stopOpacity="0.2" />
-          </radialGradient>
-        </defs>
-        <rect width="1440" height="900" fill="url(#sunnyGradient)" />
-        <motion.circle
-          cx="720"
-          cy="300"
-          r="120"
-          fill="#ffe066"
-          animate={{
-            filter: ['blur(0px)', 'blur(8px)', 'blur(0px)'],
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </svg>
-    </motion.div>
-  ),
-  cloudy: (
-    <motion.div
-      key="cloudy"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 1 }}
-      className="absolute inset-0 w-full h-full z-0 pointer-events-none"
-    >
-      <svg viewBox="0 0 1440 900" fill="none" className="w-full h-full">
-        <rect width="1440" height="900" fill="#dbeafe" />
-        <motion.ellipse
-          cx="400"
-          cy="200"
-          rx="180"
-          ry="60"
-          fill="#cbd5e1"
-          fillOpacity="0.7"
-          animate={{ x: [0, 60, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-        />
-        <motion.ellipse
-          cx="600"
-          cy="250"
-          rx="140"
-          ry="50"
-          fill="#e5e7eb"
-          fillOpacity="0.8"
-          animate={{ x: [0, 40, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
-        />
-        <motion.ellipse
-          cx="900"
-          cy="180"
-          rx="200"
-          ry="70"
-          fill="#cbd5e1"
-          fillOpacity="0.6"
-          animate={{ x: [0, 80, 0] }}
-          transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
-        />
-        <motion.ellipse
-          cx="1200"
-          cy="220"
-          rx="160"
-          ry="60"
-          fill="#e0e7ef"
-          fillOpacity="0.7"
-          animate={{ x: [0, 50, 0] }}
-          transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
-        />
-      </svg>
-    </motion.div>
-  ),
-  rain: (
-    <motion.div
-      key="rain"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 1 }}
-      className="absolute inset-0 w-full h-full z-0 pointer-events-none"
-    >
-      <svg viewBox="0 0 1440 900" fill="none" className="w-full h-full">
-        <rect width="1440" height="900" fill="#a5b4fc" />
-        <motion.ellipse
-          cx="500"
-          cy="200"
-          rx="180"
-          ry="60"
-          fill="#cbd5e1"
-          fillOpacity="0.7"
-          animate={{ x: [0, 60, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-        />
-        <motion.ellipse
-          cx="800"
-          cy="250"
-          rx="140"
-          ry="50"
-          fill="#e5e7eb"
-          fillOpacity="0.8"
-          animate={{ x: [0, 40, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
-        />
-        <motion.ellipse
-          cx="1100"
-          cy="180"
-          rx="200"
-          ry="70"
-          fill="#cbd5e1"
-          fillOpacity="0.6"
-          animate={{ x: [0, 80, 0] }}
-          transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
-        />
-        {/* Rain drops */}
-        {[...Array(30)].map((_, i) => (
-          <motion.rect
-            key={i}
-            x={40 + i * 45}
-            y={300 + (i % 5) * 30}
-            width="4"
-            height="40"
-            rx="2"
-            fill="#60a5fa"
-            fillOpacity="0.7"
-            animate={{
-              y: [300 + (i % 5) * 30, 380 + (i % 5) * 30],
-              opacity: [1, 0.2],
-            }}
-            transition={{
-              duration: 1.5 + (i % 5) * 0.2,
-              repeat: Infinity,
-              repeatType: 'loop',
-              delay: (i % 5) * 0.1,
-              ease: 'linear',
-            }}
-          />
-        ))}
-      </svg>
-    </motion.div>
-  ),
-  thunderstorm: (
-    <motion.div
-      key="thunderstorm"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 1 }}
-      className="absolute inset-0 w-full h-full z-0 pointer-events-none"
-    >
-      <svg viewBox="0 0 1440 900" fill="none" className="w-full h-full">
-        <rect width="1440" height="900" fill="#64748b" />
-        <motion.ellipse
-          cx="600"
-          cy="220"
-          rx="200"
-          ry="70"
-          fill="#cbd5e1"
-          fillOpacity="0.7"
-          animate={{ x: [0, 60, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-        />
-        <motion.ellipse
-          cx="900"
-          cy="180"
-          rx="220"
-          ry="80"
-          fill="#e5e7eb"
-          fillOpacity="0.8"
-          animate={{ x: [0, 80, 0] }}
-          transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
-        />
-        {/* Thunder bolt */}
-        <motion.polygon
-          points="800,350 830,420 810,420 840,490 820,490 850,560 790,470 810,470 780,400 800,400"
-          fill="#facc15"
-          fillOpacity="0.8"
-          animate={{
-            opacity: [0.7, 1, 0.2, 1, 0.2, 1, 0.7],
-          }}
-          transition={{ duration: 1.2, repeat: Infinity, ease: 'steps(7)' }}
-        />
-        {/* Rain drops */}
-        {[...Array(20)].map((_, i) => (
-          <motion.rect
-            key={i}
-            x={200 + i * 60}
-            y={400 + (i % 5) * 30}
-            width="4"
-            height="40"
-            rx="2"
-            fill="#60a5fa"
-            fillOpacity="0.7"
-            animate={{
-              y: [400 + (i % 5) * 30, 480 + (i % 5) * 30],
-              opacity: [1, 0.2],
-            }}
-            transition={{
-              duration: 1.5 + (i % 5) * 0.2,
-              repeat: Infinity,
-              repeatType: 'loop',
-              delay: (i % 5) * 0.1,
-              ease: 'linear',
-            }}
-          />
-        ))}
-      </svg>
-    </motion.div>
-  ),
-  default: (
-    <motion.div
-      key="default"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 1 }}
-      className="absolute inset-0 w-full h-full z-0 pointer-events-none"
-    >
-      <svg viewBox="0 0 1440 900" fill="none" className="w-full h-full">
-        <rect width="1440" height="900" fill="#f1f5f9" />
-      </svg>
-    </motion.div>
-  ),
+// AnimatedWeatherIcon component (stop-motion style)
+const AnimatedWeatherIcon: React.FC<{ type: string; size?: number }> = ({
+  type,
+  size = 64,
+}) => {
+  switch (type) {
+    case 'sunny':
+      return <Sun size={size} stroke="#fbbf24" fill="#ffe066" />;
+    case 'cloudy':
+      return <Cloud size={size} stroke="#cbd5e1" fill="#cbd5e1" />;
+    case 'rain':
+      return <CloudRain size={size} stroke="#60a5fa" fill="#cbd5e1" />;
+    case 'thunderstorm':
+      return <CloudLightning size={size} stroke="#facc15" fill="#cbd5e1" />;
+    case 'windy':
+      return <Wind size={size} stroke="#38bdf8" />;
+    default:
+      return <Cloud size={size} stroke="#cbd5e1" fill="#cbd5e1" />;
+  }
 };
 
 interface WeatherData {
@@ -282,6 +66,7 @@ const WeatherDashboard: React.FC = () => {
     'hourly'
   );
   const [darkMode, setDarkMode] = useState(false);
+  const [simplify, setSimplify] = useState(false);
 
   useEffect(() => {
     fetch('/backend/data/latest_weather.json')
@@ -336,16 +121,12 @@ const WeatherDashboard: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors duration-500 overflow-hidden">
-      <AnimatePresence mode="wait">
-        {WeatherBackgrounds[backgroundType]}
-      </AnimatePresence>
       <div className="relative z-10 max-w-4xl mx-auto py-8 px-2">
         <header className="flex flex-col items-center gap-2 py-4">
           <h1 className="text-4xl font-extrabold tracking-tight drop-shadow-lg text-neutral-900 dark:text-neutral-100">
-            Weather Dashboard
+            Detailed Weather Kledering
           </h1>
-          <p className="text-muted-foreground text-lg">{locationName}</p>
-          <p className="text-xs">
+          <p className="text-xs text-gray">
             Last updated: {formatDate(last_updated, 'full')}
           </p>
           <div className="flex gap-2 mt-2">
@@ -359,8 +140,9 @@ const WeatherDashboard: React.FC = () => {
           <Card className="p-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl bg-white/40 dark:bg-neutral-800/40 backdrop-blur-md border border-white/30 dark:border-neutral-700/40">
             <div className="flex flex-col items-center gap-2">
               <i className={`text-7xl ${icon}`}></i>
-              <span className="text-5xl font-bold text-neutral-900 dark:text-neutral-100">
+              <span className="flex items-center gap-3 text-5xl font-bold text-neutral-900 dark:text-neutral-100">
                 {formatTemperature(current_weather.temperature?.value)}
+                <AnimatedWeatherIcon type={backgroundType} size={48} />
               </span>
               <span className="text-muted-foreground text-lg">
                 Feels like{' '}
@@ -418,12 +200,52 @@ const WeatherDashboard: React.FC = () => {
                 Daily
               </Button>
             </div>
+            <Button variant="secondary" onClick={() => setSimplify((s) => !s)}>
+              {simplify ? 'Show Graph' : 'Simplify'}
+            </Button>
           </div>
-          <WeatherChart
-            hourly={hourly_forecast}
-            daily={daily_forecast}
-            type={forecastType}
-          />
+          {simplify ? (
+            <div className="flex gap-3 overflow-x-auto py-2">
+              {(forecastType === 'hourly'
+                ? hourly_forecast
+                : daily_forecast || []
+              ).map((item, idx) => (
+                <Card
+                  key={idx}
+                  className="min-w-[120px] flex-shrink-0 p-3 flex flex-col items-center bg-white/80 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-700"
+                >
+                  <div className="font-semibold text-base">
+                    {forecastType === 'hourly'
+                      ? formatDate(item.time, 'time')
+                      : formatDate(item.date || item.time, 'day')}
+                  </div>
+                  <div className="text-2xl font-bold">
+                    {forecastType === 'hourly'
+                      ? formatTemperature(item.temperature)
+                      : formatTemperature(item.temperature?.max)}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {item.rain !== undefined
+                      ? `${item.rain} mm`
+                      : item.precipitation_sum !== undefined
+                      ? `${item.precipitation_sum} mm`
+                      : ''}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {item.cloud_cover !== undefined
+                      ? `${item.cloud_cover}% clouds`
+                      : ''}
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <WeatherChart
+              hourly={hourly_forecast}
+              daily={daily_forecast}
+              type={forecastType}
+            />
+          )}
         </section>
         <footer className="text-center text-xs text-muted-foreground py-4">
           Data provided by{' '}
