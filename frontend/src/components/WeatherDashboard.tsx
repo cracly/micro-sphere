@@ -51,6 +51,43 @@ const AnimatedWeatherIcon: React.FC<{ type: string; size?: number }> = ({
   }
 };
 
+const translations = {
+  en: {
+    today: 'Today',
+    detailedWeather: 'Detailed Weather Kledering',
+    lastUpdated: 'Last updated',
+    feelsLike: 'Feels like',
+    precipitation: 'Precipitation',
+    wind: 'Wind',
+    gusts: 'Gusts',
+    direction: 'Direction',
+    cloudCover: 'Cloud Cover',
+    hourly: 'Hourly',
+    daily: 'Daily',
+    simplify: 'Simplify',
+    showGraph: 'Show Graph',
+    dataProvided: 'Data provided by',
+    now: 'Now',
+  },
+  de: {
+    today: 'Heute',
+    detailedWeather: 'Wetter Kledering im Detail',
+    lastUpdated: 'Zuletzt aktualisiert',
+    feelsLike: 'Gefühlt',
+    precipitation: 'Niederschlag',
+    wind: 'Wind',
+    gusts: 'Böen',
+    direction: 'Richtung',
+    cloudCover: 'Bewölkung',
+    hourly: 'Stündlich',
+    daily: 'Täglich',
+    simplify: 'Vereinfachen',
+    showGraph: 'Diagramm anzeigen',
+    dataProvided: 'Daten bereitgestellt von',
+    now: 'Jetzt',
+  },
+};
+
 interface WeatherData {
   location: { timezone?: string };
   last_updated: string;
@@ -72,6 +109,8 @@ const WeatherDashboard: React.FC = () => {
     const now = new Date();
     return now.toISOString().slice(0, 10);
   });
+  const [language, setLanguage] = useState<'en' | 'de'>('en');
+  const t = translations[language];
 
   useEffect(() => {
     fetch('/backend/data/latest_weather.json')
@@ -136,11 +175,23 @@ const WeatherDashboard: React.FC = () => {
     <div className="relative min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors duration-500 overflow-hidden">
       <div className="relative z-10 max-w-4xl mx-auto py-8 px-2">
         <header className="flex flex-col items-center gap-2 py-4">
+          <div className="flex justify-between w-full max-w-4xl mb-2">
+            <div></div>
+            <Button
+              variant="outline"
+              onClick={() => setLanguage((l) => (l === 'en' ? 'de' : 'en'))}
+            >
+              {language === 'en' ? '🇬🇧 English' : '🇩🇪 Deutsch'}
+            </Button>
+          </div>
           <h1 className="text-4xl font-extrabold tracking-tight drop-shadow-lg text-neutral-900 dark:text-neutral-100">
-            Detailed Weather Kledering
+            {t.detailedWeather}
           </h1>
           <p className="text-xs text-gray">
-            Last updated: {formatDate(last_updated, 'full')}
+            {t.lastUpdated}:{' '}
+            {new Date(last_updated).toLocaleString(
+              language === 'de' ? 'de-AT' : undefined
+            )}
           </p>
           <div className="flex gap-2 mt-2">
             <Button variant="outline" onClick={() => setDarkMode((d) => !d)}>
@@ -152,13 +203,16 @@ const WeatherDashboard: React.FC = () => {
           {/* Current day headline */}
           <div className="text-center mb-2">
             <h2 className="text-xl font-semibold text-neutral-700 dark:text-neutral-200">
-              Today –{' '}
-              {new Date().toLocaleDateString(undefined, {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
+              {t.today} –{' '}
+              {new Date().toLocaleDateString(
+                language === 'de' ? 'de-AT' : undefined,
+                {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                }
+              )}
             </h2>
           </div>
           {/* Hero Card */}
@@ -170,20 +224,20 @@ const WeatherDashboard: React.FC = () => {
                 <AnimatedWeatherIcon type={backgroundType} size={48} />
               </span>
               <span className="text-muted-foreground text-lg">
-                Feels like{' '}
+                {t.feelsLike}{' '}
                 {formatTemperature(current_weather.temperature?.feels_like)}
               </span>
             </div>
             <div className="grid grid-cols-2 gap-4 text-base">
               <div>
-                <span className="font-semibold">Precipitation:</span>{' '}
+                <span className="font-semibold">{t.precipitation}:</span>{' '}
                 {formatPrecipitation(
                   current_weather.precipitation?.value,
                   current_weather.precipitation?.unit
                 )}
               </div>
               <div>
-                <span className="font-semibold">Wind:</span>{' '}
+                <span className="font-semibold">{t.wind}:</span>{' '}
                 {formatWind(
                   current_weather.wind?.speed,
                   current_weather.wind?.direction,
@@ -191,17 +245,17 @@ const WeatherDashboard: React.FC = () => {
                 )}
               </div>
               <div>
-                <span className="font-semibold">Gusts:</span>{' '}
+                <span className="font-semibold">{t.gusts}:</span>{' '}
                 {current_weather.wind?.gusts || '--'}{' '}
                 {current_weather.wind?.unit || 'km/h'}
               </div>
               <div>
-                <span className="font-semibold">Direction:</span>{' '}
+                <span className="font-semibold">{t.direction}:</span>{' '}
                 {getWindDirection(current_weather.wind?.direction)} (
                 {current_weather.wind?.direction ?? '--'}°)
               </div>
               <div>
-                <span className="font-semibold">Cloud Cover:</span>{' '}
+                <span className="font-semibold">{t.cloudCover}:</span>{' '}
                 {current_weather.cloud_cover?.value || '--'}
                 {current_weather.cloud_cover?.unit || '%'}
               </div>
@@ -216,17 +270,17 @@ const WeatherDashboard: React.FC = () => {
                 variant={forecastType === 'hourly' ? 'default' : 'outline'}
                 onClick={() => setForecastType('hourly')}
               >
-                Hourly
+                {t.hourly}
               </Button>
               <Button
                 variant={forecastType === 'daily' ? 'default' : 'outline'}
                 onClick={() => setForecastType('daily')}
               >
-                Daily
+                {t.daily}
               </Button>
             </div>
             <Button variant="secondary" onClick={() => setSimplify((s) => !s)}>
-              {simplify ? 'Show Graph' : 'Simplify'}
+              {simplify ? t.showGraph : t.simplify}
             </Button>
           </div>
           {/* Hourly date navigation */}
@@ -245,12 +299,15 @@ const WeatherDashboard: React.FC = () => {
               </Button>
               <span className="font-semibold text-base">
                 {selectedDay &&
-                  new Date(selectedDay).toLocaleDateString(undefined, {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
+                  new Date(selectedDay).toLocaleDateString(
+                    language === 'de' ? 'de-AT' : undefined,
+                    {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    }
+                  )}
               </span>
               <Button
                 size="icon"
@@ -296,7 +353,7 @@ const WeatherDashboard: React.FC = () => {
                   </div>
                   <div className="text-xs text-muted-foreground">
                     {item.cloud_cover !== undefined
-                      ? `${item.cloud_cover}% clouds`
+                      ? `${item.cloud_cover}% ${t.cloudCover.toLowerCase()}`
                       : ''}
                   </div>
                 </Card>
@@ -312,7 +369,7 @@ const WeatherDashboard: React.FC = () => {
           )}
         </section>
         <footer className="text-center text-xs text-muted-foreground py-4">
-          Data provided by{' '}
+          {t.dataProvided}{' '}
           <a
             href="https://open-meteo.com/"
             className="underline"
