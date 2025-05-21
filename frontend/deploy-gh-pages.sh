@@ -9,7 +9,7 @@ echo "Current branch: $current_branch"
 
 # Build the project
 echo "Building the project..."
-cd ./frontend
+npm i
 npm run build
 
 # Create a temporary directory for the build output
@@ -26,6 +26,9 @@ cp -R out/* $temp_dir
 if [ -f "CNAME" ]; then
   cp CNAME $temp_dir
 fi
+
+# Return to project root before switching branches
+cd ..
 
 # Switch to the gh-pages branch
 echo "Switching to gh-pages branch..."
