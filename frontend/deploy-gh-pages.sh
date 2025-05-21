@@ -32,7 +32,7 @@ cd ..
 
 # Switch to the gh-pages branch
 echo "Switching to gh-pages branch..."
-git checkout gh-pages
+git checkout -b gh-pages
 
 # Remove existing files (except .git directory)
 echo "Cleaning gh-pages branch..."
