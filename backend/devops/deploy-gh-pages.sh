@@ -9,7 +9,7 @@ echo "Current branch: $current_branch"
 
 # Build the project
 echo "Building the project..."
-cd ../../frontend
+cd ./frontend
 npm run build
 
 # Create a temporary directory for the build output
