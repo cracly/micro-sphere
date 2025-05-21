@@ -3,6 +3,12 @@ name: Deploy Next.js site to GitHub Pages
 on:
   push:
     branches: ["main"] # or your default branch
+  # Also run when data is updated
+  workflow_run:
+    workflows: ["Update Weather Data"]
+    types:
+      - completed
+    branches: ["main"]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -24,22 +30,45 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: 'npm'
           cache-dependency-path: './frontend/package-lock.json'
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
       - name: Install dependencies
         run: cd frontend && npm ci
+
+      # Add caching for Next.js build
+      - name: Cache Next.js build
+        uses: actions/cache@v4
+        with:
+          path: |
+            frontend/.next/cache
+            frontend/out
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('frontend/**/*.js', 'frontend/**/*.jsx', 'frontend/**/*.ts', 'frontend/**/*.tsx', 'backend/data/latest_*.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-
+
+      # Copy latest data to public folder so it's included in the build
+      - name: Copy latest weather data to public folder
+        run: |
+          mkdir -p frontend/public/backend/data
+          cp backend/data/latest_*.json frontend/public/backend/data/
+          cp backend/data/processed_*.json frontend/public/backend/data/
+
       - name: Build with Next.js
         env:
           # For GitHub Pages subdirectory, set this to your repo name
           # For custom domain, leave this empty
           NEXT_PUBLIC_BASE_PATH: ''
         run: cd frontend && npm run build
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
