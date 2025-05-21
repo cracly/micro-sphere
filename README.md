@@ -55,11 +55,11 @@ Hyper local high quality weather analytics and forecast
    - Configure to run on Python 3.10+
 
 8. Visualization Requirements:
-   - Current conditions card with temperature, icon, and brief metrics
-   - Today's hourly forecast line chart
-   - 7-day forecast with min/max temperatures
+   - Current conditions card with temperature, icon, and metrics
+   - Today's detailed hourly forecast line chart
+   - 7-day detailed forecast with min/max temperatures and further metrics
    - Temperature trend line chart
    - Precipitation bar chart
    - Weather code to icon/description mapping
 
-Help me implement this project focusing on simplicity and maintainability.
+Orient design on windy/geosphere/..
