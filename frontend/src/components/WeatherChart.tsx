@@ -84,7 +84,7 @@ const WeatherChart: React.FC<WeatherChartProps> = ({
       <ResponsiveContainer width="100%" height={320}>
         <ComposedChart
           data={chartData}
-          margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+          margin={{ top: 48, right: 30, left: 0, bottom: 0 }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
           <XAxis dataKey="time" tick={{ fontSize: 12 }} />
@@ -114,13 +114,16 @@ const WeatherChart: React.FC<WeatherChartProps> = ({
             <ReferenceLine
               x={chartData[currentHourIdx].time}
               yAxisId="left"
-              stroke="#fbbf24"
-              strokeDasharray="3 3"
+              stroke="#f59e42" // brighter orange
+              strokeWidth={4}
+              strokeDasharray="6 2"
               label={{
                 value: 'Now',
                 position: 'top',
-                fill: '#fbbf24',
-                fontSize: 12,
+                fill: '#f59e42',
+                fontSize: 18,
+                fontWeight: 'bold',
+                dy: -8,
               }}
             />
           )}

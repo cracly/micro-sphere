@@ -149,6 +149,18 @@ const WeatherDashboard: React.FC = () => {
           </div>
         </header>
         <main className="space-y-8">
+          {/* Current day headline */}
+          <div className="text-center mb-2">
+            <h2 className="text-xl font-semibold text-neutral-700 dark:text-neutral-200">
+              Today –{' '}
+              {new Date().toLocaleDateString(undefined, {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </h2>
+          </div>
           {/* Hero Card */}
           <Card className="p-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl bg-white/40 dark:bg-neutral-800/40 backdrop-blur-md border border-white/30 dark:border-neutral-700/40">
             <div className="flex flex-col items-center gap-2">
