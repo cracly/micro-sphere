@@ -2,8 +2,6 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import {
-  formatTemperature,
-  formatPrecipitation,
   formatDate,
 } from '@/lib/weather-utils';
 import {
@@ -22,8 +20,8 @@ import {
 } from 'recharts';
 
 interface WeatherChartProps {
-  hourly: any[];
-  daily?: any[];
+  hourly: Record<string, unknown>[];
+  daily?: Record<string, unknown>[];
   type: 'hourly' | 'daily';
   selectedDay?: string; // YYYY-MM-DD
 }
@@ -35,28 +33,28 @@ const WeatherChart: React.FC<WeatherChartProps> = ({
   selectedDay,
 }) => {
   // Prepare data for chart
-  let chartData: any[] = [];
+  let chartData: Record<string, unknown>[] = [];
   if (type === 'hourly') {
     // Only show selected day's hours
     const dayStr = selectedDay || new Date().toISOString().slice(0, 10);
     chartData = hourly
-      .filter((h) => h.time && h.time.startsWith(dayStr))
+      .filter((h) => typeof h.time === 'string' && h.time.startsWith(dayStr))
       .map((h) => ({
-        time: formatDate(h.time, 'time'),
+        time: typeof h.time === 'string' ? formatDate(h.time, 'time') : '',
         rawTime: h.time,
         temperature: h.temperature,
         rain: h.rain,
         cloud_cover: h.cloud_cover,
-        wind: h.wind?.speed,
+        wind: h.wind && typeof h.wind === 'object' && h.wind !== null ? (h.wind as Record<string, unknown>).speed : undefined,
       }));
   } else {
     chartData =
       daily?.map((d) => ({
-        time: formatDate(d.date, 'day'),
-        temperature: d.temperature?.max,
+        time: typeof d.date === 'string' ? formatDate(d.date, 'day') : '',
+        temperature: d.temperature && typeof d.temperature === 'object' && d.temperature !== null ? (d.temperature as Record<string, unknown>).max : undefined,
         rain: d.precipitation_sum,
         cloud_cover: undefined, // Not available in daily
-        wind: undefined, // Not available in daily
+        wind: undefined, // Not available in daily,
       })) || [];
   }
 
@@ -67,7 +65,7 @@ const WeatherChart: React.FC<WeatherChartProps> = ({
   if (type === 'hourly' && chartData.length > 0) {
     const now = new Date();
     for (let i = 0; i < chartData.length; i++) {
-      const rawTime = chartData[i].rawTime;
+      const rawTime = chartData[i].rawTime as string;
       if (i === 0) todayStartIdx = i;
       todayEndIdx = i;
       // Find current hour
@@ -102,8 +100,8 @@ const WeatherChart: React.FC<WeatherChartProps> = ({
           {/* Highlight today's hours */}
           {type === 'hourly' && todayStartIdx !== -1 && todayEndIdx !== -1 && (
             <ReferenceArea
-              x1={chartData[todayStartIdx].time}
-              x2={chartData[todayEndIdx].time}
+              x1={chartData[todayStartIdx].time as string}
+              x2={chartData[todayEndIdx].time as string}
               strokeOpacity={0}
               fill="#fbbf24"
               fillOpacity={0.08}
@@ -112,7 +110,7 @@ const WeatherChart: React.FC<WeatherChartProps> = ({
           {/* Mark current hour */}
           {type === 'hourly' && currentHourIdx !== -1 && (
             <ReferenceLine
-              x={chartData[currentHourIdx].time}
+              x={chartData[currentHourIdx].time as string}
               yAxisId="left"
               stroke="#f59e42" // brighter orange
               strokeWidth={4}

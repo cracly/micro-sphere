@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
 import { Cloud, Sun, CloudRain, CloudLightning, Wind } from 'lucide-react';
 import {
   formatTemperature,
@@ -11,18 +10,16 @@ import {
   getWindDirection,
   formatDate,
   getWeatherIcon,
-  getVisibilityPercentage,
-  formatVisibility,
 } from '@/lib/weather-utils';
 import WeatherChart from './WeatherChart';
 
 // Helper: get background type from weather
 function getWeatherBackgroundType(
-  weather: any
+  weather: Record<string, unknown> | null | undefined
 ): 'rain' | 'sunny' | 'cloudy' | 'thunderstorm' | 'default' {
   if (!weather) return 'default';
-  const precip = weather.precipitation?.value ?? 0;
-  const cloud = weather.cloud_cover?.value ?? 0;
+  const precip = (weather.precipitation as { value?: number })?.value ?? 0;
+  const cloud = (weather.cloud_cover as { value?: number })?.value ?? 0;
   if (precip > 10) return 'thunderstorm';
   if (precip > 1) return 'rain';
   if (cloud > 80) return 'cloudy';
@@ -54,9 +51,9 @@ const AnimatedWeatherIcon: React.FC<{ type: string; size?: number }> = ({
 interface WeatherData {
   location: { timezone?: string };
   last_updated: string;
-  current_weather: any;
-  hourly_forecast: any[];
-  daily_forecast?: any[];
+  current_weather: Record<string, unknown>;
+  hourly_forecast: Record<string, unknown>[];
+  daily_forecast?: Record<string, unknown>[];
 }
 
 const WeatherDashboard: React.FC = () => {
@@ -104,19 +101,28 @@ const WeatherDashboard: React.FC = () => {
   }
 
   const {
-    location,
     last_updated,
     current_weather,
     hourly_forecast,
     daily_forecast,
   } = weatherData;
-  const icon = getWeatherIcon(
-    current_weather.cloud_cover?.value,
-    current_weather.precipitation?.value
-  );
+
+  // Safely extract values from Record<string, unknown>
+  const cloudCoverValue = (current_weather.cloud_cover as { value?: number })?.value;
+  const precipitationValue = (current_weather.precipitation as { value?: number })?.value;
+  const temperatureValue = (current_weather.temperature as { value?: number })?.value;
+  const feelsLikeValue = (current_weather.temperature as { feels_like?: number })?.feels_like;
+  const precipitationUnit = (current_weather.precipitation as { unit?: string })?.unit;
+  const wind = current_weather.wind as Record<string, unknown> | undefined;
+  const windSpeed = wind?.speed as number | undefined;
+  const windDirection = wind?.direction as number | undefined;
+  const windUnit = wind?.unit as string | undefined;
+  const windGusts = wind?.gusts as number | undefined;
+  const cloudCoverUnit = (current_weather.cloud_cover as { unit?: string })?.unit;
+
+  const icon = getWeatherIcon(cloudCoverValue, precipitationValue);
 
   // Hardcode location name
-  const locationName = 'Kledering';
 
   // Only use data from latest_weather.json
   // current_weather: temperature.value, temperature.feels_like, precipitation.value, precipitation.unit, wind.speed, wind.gusts, wind.direction, wind.unit, cloud_cover.value, cloud_cover.unit
@@ -126,7 +132,11 @@ const WeatherDashboard: React.FC = () => {
 
   // Get all unique days available in hourly_forecast
   const availableDays = Array.from(
-    new Set(hourly_forecast.map((h) => h.time?.slice(0, 10)).filter(Boolean))
+    new Set(
+      hourly_forecast
+        .map((h) => typeof h.time === 'string' ? h.time.slice(0, 10) : undefined)
+        .filter((d): d is string => Boolean(d))
+    )
   );
   const currentDayIdx = availableDays.indexOf(selectedDay);
   const canGoPrev = currentDayIdx > 0;
@@ -166,44 +176,43 @@ const WeatherDashboard: React.FC = () => {
             <div className="flex flex-col items-center gap-2">
               <i className={`text-7xl ${icon}`}></i>
               <span className="flex items-center gap-3 text-5xl font-bold text-neutral-900 dark:text-neutral-100">
-                {formatTemperature(current_weather.temperature?.value)}
+                {formatTemperature(temperatureValue)}
                 <AnimatedWeatherIcon type={backgroundType} size={48} />
               </span>
               <span className="text-muted-foreground text-lg">
                 Feels like{' '}
-                {formatTemperature(current_weather.temperature?.feels_like)}
+                {formatTemperature(feelsLikeValue)}
               </span>
             </div>
             <div className="grid grid-cols-2 gap-4 text-base">
               <div>
                 <span className="font-semibold">Precipitation:</span>{' '}
                 {formatPrecipitation(
-                  current_weather.precipitation?.value,
-                  current_weather.precipitation?.unit
+                  precipitationValue,
+                  precipitationUnit
                 )}
               </div>
               <div>
                 <span className="font-semibold">Wind:</span>{' '}
                 {formatWind(
-                  current_weather.wind?.speed,
-                  current_weather.wind?.direction,
-                  current_weather.wind?.unit
+                  windSpeed,
+                  windDirection,
+                  windUnit
                 )}
               </div>
               <div>
                 <span className="font-semibold">Gusts:</span>{' '}
-                {current_weather.wind?.gusts || '--'}{' '}
-                {current_weather.wind?.unit || 'km/h'}
+                {windGusts ?? '--'} {windUnit ?? 'km/h'}
               </div>
               <div>
                 <span className="font-semibold">Direction:</span>{' '}
-                {getWindDirection(current_weather.wind?.direction)} (
-                {current_weather.wind?.direction ?? '--'}°)
+                {getWindDirection(windDirection)} (
+                {windDirection ?? '--'}°)
               </div>
               <div>
                 <span className="font-semibold">Cloud Cover:</span>{' '}
-                {current_weather.cloud_cover?.value || '--'}
-                {current_weather.cloud_cover?.unit || '%'}
+                {cloudCoverValue ?? '--'}
+                {cloudCoverUnit ?? '%'}
               </div>
             </div>
           </Card>
@@ -269,7 +278,7 @@ const WeatherDashboard: React.FC = () => {
             <div className="flex gap-3 overflow-x-auto py-2">
               {(forecastType === 'hourly'
                 ? hourly_forecast.filter(
-                    (h) => h.time && h.time.startsWith(selectedDay)
+                    (h) => typeof h.time === 'string' && h.time.startsWith(selectedDay)
                   )
                 : daily_forecast || []
               ).map((item, idx) => (
@@ -279,13 +288,33 @@ const WeatherDashboard: React.FC = () => {
                 >
                   <div className="font-semibold text-base">
                     {forecastType === 'hourly'
-                      ? formatDate(item.time, 'time')
-                      : formatDate(item.date || item.time, 'day')}
+                      ? formatDate(
+                          typeof item.time === 'string' ? item.time : '',
+                          'time'
+                        )
+                      : formatDate(
+                          typeof item.date === 'string'
+                            ? item.date
+                            : typeof item.time === 'string'
+                            ? item.time
+                            : '',
+                          'day'
+                        )}
                   </div>
                   <div className="text-2xl font-bold">
                     {forecastType === 'hourly'
-                      ? formatTemperature(item.temperature)
-                      : formatTemperature(item.temperature?.max)}
+                      ? formatTemperature(
+                          typeof item.temperature === 'number'
+                            ? item.temperature
+                            : (item.temperature && typeof item.temperature === 'object' && 'value' in item.temperature)
+                            ? (item.temperature as { value?: number }).value
+                            : undefined
+                        )
+                      : formatTemperature(
+                          item.temperature && typeof item.temperature === 'object' && 'max' in item.temperature
+                            ? (item.temperature as { max?: number }).max
+                            : undefined
+                        )}
                   </div>
                   <div className="text-xs text-muted-foreground">
                     {item.rain !== undefined
