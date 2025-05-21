@@ -35,6 +35,10 @@ jobs:
       - name: Install dependencies
         run: cd frontend && npm ci
       - name: Build with Next.js
+        env:
+          # For GitHub Pages subdirectory, set this to your repo name
+          # For custom domain, leave this empty
+          NEXT_PUBLIC_BASE_PATH: ''
         run: cd frontend && npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -1,18 +1,19 @@
 import type { NextConfig } from "next";
 
-// Get the repository name from package.json or set it manually
-const isProd = process.env.NODE_ENV === 'production';
-// Determine the base path from your GitHub repository name
-// E.g., if your repo is username/micro-sphere, use /micro-sphere
-const basePath = isProd ? '/micro-sphere' : '';
+// Check if GITHUB_REPOSITORY environment variable is available
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 const nextConfig: NextConfig = {
   output: 'export', // Enable static export for GitHub Pages
-  basePath, // Set the base path for GitHub Pages
-  assetPrefix: basePath, // Set the asset prefix to match the base path
+  // Only add basePath if it's not empty (prevents empty path issues)
+  ...(basePath ? { basePath } : {}),
+  // Only add assetPrefix if it's not empty
+  ...(basePath ? { assetPrefix: basePath } : {}),
   images: {
     unoptimized: true, // Required for static export
   },
+  // Remove the experimental flag that's causing issues
+  trailingSlash: true, // Use this instead of skipTrailingSlashRedirect
 };
 
 export default nextConfig;
