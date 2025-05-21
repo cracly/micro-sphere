@@ -30,9 +30,16 @@ fi
 # Return to project root before switching branches
 cd ..
 
-# Switch to the gh-pages branch
-echo "Switching to gh-pages branch..."
-git checkout -b gh-pages
+# Check if gh-pages branch exists
+if git show-ref --verify --quiet refs/heads/gh-pages; then
+  echo "Switching to existing gh-pages branch..."
+  git checkout gh-pages
+else
+  echo "Creating new gh-pages branch..."
+  git checkout --orphan gh-pages
+  # Orphan branch is created with all files staged, so we need to reset
+  git reset --hard
+fi
 
 # Remove existing files (except .git directory)
 echo "Cleaning gh-pages branch..."
@@ -42,17 +49,21 @@ find . -maxdepth 1 ! -path "./.git" ! -path "." -exec rm -rf {} \;
 echo "Copying build files to gh-pages branch..."
 cp -R $temp_dir/* .
 
+# Create necessary GitHub Pages files
+echo "Creating .nojekyll file to disable Jekyll processing..."
+touch .nojekyll
+
 # Add all files to git
 echo "Adding files to git..."
 git add .
 
 # Commit with a timestamp
 echo "Committing changes..."
-git commit -m "Deploy to GitHub Pages - $(date)"
+git commit -m "Deploy to GitHub Pages - $(date)" || echo "No changes to commit"
 
 # Push to gh-pages
 echo "Pushing to gh-pages branch..."
-git push origin gh-pages
+git push -f origin gh-pages
 
 # Return to the original branch
 echo "Returning to $current_branch branch..."
