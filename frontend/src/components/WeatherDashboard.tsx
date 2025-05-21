@@ -12,6 +12,7 @@ import {
   getVisibilityPercentage,
   formatVisibility,
 } from '@/lib/weather-utils';
+import WeatherChart from './WeatherChart';
 
 interface WeatherData {
   location: { timezone?: string };
@@ -142,6 +143,30 @@ const WeatherDashboard: React.FC = () => {
             </div>
           </Card>
         </main>
+        {/* Weather Chart Section */}
+        <section className="mt-8">
+          <div className="flex justify-between items-center mb-2">
+            <div className="flex gap-2">
+              <Button
+                variant={forecastType === 'hourly' ? 'default' : 'outline'}
+                onClick={() => setForecastType('hourly')}
+              >
+                Hourly
+              </Button>
+              <Button
+                variant={forecastType === 'daily' ? 'default' : 'outline'}
+                onClick={() => setForecastType('daily')}
+              >
+                Daily
+              </Button>
+            </div>
+          </div>
+          <WeatherChart
+            hourly={hourly_forecast}
+            daily={daily_forecast}
+            type={forecastType}
+          />
+        </section>
         <footer className="text-center text-xs text-muted-foreground py-4">
           Data provided by{' '}
           <a
