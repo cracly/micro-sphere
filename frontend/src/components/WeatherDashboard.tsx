@@ -67,6 +67,11 @@ const WeatherDashboard: React.FC = () => {
   );
   const [darkMode, setDarkMode] = useState(false);
   const [simplify, setSimplify] = useState(false);
+  const [selectedDay, setSelectedDay] = useState<string>(() => {
+    // Default to today in local time, formatted as 'YYYY-MM-DD'
+    const now = new Date();
+    return now.toISOString().slice(0, 10);
+  });
 
   useEffect(() => {
     fetch('/backend/data/latest_weather.json')
@@ -118,6 +123,14 @@ const WeatherDashboard: React.FC = () => {
   // hourly_forecast: time, temperature, rain, cloud_cover, visibility, wind.speed, wind.direction, wind.gusts
 
   const backgroundType = getWeatherBackgroundType(weatherData?.current_weather);
+
+  // Get all unique days available in hourly_forecast
+  const availableDays = Array.from(
+    new Set(hourly_forecast.map((h) => h.time?.slice(0, 10)).filter(Boolean))
+  );
+  const currentDayIdx = availableDays.indexOf(selectedDay);
+  const canGoPrev = currentDayIdx > 0;
+  const canGoNext = currentDayIdx < availableDays.length - 1;
 
   return (
     <div className="relative min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors duration-500 overflow-hidden">
@@ -204,10 +217,48 @@ const WeatherDashboard: React.FC = () => {
               {simplify ? 'Show Graph' : 'Simplify'}
             </Button>
           </div>
+          {/* Hourly date navigation */}
+          {forecastType === 'hourly' && (
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() =>
+                  canGoPrev && setSelectedDay(availableDays[currentDayIdx - 1])
+                }
+                disabled={!canGoPrev}
+                aria-label="Previous day"
+              >
+                &#8592;
+              </Button>
+              <span className="font-semibold text-base">
+                {selectedDay &&
+                  new Date(selectedDay).toLocaleDateString(undefined, {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+              </span>
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() =>
+                  canGoNext && setSelectedDay(availableDays[currentDayIdx + 1])
+                }
+                disabled={!canGoNext}
+                aria-label="Next day"
+              >
+                &#8594;
+              </Button>
+            </div>
+          )}
           {simplify ? (
             <div className="flex gap-3 overflow-x-auto py-2">
               {(forecastType === 'hourly'
-                ? hourly_forecast
+                ? hourly_forecast.filter(
+                    (h) => h.time && h.time.startsWith(selectedDay)
+                  )
                 : daily_forecast || []
               ).map((item, idx) => (
                 <Card
@@ -244,6 +295,7 @@ const WeatherDashboard: React.FC = () => {
               hourly={hourly_forecast}
               daily={daily_forecast}
               type={forecastType}
+              selectedDay={forecastType === 'hourly' ? selectedDay : undefined}
             />
           )}
         </section>
