@@ -35,7 +35,7 @@ export function formatDate(
 
   // Define options for date formatting with CEST timezone
   const options: Intl.DateTimeFormatOptions = {
-    timeZone: 'Europe/Paris' // Paris uses CEST timezone
+    timeZone: 'Europe/Paris', // Paris uses CEST timezone
   };
 
   if (type === 'full') {
@@ -77,4 +77,17 @@ export function getVisibilityPercentage(visibility?: number): number {
 export function formatVisibility(visibility?: number): string {
   if (!visibility || isNaN(visibility)) return '--';
   return `${visibility} km`;
+}
+
+// Get current date (YYYY-MM-DD) and hour (0-23) in Vienna timezone
+export function getViennaDateAndHour(): {
+  viennaDate: string;
+  viennaHour: number;
+} {
+  const viennaNow = new Date(
+    new Date().toLocaleString('en-US', { timeZone: 'Europe/Vienna' })
+  );
+  const viennaDate = viennaNow.toISOString().slice(0, 10);
+  const viennaHour = viennaNow.getHours();
+  return { viennaDate, viennaHour };
 }
