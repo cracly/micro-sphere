@@ -1,9 +1,7 @@
 'use client';
 import React from 'react';
 import { Card } from '@/components/ui/card';
-import {
-  formatDate,
-} from '@/lib/weather-utils';
+import { formatDate } from '@/lib/weather-utils';
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -18,6 +16,31 @@ import {
   ReferenceArea,
   ReferenceLine,
 } from 'recharts';
+
+// Helper to get Vienna date and hour
+function getViennaDateAndHour() {
+  const now = new Date();
+  // Get Vienna date string (YYYY-MM-DD) and hour (0-23)
+  const formatterDate = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Vienna',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+  const formatterHour = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Vienna',
+    hour: '2-digit',
+    hour12: false,
+  });
+  // en-CA gives YYYY-MM-DD
+  const parts = formatterDate.formatToParts(now);
+  const year = parts.find((p) => p.type === 'year')?.value;
+  const month = parts.find((p) => p.type === 'month')?.value;
+  const day = parts.find((p) => p.type === 'day')?.value;
+  const viennaDate = `${year}-${month}-${day}`;
+  const viennaHour = parseInt(formatterHour.format(now), 10);
+  return { viennaDate, viennaHour };
+}
 
 interface WeatherChartProps {
   hourly: Record<string, unknown>[];
@@ -45,13 +68,21 @@ const WeatherChart: React.FC<WeatherChartProps> = ({
         temperature: h.temperature,
         rain: h.rain,
         cloud_cover: h.cloud_cover,
-        wind: h.wind && typeof h.wind === 'object' && h.wind !== null ? (h.wind as Record<string, unknown>).speed : undefined,
+        wind:
+          h.wind && typeof h.wind === 'object' && h.wind !== null
+            ? (h.wind as Record<string, unknown>).speed
+            : undefined,
       }));
   } else {
     chartData =
       daily?.map((d) => ({
         time: typeof d.date === 'string' ? formatDate(d.date, 'day') : '',
-        temperature: d.temperature && typeof d.temperature === 'object' && d.temperature !== null ? (d.temperature as Record<string, unknown>).max : undefined,
+        temperature:
+          d.temperature &&
+          typeof d.temperature === 'object' &&
+          d.temperature !== null
+            ? (d.temperature as Record<string, unknown>).max
+            : undefined,
         rain: d.precipitation_sum,
         cloud_cover: undefined, // Not available in daily
         wind: undefined, // Not available in daily,
@@ -62,15 +93,18 @@ const WeatherChart: React.FC<WeatherChartProps> = ({
   let todayStartIdx = -1;
   let todayEndIdx = -1;
   let currentHourIdx = -1;
+  let showNow = false;
   if (type === 'hourly' && chartData.length > 0) {
-    const now = new Date();
+    const { viennaDate, viennaHour } = getViennaDateAndHour();
+    const dayStr = selectedDay || viennaDate;
+    showNow = dayStr === viennaDate;
     for (let i = 0; i < chartData.length; i++) {
       const rawTime = chartData[i].rawTime as string;
       if (i === 0) todayStartIdx = i;
       todayEndIdx = i;
-      // Find current hour
+      // Find current hour in Vienna time
       const hour = Number(rawTime.slice(11, 13));
-      if (hour === now.getHours()) currentHourIdx = i;
+      if (showNow && hour === viennaHour) currentHourIdx = i;
     }
   }
 
@@ -107,8 +141,8 @@ const WeatherChart: React.FC<WeatherChartProps> = ({
               fillOpacity={0.08}
             />
           )}
-          {/* Mark current hour */}
-          {type === 'hourly' && currentHourIdx !== -1 && (
+          {/* Mark current hour (Now) only if selected day is Vienna today */}
+          {type === 'hourly' && showNow && currentHourIdx !== -1 && (
             <ReferenceLine
               x={chartData[currentHourIdx].time as string}
               yAxisId="left"
