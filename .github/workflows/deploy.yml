@@ -51,16 +51,9 @@ jobs:
           path: |
             frontend/.next/cache
             frontend/out
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('frontend/**/*.js', 'frontend/**/*.jsx', 'frontend/**/*.ts', 'frontend/**/*.tsx', 'backend/data/latest_*.json') }}
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('frontend/**/*.js', 'frontend/**/*.jsx', 'frontend/**/*.ts', 'frontend/**/*.tsx', 'backend/data/processed_*.json') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-
-
-      # Copy latest data to public folder so it's included in the build
-      - name: Copy latest weather data to public folder
-        run: |
-          mkdir -p frontend/public/backend/data
-          cp backend/data/latest_*.json frontend/public/backend/data/
-          cp backend/data/processed_*.json frontend/public/backend/data/
 
       - name: Build with Next.js
         env:
@@ -70,7 +63,7 @@ jobs:
         run: cd frontend && npm run build
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./frontend/out
 
