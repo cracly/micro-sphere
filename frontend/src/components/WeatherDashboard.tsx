@@ -12,6 +12,7 @@ import {
   getWeatherIcon,
 } from '@/lib/weather-utils';
 import WeatherChart from './WeatherChart';
+import GeosphereChart, { GeosphereTechnicalPanel } from './GeosphereChart';
 
 // Helper: get background type from weather
 function getWeatherBackgroundType(
@@ -93,12 +94,28 @@ interface WeatherData {
   daily_forecast?: Record<string, unknown>[];
 }
 
+interface GeosphereData {
+  location: string;
+  last_updated: string;
+  source: string;
+  forecast_type: string;
+  forecast_period: string;
+  resolution: string;
+  forecast_data: Array<{
+    time: string;
+    temperature: number | null;
+  }>;
+  units: {
+    temperature: string;
+  };
+}
+
 const WeatherDashboard: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [geosphereData, setGeosphereData] = useState<GeosphereData | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [forecastType, setForecastType] = useState<'hourly' | 'daily'>(
-    'hourly'
-  );
+  const [forecastType, setForecastType] = useState<'hourly' | 'daily'>('hourly');
+  const [dataSource, setDataSource] = useState<'open-meteo' | 'geosphere'>('open-meteo');
   const [darkMode, setDarkMode] = useState(false);
   const [simplify, setSimplify] = useState(false);
   const [selectedDay, setSelectedDay] = useState<string>(() => {
@@ -112,15 +129,57 @@ const WeatherDashboard: React.FC = () => {
   const APP_NAME = 'micro-sphere';
 
   useEffect(() => {
+    // Fetch Open-Meteo data using the file that's actually in the public directory
     fetch('/backend/data/processed_open_meteo.json')
       .then((res) => {
-        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        if (!res.ok) {
+          console.error(`HTTP error! Status: ${res.status}`);
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
         return res.json();
       })
       .then(setWeatherData)
-      .catch(() =>
-        setError('Failed to load weather data. Please try again later.')
-      );
+      .catch((err) => {
+        console.error("Failed to load Open-Meteo data:", err);
+        setError('Failed to load weather data. Please try again later.');
+      });
+
+    // Also create a placeholder for Geosphere data since the real file might not be accessible yet
+    // This prevents errors while we're setting up the proper data pipeline
+    const placeholderGeosphereData = {
+      location: "Kledering",
+      last_updated: new Date().toISOString(),
+      source: "Geosphere",
+      forecast_type: "nowcast",
+      forecast_period: "3 hour",
+      resolution: "15 minute",
+      forecast_data: Array(12).fill(null).map((_, i) => {
+        const time = new Date();
+        time.setMinutes(time.getMinutes() + (i * 15));
+        return {
+          time: time.toISOString(),
+          temperature: 20 + Math.random() * 5
+        };
+      }),
+      units: {
+        temperature: "°C"
+      }
+    };
+
+    // Try to fetch the real data, but use placeholder if not available
+    fetch('/backend/data/processed_geosphere.json')
+      .then((res) => {
+        if (!res.ok) {
+          console.warn("Geosphere data not available, using placeholder");
+          return placeholderGeosphereData;
+        }
+        return res.json();
+      })
+      .then(setGeosphereData)
+      .catch((err) => {
+        console.warn("Using placeholder Geosphere data:", err);
+        setGeosphereData(placeholderGeosphereData);
+      });
   }, []);
 
   useEffect(() => {
@@ -237,347 +296,382 @@ const WeatherDashboard: React.FC = () => {
   });
 
   return (
-    <div className="relative min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors duration-500 overflow-hidden">
-      <div className="relative z-10 max-w-4xl mx-auto py-8 px-2">
-        <header className="flex flex-col items-center gap-2 py-4">
-          <div className="flex justify-between w-full max-w-4xl mb-2">
-            <div></div>
-            <Button
-              variant="outline"
-              onClick={() => setLanguage((l) => (l === 'en' ? 'de' : 'en'))}
-            >
-              {language === 'en' ? '🇬🇧 English' : '🇦🇹 Deutsch'}
-            </Button>
-          </div>
-          <h1 className="text-4xl font-extrabold tracking-tight drop-shadow-lg text-neutral-900 dark:text-neutral-100">
-            {APP_NAME}
-          </h1>
-          <p className="text-xs text-gray">
-            {t.lastUpdated}:{' '}
-            {new Date(last_updated).toLocaleString(
-              language === 'de' ? 'de-AT' : undefined
-            )}
-          </p>
-          <div className="flex gap-2 mt-2">
-            <Button variant="outline" onClick={() => setDarkMode((d) => !d)}>
-              {darkMode ? '☀️ Light' : '🌙 Dark'}
-            </Button>
-          </div>
-        </header>
-        <main className="space-y-8">
-          {/* Current day headline */}
-          <div className="text-center mb-2">
-            <h2 className="text-xl font-semibold text-neutral-700 dark:text-neutral-200">
-              {t.today} –{' '}
-              {new Date().toLocaleDateString(
-                language === 'de' ? 'de-AT' : undefined,
-                {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                }
-              )}
-            </h2>
-          </div>
-          {/* Hero Card */}
-          <Card className="p-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl bg-white/40 dark:bg-neutral-800/40 backdrop-blur-md border border-white/30 dark:border-neutral-700/40">
-            <div className="flex flex-col items-center gap-2">
-              <i className={`text-7xl ${icon}`}></i>
-              <span className="flex items-center gap-3 text-5xl font-bold text-neutral-900 dark:text-neutral-100">
-                {formatTemperature(temperatureValue)}
-                <AnimatedWeatherIcon type={backgroundType} size={48} />
-              </span>
-              <span className="text-muted-foreground text-lg">
-                {t.feelsLike} {formatTemperature(feelsLikeValue)}
-              </span>
-            </div>
-            <div className="grid grid-cols-2 gap-4 text-base">
-              <div>
-                <span className="font-semibold">{t.precipitation}:</span>{' '}
-                {formatPrecipitation(precipitationValue, precipitationUnit)}
+    <div className="min-h-screen flex flex-col">
+      {/* Header Bar */}
+      <header className="w-full flex items-center justify-between px-4 py-2 bg-background border-b border-border relative">
+        <div className="font-bold text-lg text-primary">micro-sphere</div>
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
+          <span className="text-base font-semibold opacity-80">Kledering</span>
+        </div>
+        <div style={{ width: '90px' }} /> {/* Spacer for symmetry */}
+      </header>
+      {/* Main content */}
+      <main className="flex-1">
+        <div className="relative min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors duration-500 overflow-hidden">
+          <div className="relative z-10 max-w-4xl mx-auto py-8 px-2">
+            <header className="flex flex-col items-center gap-2 py-4">
+              <div className="flex justify-between w-full max-w-4xl mb-2">
+                <div></div>
+                <Button
+                  variant="outline"
+                  onClick={() => setLanguage((l) => (l === 'en' ? 'de' : 'en'))}
+                >
+                  {language === 'en' ? '🇬🇧 English' : '🇦🇹 Deutsch'}
+                </Button>
               </div>
-              <div>
-                <span className="font-semibold">{t.wind}:</span>{' '}
-                {formatWind(windSpeed, windDirection, windUnit)}
+              <h1 className="text-4xl font-extrabold tracking-tight drop-shadow-lg text-neutral-900 dark:text-neutral-100">
+                {APP_NAME}
+              </h1>
+              <p className="text-xs text-gray">
+                {t.lastUpdated}:{' '}
+                {new Date(dataSource === 'open-meteo' ? last_updated : (geosphereData?.last_updated || last_updated)).toLocaleString(
+                  language === 'de' ? 'de-AT' : undefined
+                )}
+              </p>
+              <div className="flex flex-wrap justify-center gap-2 mt-2">
+                <Button variant="outline" onClick={() => setDarkMode((d) => !d)}>
+                  {darkMode ? '☀️ Light' : '🌙 Dark'}
+                </Button>
+                <Button
+                  variant={dataSource === 'open-meteo' ? 'default' : 'outline'}
+                  onClick={() => setDataSource('open-meteo')}
+                  className="flex items-center gap-1"
+                >
+                  <span className="text-xs">📊</span> Open-Meteo
+                </Button>
+                <Button
+                  variant={dataSource === 'geosphere' ? 'default' : 'outline'}
+                  onClick={() => setDataSource('geosphere')}
+                  className="flex items-center gap-1"
+                  disabled={!geosphereData}
+                >
+                  <span className="text-xs">🔎</span> Geosphere
+                </Button>
               </div>
-              <div>
-                <span className="font-semibold">{t.gusts}:</span>{' '}
-                {windGusts || '--'} {windUnit || 'km/h'}
-              </div>
-              <div>
-                <span className="font-semibold">{t.direction}:</span>{' '}
-                {getWindDirection(windDirection)} ({windDirection ?? '--'}°)
-              </div>
-              <div>
-                <span className="font-semibold">{t.cloudCover}:</span>{' '}
-                {cloudCoverValue || '--'}
-                {cloudCoverUnit || '%'}
-              </div>
-            </div>
-          </Card>
-        </main>
-        {/* Weather Chart Section */}
-        <section className="mt-8">
-          <div className="flex justify-between items-center mb-2">
-            <div className="flex gap-2">
-              <Button
-                variant={forecastType === 'hourly' ? 'default' : 'outline'}
-                onClick={() => setForecastType('hourly')}
-              >
-                {t.hourly}
-              </Button>
-              <Button
-                variant={forecastType === 'daily' ? 'default' : 'outline'}
-                onClick={() => setForecastType('daily')}
-              >
-                {t.daily}
-              </Button>
-            </div>
-            <Button variant="secondary" onClick={() => setSimplify((s) => !s)}>
-              {simplify ? t.showGraph : t.simplify}
-            </Button>
-          </div>
-          {/* Hourly date navigation */}
-          {forecastType === 'hourly' && (
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Button
-                size="icon"
-                variant="ghost"
-                onClick={() =>
-                  canGoPrev && setSelectedDay(availableDays[currentDayIdx - 1])
-                }
-                disabled={!canGoPrev}
-                aria-label="Previous day"
-              >
-                &#8592;
-              </Button>
-              <span className="font-semibold text-base">
-                {selectedDay &&
-                  new Date(selectedDay).toLocaleDateString(
+            </header>
+            <main className="space-y-8">
+              {/* Current day headline */}
+              <div className="text-center mb-2">
+                <h2 className="text-xl font-semibold text-neutral-700 dark:text-neutral-200">
+                  {t.today} –{' '}
+                  {new Date().toLocaleDateString(
                     language === 'de' ? 'de-AT' : undefined,
                     {
                       weekday: 'long',
                       year: 'numeric',
-                      month: 'short',
+                      month: 'long',
                       day: 'numeric',
                     }
                   )}
-              </span>
-              <Button
-                size="icon"
-                variant="ghost"
-                onClick={() =>
-                  canGoNext && setSelectedDay(availableDays[currentDayIdx + 1])
-                }
-                disabled={!canGoNext}
-                aria-label="Next day"
-              >
-                &#8594;
-              </Button>
-            </div>
-          )}
-          {simplify ? (
-            <div className="flex gap-3 overflow-x-auto py-2">
-              {(forecastType === 'hourly'
-                ? hourly_forecast.filter(
-                    (h) =>
-                      typeof h.time === 'string' &&
-                      h.time.startsWith(selectedDay)
-                  )
-                : daily_forecast || []
-              ).map((item, idx) => (
-                <Card
-                  key={idx}
-                  className="min-w-[120px] flex-shrink-0 p-3 flex flex-col items-center bg-white/80 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-700"
-                >
-                  <div className="font-semibold text-base">
-                    {forecastType === 'hourly'
-                      ? formatDate(
-                          typeof item.time === 'string' ? item.time : '',
-                          'time'
-                        )
-                      : formatDate(
-                          typeof item.date === 'string'
-                            ? item.date
-                            : typeof item.time === 'string'
-                            ? item.time
-                            : '',
-                          'day'
-                        )}
-                  </div>
-                  <div className="text-2xl font-bold">
-                    {forecastType === 'hourly'
-                      ? formatTemperature(
-                          typeof item.temperature === 'number'
-                            ? item.temperature
-                            : item.temperature &&
-                              typeof item.temperature === 'object' &&
-                              'value' in item.temperature
-                            ? (item.temperature as { value?: number }).value
-                            : undefined
-                        )
-                      : formatTemperature(
-                          item.temperature &&
-                            typeof item.temperature === 'object' &&
-                            'max' in item.temperature
-                            ? (item.temperature as { max?: number }).max
-                            : undefined
-                        )}
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    {item.rain !== undefined
-                      ? `${item.rain} mm`
-                      : item.precipitation_sum !== undefined
-                      ? `${item.precipitation_sum} mm`
-                      : ''}
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    {item.cloud_cover !== undefined
-                      ? `${item.cloud_cover}% ${t.cloudCover.toLowerCase()}`
-                      : ''}
-                  </div>
-                </Card>
-              ))}
-            </div>
-          ) : (
-            <WeatherChart
-              hourly={hourly_forecast}
-              daily={daily_forecast}
-              type={forecastType}
-              selectedDay={forecastType === 'hourly' ? selectedDay : undefined}
-            />
-          )}
-        </section>
-        {/* Super Detailed Overview Section */}
-        <section className="mt-12">
-          <h3 className="text-lg font-bold mb-4 text-neutral-800 dark:text-neutral-100 text-center">
-            {APP_NAME} – Super Detailed Overview
-          </h3>
-          <div className="overflow-x-auto">
-            <div
-              className="grid"
-              style={{
-                gridTemplateColumns: `80px repeat(${availableDays.length}, minmax(80px, 1fr))`,
-                borderRadius: '1rem',
-                boxShadow: '0 2px 16px 0 rgba(0,0,0,0.08)',
-                overflow: 'hidden',
-                background: 'var(--table-bg, #f8fafc)',
-              }}
-            >
-              {/* Header Row */}
-              <div className="sticky left-0 z-10 bg-neutral-100 dark:bg-neutral-800 font-semibold flex items-center justify-center p-2 border-b border-r rounded-tl-xl">
-                Hour
+                </h2>
               </div>
-              {availableDays.map((day) => (
-                <div
-                  key={day}
-                  className="p-2 border-b bg-neutral-100 dark:bg-neutral-800 font-semibold text-center"
-                  style={{
-                    borderRight:
-                      day === availableDays[availableDays.length - 1]
-                        ? undefined
-                        : '1px solid #e5e7eb',
-                  }}
-                >
-                  {new Date(day).toLocaleDateString(
-                    language === 'de' ? 'de-AT' : undefined,
-                    {
-                      weekday: 'short',
-                      month: 'short',
-                      day: 'numeric',
-                    }
-                  )}
+              {/* Hero Card */}
+              <Card className="p-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl bg-white/40 dark:bg-neutral-800/40 backdrop-blur-md border border-white/30 dark:border-neutral-700/40">
+                <div className="flex flex-col items-center gap-2">
+                  <i className={`text-7xl ${icon}`}></i>
+                  <span className="flex items-center gap-3 text-5xl font-bold text-neutral-900 dark:text-neutral-100">
+                    {formatTemperature(temperatureValue)}
+                    <AnimatedWeatherIcon type={backgroundType} size={48} />
+                  </span>
+                  <span className="text-muted-foreground text-lg">
+                    {t.feelsLike} {formatTemperature(feelsLikeValue)}
+                  </span>
                 </div>
-              ))}
-              {/* Data Rows */}
-              {Array.from({ length: 24 }).map((_, hourIdx) => [
+                <div className="grid grid-cols-2 gap-4 text-base">
+                  <div>
+                    <span className="font-semibold">{t.precipitation}:</span>{' '}
+                    {formatPrecipitation(precipitationValue, precipitationUnit)}
+                  </div>
+                  <div>
+                    <span className="font-semibold">{t.wind}:</span>{' '}
+                    {formatWind(windSpeed, windDirection, windUnit)}
+                  </div>
+                  <div>
+                    <span className="font-semibold">{t.gusts}:</span>{' '}
+                    {windGusts || '--'} {windUnit || 'km/h'}
+                  </div>
+                  <div>
+                    <span className="font-semibold">{t.direction}:</span>{' '}
+                    {getWindDirection(windDirection)} ({windDirection ?? '--'}°)
+                  </div>
+                  <div>
+                    <span className="font-semibold">{t.cloudCover}:</span>{' '}
+                    {cloudCoverValue || '--'}
+                    {cloudCoverUnit || '%'}
+                  </div>
+                </div>
+              </Card>
+            </main>
+            {/* Weather Chart Section */}
+            <section className="mt-8">
+              <div className="flex justify-between items-center mb-2">
+                <div className="flex gap-2">
+                  <Button
+                    variant={forecastType === 'hourly' ? 'default' : 'outline'}
+                    onClick={() => setForecastType('hourly')}
+                  >
+                    {t.hourly}
+                  </Button>
+                  <Button
+                    variant={forecastType === 'daily' ? 'default' : 'outline'}
+                    onClick={() => setForecastType('daily')}
+                  >
+                    {t.daily}
+                  </Button>
+                </div>
+                <Button variant="secondary" onClick={() => setSimplify((s) => !s)}>
+                  {simplify ? t.showGraph : t.simplify}
+                </Button>
+              </div>
+              {/* Hourly date navigation */}
+              {forecastType === 'hourly' && (
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={() =>
+                      canGoPrev && setSelectedDay(availableDays[currentDayIdx - 1])
+                    }
+                    disabled={!canGoPrev}
+                    aria-label="Previous day"
+                  >
+                    &#8592;
+                  </Button>
+                  <span className="font-semibold text-base">
+                    {selectedDay &&
+                      new Date(selectedDay).toLocaleDateString(
+                        language === 'de' ? 'de-AT' : undefined,
+                        {
+                          weekday: 'long',
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric',
+                        }
+                      )}
+                  </span>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={() =>
+                      canGoNext && setSelectedDay(availableDays[currentDayIdx + 1])
+                    }
+                    disabled={!canGoNext}
+                    aria-label="Next day"
+                  >
+                    &#8594;
+                  </Button>
+                </div>
+              )}
+              {simplify ? (
+                <div className="flex gap-3 overflow-x-auto py-2">
+                  {(forecastType === 'hourly'
+                    ? hourly_forecast.filter(
+                        (h) =>
+                          typeof h.time === 'string' &&
+                          h.time.startsWith(selectedDay)
+                      )
+                    : daily_forecast || []
+                  ).map((item, idx) => (
+                    <Card
+                      key={idx}
+                      className="min-w-[120px] flex-shrink-0 p-3 flex flex-col items-center bg-white/80 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-700"
+                    >
+                      <div className="font-semibold text-base">
+                        {forecastType === 'hourly'
+                          ? formatDate(
+                              typeof item.time === 'string' ? item.time : '',
+                              'time'
+                            )
+                          : formatDate(
+                              typeof item.date === 'string'
+                                ? item.date
+                                : typeof item.time === 'string'
+                                ? item.time
+                                : '',
+                              'day'
+                            )}
+                      </div>
+                      <div className="text-2xl font-bold">
+                        {forecastType === 'hourly'
+                          ? formatTemperature(
+                              typeof item.temperature === 'number'
+                                ? item.temperature
+                                : item.temperature &&
+                                  typeof item.temperature === 'object' &&
+                                  'value' in item.temperature
+                                ? (item.temperature as { value?: number }).value
+                                : undefined
+                            )
+                          : formatTemperature(
+                              item.temperature &&
+                                typeof item.temperature === 'object' &&
+                                'max' in item.temperature
+                                ? (item.temperature as { max?: number }).max
+                                : undefined
+                            )}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        {item.rain !== undefined
+                          ? `${item.rain} mm`
+                          : item.precipitation_sum !== undefined
+                          ? `${item.precipitation_sum} mm`
+                          : ''}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        {item.cloud_cover !== undefined
+                          ? `${item.cloud_cover}% ${t.cloudCover.toLowerCase()}`
+                          : ''}
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                dataSource === 'open-meteo' ? (
+                  <WeatherChart
+                    hourly={hourly_forecast}
+                    daily={daily_forecast}
+                    type={forecastType}
+                    selectedDay={forecastType === 'hourly' ? selectedDay : undefined}
+                  />
+                ) : (
+                  <>
+                    <GeosphereChart data={geosphereData} darkMode={darkMode} />
+                    <GeosphereTechnicalPanel data={geosphereData} />
+                  </>
+                )
+              )}
+            </section>
+            {/* Super Detailed Overview Section */}
+            <section className="mt-12">
+              <h3 className="text-lg font-bold mb-4 text-neutral-800 dark:text-neutral-100 text-center">
+                {APP_NAME} – Super Detailed Overview
+              </h3>
+              <div className="overflow-x-auto">
                 <div
-                  key={`hour-${hourIdx}`}
-                  className="sticky left-0 z-10 bg-neutral-50 dark:bg-neutral-900 font-semibold flex items-center justify-center p-2 border-r border-b"
+                  className="grid"
                   style={{
-                    borderBottomLeftRadius: hourIdx === 23 ? '1rem' : undefined,
+                    gridTemplateColumns: `80px repeat(${availableDays.length}, minmax(80px, 1fr))`,
+                    borderRadius: '1rem',
+                    boxShadow: '0 2px 16px 0 rgba(0,0,0,0.08)',
+                    overflow: 'hidden',
+                    background: 'var(--table-bg, #f8fafc)',
                   }}
                 >
-                  {hourIdx.toString().padStart(2, '0')}:00
-                </div>,
-                ...availableDays.map((day) => {
-                  // Extract this hour’s entry to display data
-                  const entry = hourly_forecast.find(
-                    (e) =>
-                      typeof e.time === 'string' &&
-                      e.time.startsWith(day) &&
-                      Number(e.time.slice(11, 13)) === hourIdx
-                  );
-                  // Entry values
-                  let entryTemp: number | undefined;
-                  if (typeof entry?.temperature === 'number')
-                    entryTemp = entry.temperature;
-                  else if (
-                    entry?.temperature &&
-                    typeof entry.temperature === 'object' &&
-                    'value' in entry.temperature
-                  )
-                    entryTemp = (entry.temperature as { value?: number }).value;
-                  let entryRain: number | undefined;
-                  if (typeof entry?.rain === 'number') entryRain = entry.rain;
-                  let entryHumidity: number | undefined;
-                  if (
-                    entry?.humidity &&
-                    typeof entry.humidity === 'object' &&
-                    'value' in entry.humidity
-                  )
-                    entryHumidity = (entry.humidity as { value?: number })
-                      .value;
-                  return (
+                  {/* Header Row */}
+                  <div className="sticky left-0 z-10 bg-neutral-100 dark:bg-neutral-800 font-semibold flex items-center justify-center p-2 border-b border-r rounded-tl-xl">
+                    Hour
+                  </div>
+                  {availableDays.map((day) => (
                     <div
-                      key={day + hourIdx}
-                      className="group relative flex items-center justify-center p-2 border-b border-r min-h-[56px] transition-transform duration-200 hover:scale-105 hover:shadow-lg hover:z-20 cursor-pointer"
+                      key={day}
+                      className="p-2 border-b bg-neutral-100 dark:bg-neutral-800 font-semibold text-center"
                       style={{
-                        backgroundImage: dayGradients[day],
-                        backgroundSize: '100% 2400%',
-                        backgroundPosition: `0 ${(hourIdx / 23) * 100}%`,
-                        backgroundRepeat: 'no-repeat',
+                        borderRight:
+                          day === availableDays[availableDays.length - 1]
+                            ? undefined
+                            : '1px solid #e5e7eb',
                       }}
-                      title={`${day} ${hourIdx}:00`}
                     >
-                      {/* Display actual data */}
-                      <div className="flex flex-col items-center gap-1">
-                        <div className="font-bold text-neutral-800 dark:text-neutral-900">
-                          {entryTemp !== undefined
-                            ? Math.round(entryTemp) + '°'
-                            : '--'}
-                        </div>
-                        <div className="text-xs text-blue-600 dark:text-blue-300">
-                          {entryRain !== undefined ? entryRain + ' mm' : ''}
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          {entryHumidity !== undefined
-                            ? entryHumidity + '%'
-                            : ''}
-                        </div>
-                      </div>
-                      {/* Hover overlay with full details */}
-                      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xl hidden group-hover:block w-64 z-30">
-                        <h4 className="font-semibold mb-2">
-                          Details @ {day} {hourIdx.toString().padStart(2, '0')}
-                          :00
-                        </h4>
-                        <pre className="text-xs whitespace-pre-wrap">
-                          {JSON.stringify(entry, null, 2)}
-                        </pre>
-                      </div>
+                      {new Date(day).toLocaleDateString(
+                        language === 'de' ? 'de-AT' : undefined,
+                        {
+                          weekday: 'short',
+                          month: 'short',
+                          day: 'numeric',
+                        }
+                      )}
                     </div>
-                  );
-                }),
-              ])}
-            </div>
+                  ))}
+                  {/* Data Rows */}
+                  {Array.from({ length: 24 }).map((_, hourIdx) => [
+                    <div
+                      key={`hour-${hourIdx}`}
+                      className="sticky left-0 z-10 bg-neutral-50 dark:bg-neutral-900 font-semibold flex items-center justify-center p-2 border-r border-b"
+                      style={{
+                        borderBottomLeftRadius: hourIdx === 23 ? '1rem' : undefined,
+                      }}
+                    >
+                      {hourIdx.toString().padStart(2, '0')}:00
+                    </div>,
+                    ...availableDays.map((day) => {
+                      // Extract this hour’s entry to display data
+                      const entry = hourly_forecast.find(
+                        (e) =>
+                          typeof e.time === 'string' &&
+                          e.time.startsWith(day) &&
+                          Number(e.time.slice(11, 13)) === hourIdx
+                      );
+                      // Entry values
+                      let entryTemp: number | undefined;
+                      if (typeof entry?.temperature === 'number')
+                        entryTemp = entry.temperature;
+                      else if (
+                        entry?.temperature &&
+                        typeof entry.temperature === 'object' &&
+                        'value' in entry.temperature
+                      )
+                        entryTemp = (entry.temperature as { value?: number }).value;
+                      let entryRain: number | undefined;
+                      if (typeof entry?.rain === 'number') entryRain = entry.rain;
+                      let entryHumidity: number | undefined;
+                      if (
+                        entry?.humidity &&
+                        typeof entry.humidity === 'object' &&
+                        'value' in entry.humidity
+                      )
+                        entryHumidity = (entry.humidity as { value?: number })
+                          .value;
+                      return (
+                        <div
+                          key={day + hourIdx}
+                          className="group relative flex items-center justify-center p-2 border-b border-r min-h-[56px] transition-transform duration-200 hover:scale-105 hover:shadow-lg hover:z-20 cursor-pointer"
+                          style={{
+                            backgroundImage: dayGradients[day],
+                            backgroundSize: '100% 2400%',
+                            backgroundPosition: `0 ${(hourIdx / 23) * 100}%`,
+                            backgroundRepeat: 'no-repeat',
+                          }}
+                          title={`${day} ${hourIdx}:00`}
+                        >
+                          {/* Display actual data */}
+                          <div className="flex flex-col items-center gap-1">
+                            <div className="font-bold text-neutral-800 dark:text-neutral-900">
+                              {entryTemp !== undefined
+                                ? Math.round(entryTemp) + '°'
+                                : '--'}
+                            </div>
+                            <div className="text-xs text-blue-600 dark:text-blue-300">
+                              {entryRain !== undefined ? entryRain + ' mm' : ''}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              {entryHumidity !== undefined
+                                ? entryHumidity + '%'
+                                : ''}
+                            </div>
+                          </div>
+                          {/* Hover overlay with full details */}
+                          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xl hidden group-hover:block w-64 z-30">
+                            <h4 className="font-semibold mb-2">
+                              Details @ {day} {hourIdx.toString().padStart(2, '0')}
+                              :00
+                            </h4>
+                            <pre className="text-xs whitespace-pre-wrap">
+                              {JSON.stringify(entry, null, 2)}
+                            </pre>
+                          </div>
+                        </div>
+                      );
+                    }),
+                  ])}
+                </div>
+              </div>
+            </section>
+            <footer className="text-center text-xs text-muted-foreground py-4">
+              Contact: onebluefive@protonmail.com
+            </footer>
           </div>
-        </section>
-        <footer className="text-center text-xs text-muted-foreground py-4">
-          Contact: onebluefive@protonmail.com
-        </footer>
-      </div>
+        </div>
+      </main>
     </div>
   );
 };

@@ -1,61 +1,57 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-05-22T23:10:46.363621+02:00",
+  "last_updated": "2025-05-23T00:05:02.217867+02:00",
   "source": "Geosphere",
   "forecast_type": "nowcast",
   "forecast_period": "3 hour",
   "resolution": "15 minute",
   "forecast_data": [
     {
-      "time": "2025-05-22T21:00+00:00",
-      "temperature": null
-    },
-    {
-      "time": "2025-05-22T21:15+00:00",
-      "temperature": null
-    },
-    {
-      "time": "2025-05-22T21:30+00:00",
-      "temperature": null
-    },
-    {
-      "time": "2025-05-22T21:45+00:00",
-      "temperature": null
-    },
-    {
       "time": "2025-05-22T22:00+00:00",
-      "temperature": null
+      "temperature": 10.26
     },
     {
       "time": "2025-05-22T22:15+00:00",
-      "temperature": null
+      "temperature": 10.12
     },
     {
       "time": "2025-05-22T22:30+00:00",
-      "temperature": null
+      "temperature": 10.29
     },
     {
       "time": "2025-05-22T22:45+00:00",
-      "temperature": null
+      "temperature": 10.64
     },
     {
       "time": "2025-05-22T23:00+00:00",
-      "temperature": null
+      "temperature": 10.98
     },
     {
       "time": "2025-05-22T23:15+00:00",
-      "temperature": null
+      "temperature": 11.26
     },
     {
       "time": "2025-05-22T23:30+00:00",
-      "temperature": null
+      "temperature": 11.39
     },
     {
       "time": "2025-05-22T23:45+00:00",
-      "temperature": null
+      "temperature": 11.42
+    },
+    {
+      "time": "2025-05-23T00:00+00:00",
+      "temperature": 11.38
+    },
+    {
+      "time": "2025-05-23T00:15+00:00",
+      "temperature": 11.25
+    },
+    {
+      "time": "2025-05-23T00:30+00:00",
+      "temperature": 11.11
     }
   ],
   "units": {
-    "temperature": "\u00b0C"
+    "temperature": "degree_Celsius"
   }
 }

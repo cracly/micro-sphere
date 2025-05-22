@@ -1,25 +1,25 @@
 import os
 import json
 import requests
+import shutil
 from datetime import datetime
 import pytz  # For timezone handling
 
 # Configuration
 # short term nowcast 3 hours
-GEOSPHERE_API_NOWCAST_URL = "https://dataset.api.hub.geosphere.at/v1/timeseries/forecast/nowcast-v1-15min-1km"
+GEOSPHERE_API_NOWCAST_URL = "https://dataset.api.hub.geosphere.at/v1/timeseries/forecast/nowcast-v1-15min-1km?parameters=t2m&lat_lon=48.133029,16.4277403"
 OPEN_METEO_API_URL = "https://api.open-meteo.com/v1/forecast?latitude=48.133&longitude=16.4366&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&hourly=temperature_2m,rain,cloud_cover,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&models=best_match&current=temperature_2m,apparent_temperature,rain,showers,precipitation,cloud_cover,wind_speed_10m,wind_gusts_10m,wind_direction_10m&timezone=auto&past_days=2"
 
-params = {
-    "lat_lon": "48.133029,16.4277403",
-    "parameters": ["t2m"],
-}
+# Path to frontend public directory
+FRONTEND_PUBLIC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "public", "backend", "data"))
+
 # Define timezone for CEST
 TIMEZONE_CEST = pytz.timezone('Europe/Vienna')  # Vienna is in CEST timezone
 
 def fetch_geosphere_data():
     """Fetch data from Geosphere API"""
     try:
-        response = requests.get(GEOSPHERE_API_NOWCAST_URL, params=params)
+        response = requests.get(GEOSPHERE_API_NOWCAST_URL)
         response.raise_for_status()  # Raise exception for HTTP errors
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -50,9 +50,14 @@ def process_geosphere_data(data):
         "resolution": "15 minute"
     }
 
-    # Extract and process timestamps and temperature data
     timestamps = data.get("timestamps", [])
-    parameters = data.get("parameters", {})
+
+    # Safely extract parameters from the first feature
+    try:
+        parameters = data["features"][0]["properties"]["parameters"]
+    except (KeyError, IndexError, TypeError):
+        parameters = {}
+
     temperature = parameters.get("t2m", {}).get("data", [])
 
     forecast_data = []
@@ -60,16 +65,13 @@ def process_geosphere_data(data):
         entry = {
             "time": timestamp,
             "temperature": temperature[i] if i < len(temperature) else None
-            # Future parameters can be added here
         }
         forecast_data.append(entry)
 
     processed_data["forecast_data"] = forecast_data
 
-    # Add units information if available
     processed_data["units"] = {
         "temperature": parameters.get("t2m", {}).get("unit", "°C")
-        # Future parameter units can be added here
     }
 
     return processed_data
@@ -162,6 +164,11 @@ def ensure_directories():
     os.makedirs("data", exist_ok=True)
     os.makedirs("data/archive", exist_ok=True)
 
+def copy_to_frontend_public_dir(filename):
+    """Copy processed file to frontend public directory"""
+    if not os.path.exists(FRONTEND_PUBLIC_DIR):
+        os.makedirs(FRONTEND_PUBLIC_DIR, exist_ok=True)
+    shutil.copy(filename, os.path.join(FRONTEND_PUBLIC_DIR, os.path.basename(filename)))
 
 def save_data(data, filename, is_processed=False):
     """Save data to JSON file"""
@@ -174,9 +181,13 @@ def save_data(data, filename, is_processed=False):
 
     # If this is processed data, also save to frontend directory
     if is_processed:
-        with open(f"data/processed_{filename}", "w") as f:
+        processed_filename = f"data/processed_{filename}"
+        with open(processed_filename, "w") as f:
             json.dump(data, f, indent=2)
         print(f"Processed data saved to directory as processed_{filename}")
+
+        # Copy to frontend public directory
+        copy_to_frontend_public_dir(processed_filename)
 
 def main():
     try:
@@ -267,4 +278,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
