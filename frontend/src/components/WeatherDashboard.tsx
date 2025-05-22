@@ -469,13 +469,13 @@ const WeatherDashboard: React.FC = () => {
               <div className="sticky left-0 z-10 bg-neutral-100 dark:bg-neutral-800 font-semibold flex items-center justify-center p-2 border-b border-r rounded-tl-xl">
                 Hour
               </div>
-              {availableDays.map((day, dayIdx) => (
+              {availableDays.map((day) => (
                 <div
                   key={day}
                   className="p-2 border-b bg-neutral-100 dark:bg-neutral-800 font-semibold text-center"
                   style={{
                     borderRight:
-                      dayIdx === availableDays.length - 1
+                      day === availableDays[availableDays.length - 1]
                         ? undefined
                         : '1px solid #e5e7eb',
                   }}
@@ -501,7 +501,7 @@ const WeatherDashboard: React.FC = () => {
                 >
                   {hourIdx.toString().padStart(2, '0')}:00
                 </div>,
-                ...availableDays.map((day, dayIdx) => {
+                ...availableDays.map((day) => {
                   // Extract this hour’s entry to display data
                   const entry = hourly_forecast.find(
                     (e) =>
@@ -590,4 +590,5 @@ const WeatherDashboard: React.FC = () => {
   );
 };
 
-export default WeatherDashboard;
+// Export the component as a named export instead of default export
+export { WeatherDashboard };
