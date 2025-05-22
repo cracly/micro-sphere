@@ -257,18 +257,18 @@ const WeatherDashboard: React.FC = () => {
               </div>
               <div>
                 <span className="font-semibold">{t.gusts}:</span>{' '}
-                {current_weather.wind?.gusts || '--'}{' '}
-                {current_weather.wind?.unit || 'km/h'}
+                {windGusts || '--'}{' '}
+                {windUnit || 'km/h'}
               </div>
               <div>
                 <span className="font-semibold">{t.direction}:</span>{' '}
-                {getWindDirection(current_weather.wind?.direction)} (
-                {current_weather.wind?.direction ?? '--'}°)
+                {getWindDirection(windDirection)} (
+                {windDirection ?? '--'}°)
               </div>
               <div>
                 <span className="font-semibold">{t.cloudCover}:</span>{' '}
-                {current_weather.cloud_cover?.value || '--'}
-                {current_weather.cloud_cover?.unit || '%'}
+                {cloudCoverValue || '--'}
+                {cloudCoverUnit || '%'}
               </div>
             </div>
           </Card>
