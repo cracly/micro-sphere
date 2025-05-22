@@ -1,14 +1,30 @@
 import os
 import json
 import requests
-from datetime import datetime, timezone
+from datetime import datetime
 import pytz  # For timezone handling
 
 # Configuration
+# short term nowcast 3 hours
+GEOSPHERE_API_NOWCAST_URL = "https://dataset.api.hub.geosphere.at/v1/timeseries/forecast/nowcast-v1-15min-1km"
 OPEN_METEO_API_URL = "https://api.open-meteo.com/v1/forecast?latitude=48.133&longitude=16.4366&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&hourly=temperature_2m,rain,cloud_cover,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&models=best_match&current=temperature_2m,apparent_temperature,rain,showers,precipitation,cloud_cover,wind_speed_10m,wind_gusts_10m,wind_direction_10m&timezone=auto&past_days=2"
 
+params = {
+    "lat_lon": "48.133029,16.4277403",
+    "parameters": ["t2m"],
+}
 # Define timezone for CEST
 TIMEZONE_CEST = pytz.timezone('Europe/Vienna')  # Vienna is in CEST timezone
+
+def fetch_geosphere_data():
+    """Fetch data from Geosphere API"""
+    try:
+        response = requests.get(GEOSPHERE_API_NOWCAST_URL, params=params)
+        response.raise_for_status()  # Raise exception for HTTP errors
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data from Geosphere: {e}")
+        return None
 
 def fetch_open_meteo_data():
     """Fetch data from Open-Meteo API"""
@@ -19,6 +35,44 @@ def fetch_open_meteo_data():
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data from Open-Meteo: {e}")
         return None
+
+def process_geosphere_data(data):
+    """Process Geosphere data for frontend consumption"""
+    if not data:
+        return None
+
+    processed_data = {
+        "location": "Kledering",
+        "last_updated": datetime.now(TIMEZONE_CEST).isoformat(),
+        "source": "Geosphere",
+        "forecast_type": "nowcast",
+        "forecast_period": "3 hour",
+        "resolution": "15 minute"
+    }
+
+    # Extract and process timestamps and temperature data
+    timestamps = data.get("timestamps", [])
+    parameters = data.get("parameters", {})
+    temperature = parameters.get("t2m", {}).get("data", [])
+
+    forecast_data = []
+    for i, timestamp in enumerate(timestamps):
+        entry = {
+            "time": timestamp,
+            "temperature": temperature[i] if i < len(temperature) else None
+            # Future parameters can be added here
+        }
+        forecast_data.append(entry)
+
+    processed_data["forecast_data"] = forecast_data
+
+    # Add units information if available
+    processed_data["units"] = {
+        "temperature": parameters.get("t2m", {}).get("unit", "°C")
+        # Future parameter units can be added here
+    }
+
+    return processed_data
 
 def process_data_for_frontend(data):
     """Process and simplify the data for frontend consumption"""
@@ -114,15 +168,8 @@ def save_data(data, filename, is_processed=False):
     # Ensure directories exist
     ensure_directories()
 
-    # Get current timestamp
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M")
-
-    # Save to archive
-    with open(f"data/archive/{timestamp}_{filename}", "w") as f:
-        json.dump(data, f, indent=2)
-
     # Save as latest
-    with open(f"data/latest_{filename}", "w") as f:
+    with open(f"data/raw_{filename}", "w") as f:
         json.dump(data, f, indent=2)
 
     # If this is processed data, also save to frontend directory
@@ -137,37 +184,82 @@ def main():
         print("Fetching weather data from Open-Meteo...")
         open_meteo_data = fetch_open_meteo_data()
 
-        if not open_meteo_data:
-            print("Failed to fetch weather data. Exiting.")
-            return
+        if open_meteo_data:
+            # Save raw data
+            save_data(open_meteo_data, "open_meteo.json")
+            print("Raw Open-Meteo data saved.")
 
-        # Save raw data
-        save_data(open_meteo_data, "open_meteo.json")
-        print("Raw weather data saved.")
+            # Process data for frontend
+            print("Processing Open-Meteo data for frontend...")
+            processed_open_meteo = process_data_for_frontend(open_meteo_data)
 
-        # Process data for frontend
-        print("Processing data for frontend...")
-        processed_data = process_data_for_frontend(open_meteo_data)
+            # Save processed data for frontend
+            save_data(processed_open_meteo, "open_meteo.json", is_processed=True)
+            print("Open-Meteo data processing complete.")
+        else:
+            print("Failed to fetch Open-Meteo data.")
 
-        # Save processed data for frontend
-        save_data(processed_data, "weather.json", is_processed=True)
+        # Fetch Geosphere data
+        print("Fetching weather data from Geosphere...")
+        geosphere_data = fetch_geosphere_data()
+
+        if geosphere_data:
+            # Save raw data
+            save_data(geosphere_data, "geosphere.json")
+            print("Raw Geosphere data saved.")
+
+            # Process data for frontend
+            print("Processing Geosphere data for frontend...")
+            processed_geosphere = process_geosphere_data(geosphere_data)
+
+            # Save processed data for frontend
+            save_data(processed_geosphere, "geosphere.json", is_processed=True)
+            print("Geosphere data processing complete.")
+        else:
+            print("Failed to fetch Geosphere data.")
 
         # Save metadata about this update
         metadata = {
             "last_update": datetime.now(TIMEZONE_CEST).isoformat(),
-            "source": "Open-Meteo API",
+            "sources": [],
             "status": "success"
         }
+
+        if open_meteo_data:
+            metadata["sources"].append({
+                "name": "Open-Meteo API",
+                "status": "success"
+            })
+        else:
+            metadata["sources"].append({
+                "name": "Open-Meteo API",
+                "status": "error"
+            })
+
+        if geosphere_data:
+            metadata["sources"].append({
+                "name": "Geosphere API",
+                "status": "success"
+            })
+        else:
+            metadata["sources"].append({
+                "name": "Geosphere API",
+                "status": "error"
+            })
+
         save_data(metadata, "metadata.json", is_processed=True)
 
-        print("Weather data processing complete.")
+        print("All weather data processing complete.")
 
     except Exception as e:
         print(f"Error in weather data processing: {e}")
         # Save error metadata
         metadata = {
             "last_update": datetime.now(TIMEZONE_CEST).isoformat(),
-            "source": "Open-Meteo API",
+            "sources": [
+                {"name": "Open-Meteo API", "status": "unknown"},
+                {"name": "Geosphere API", "status": "unknown"}
+            ],
             "status": "error",
             "error_message": str(e)
         }

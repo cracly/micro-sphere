@@ -112,7 +112,7 @@ const WeatherDashboard: React.FC = () => {
   const APP_NAME = 'micro-sphere';
 
   useEffect(() => {
-    fetch('/backend/data/latest_weather.json')
+    fetch('/backend/data/processed_open_meteo.json')
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
         return res.json();
@@ -169,7 +169,7 @@ const WeatherDashboard: React.FC = () => {
 
   // Hardcode location name
 
-  // Only use data from latest_weather.json
+  // Only use data from processed_open_meteo.json
   // current_weather: temperature.value, temperature.feels_like, precipitation.value, precipitation.unit, wind.speed, wind.gusts, wind.direction, wind.unit, cloud_cover.value, cloud_cover.unit
   // hourly_forecast: time, temperature, rain, cloud_cover, visibility, wind.speed, wind.direction, wind.gusts
 
@@ -575,15 +575,7 @@ const WeatherDashboard: React.FC = () => {
           </div>
         </section>
         <footer className="text-center text-xs text-muted-foreground py-4">
-          {t.dataProvided}{' '}
-          <a
-            href="https://open-meteo.com/"
-            className="underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open-Meteo
-          </a>
+          Contact: onebluefive@protonmail.com
         </footer>
       </div>
     </div>
