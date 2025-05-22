@@ -108,6 +108,8 @@ const WeatherDashboard: React.FC = () => {
   });
   const [language, setLanguage] = useState<'en' | 'de'>('en');
   const t = translations[language];
+  // Non-translated app name
+  const APP_NAME = 'micro-sphere';
 
   useEffect(() => {
     fetch('/backend/data/latest_weather.json')
@@ -139,25 +141,29 @@ const WeatherDashboard: React.FC = () => {
     );
   }
 
-  const {
-    last_updated,
-    current_weather,
-    hourly_forecast,
-    daily_forecast,
-  } = weatherData;
+  const { last_updated, current_weather, hourly_forecast, daily_forecast } =
+    weatherData;
 
   // Safely extract values from Record<string, unknown>
-  const cloudCoverValue = (current_weather.cloud_cover as { value?: number })?.value;
-  const precipitationValue = (current_weather.precipitation as { value?: number })?.value;
-  const temperatureValue = (current_weather.temperature as { value?: number })?.value;
-  const feelsLikeValue = (current_weather.temperature as { feels_like?: number })?.feels_like;
-  const precipitationUnit = (current_weather.precipitation as { unit?: string })?.unit;
+  const cloudCoverValue = (current_weather.cloud_cover as { value?: number })
+    ?.value;
+  const precipitationValue = (
+    current_weather.precipitation as { value?: number }
+  )?.value;
+  const temperatureValue = (current_weather.temperature as { value?: number })
+    ?.value;
+  const feelsLikeValue = (
+    current_weather.temperature as { feels_like?: number }
+  )?.feels_like;
+  const precipitationUnit = (current_weather.precipitation as { unit?: string })
+    ?.unit;
   const wind = current_weather.wind as Record<string, unknown> | undefined;
   const windSpeed = wind?.speed as number | undefined;
   const windDirection = wind?.direction as number | undefined;
   const windUnit = wind?.unit as string | undefined;
   const windGusts = wind?.gusts as number | undefined;
-  const cloudCoverUnit = (current_weather.cloud_cover as { unit?: string })?.unit;
+  const cloudCoverUnit = (current_weather.cloud_cover as { unit?: string })
+    ?.unit;
 
   const icon = getWeatherIcon(cloudCoverValue, precipitationValue);
 
@@ -173,13 +179,62 @@ const WeatherDashboard: React.FC = () => {
   const availableDays = Array.from(
     new Set(
       hourly_forecast
-        .map((h) => typeof h.time === 'string' ? h.time.slice(0, 10) : undefined)
+        .map((h) =>
+          typeof h.time === 'string' ? h.time.slice(0, 10) : undefined
+        )
         .filter((d): d is string => Boolean(d))
     )
   );
   const currentDayIdx = availableDays.indexOf(selectedDay);
   const canGoPrev = currentDayIdx > 0;
   const canGoNext = currentDayIdx < availableDays.length - 1;
+
+  // Before rendering, compute a vertical gradient per day
+  const dayGradients: Record<string, string> = {};
+  availableDays.forEach((day) => {
+    const stops: string[] = [];
+    for (let h = 0; h < 24; h++) {
+      const entry = hourly_forecast.find(
+        (e) =>
+          typeof e.time === 'string' &&
+          e.time.startsWith(day) &&
+          Number(e.time.slice(11, 13)) === h
+      );
+      // Extract values
+      const rainVal = typeof entry?.rain === 'number' ? entry.rain : undefined;
+      const cloudVal =
+        entry?.cloud_cover && typeof entry.cloud_cover === 'object'
+          ? (entry.cloud_cover as { value?: number }).value ?? 0
+          : typeof entry?.cloud_cover === 'number'
+          ? entry.cloud_cover
+          : 0;
+      // Determine mood and color
+      const mood = getWeatherBackgroundType({
+        precipitation: { value: rainVal ?? 0 },
+        cloud_cover: { value: cloudVal },
+      });
+      let color = '#f8fafc';
+      switch (mood) {
+        case 'sunny':
+          color = '#fde047';
+          break;
+        case 'cloudy':
+          color = '#cbd5e1';
+          break;
+        case 'rain':
+          color = '#60a5fa';
+          break;
+        case 'thunderstorm':
+          color = '#374151';
+          break;
+        default:
+          color = '#e5e7eb';
+      }
+      const pos = (h / 23) * 100;
+      stops.push(`${color} ${pos}%`);
+    }
+    dayGradients[day] = `linear-gradient(to bottom, ${stops.join(', ')})`;
+  });
 
   return (
     <div className="relative min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors duration-500 overflow-hidden">
@@ -191,11 +246,11 @@ const WeatherDashboard: React.FC = () => {
               variant="outline"
               onClick={() => setLanguage((l) => (l === 'en' ? 'de' : 'en'))}
             >
-              {language === 'en' ? '🇬🇧 English' : '🇩🇪 Deutsch'}
+              {language === 'en' ? '🇬🇧 English' : '🇦🇹 Deutsch'}
             </Button>
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight drop-shadow-lg text-neutral-900 dark:text-neutral-100">
-            {t.detailedWeather}
+            {APP_NAME}
           </h1>
           <p className="text-xs text-gray">
             {t.lastUpdated}:{' '}
@@ -234,36 +289,25 @@ const WeatherDashboard: React.FC = () => {
                 <AnimatedWeatherIcon type={backgroundType} size={48} />
               </span>
               <span className="text-muted-foreground text-lg">
-                {t.feelsLike}{' '}
-                {formatTemperature(feelsLikeValue)}
-
+                {t.feelsLike} {formatTemperature(feelsLikeValue)}
               </span>
             </div>
             <div className="grid grid-cols-2 gap-4 text-base">
               <div>
                 <span className="font-semibold">{t.precipitation}:</span>{' '}
-                {formatPrecipitation(
-                  precipitationValue,
-                  precipitationUnit
-                )}
+                {formatPrecipitation(precipitationValue, precipitationUnit)}
               </div>
               <div>
                 <span className="font-semibold">{t.wind}:</span>{' '}
-                {formatWind(
-                  windSpeed,
-                  windDirection,
-                  windUnit
-                )}
+                {formatWind(windSpeed, windDirection, windUnit)}
               </div>
               <div>
                 <span className="font-semibold">{t.gusts}:</span>{' '}
-                {windGusts || '--'}{' '}
-                {windUnit || 'km/h'}
+                {windGusts || '--'} {windUnit || 'km/h'}
               </div>
               <div>
                 <span className="font-semibold">{t.direction}:</span>{' '}
-                {getWindDirection(windDirection)} (
-                {windDirection ?? '--'}°)
+                {getWindDirection(windDirection)} ({windDirection ?? '--'}°)
               </div>
               <div>
                 <span className="font-semibold">{t.cloudCover}:</span>{' '}
@@ -337,7 +381,9 @@ const WeatherDashboard: React.FC = () => {
             <div className="flex gap-3 overflow-x-auto py-2">
               {(forecastType === 'hourly'
                 ? hourly_forecast.filter(
-                    (h) => typeof h.time === 'string' && h.time.startsWith(selectedDay)
+                    (h) =>
+                      typeof h.time === 'string' &&
+                      h.time.startsWith(selectedDay)
                   )
                 : daily_forecast || []
               ).map((item, idx) => (
@@ -365,12 +411,16 @@ const WeatherDashboard: React.FC = () => {
                       ? formatTemperature(
                           typeof item.temperature === 'number'
                             ? item.temperature
-                            : (item.temperature && typeof item.temperature === 'object' && 'value' in item.temperature)
+                            : item.temperature &&
+                              typeof item.temperature === 'object' &&
+                              'value' in item.temperature
                             ? (item.temperature as { value?: number }).value
                             : undefined
                         )
                       : formatTemperature(
-                          item.temperature && typeof item.temperature === 'object' && 'max' in item.temperature
+                          item.temperature &&
+                            typeof item.temperature === 'object' &&
+                            'max' in item.temperature
                             ? (item.temperature as { max?: number }).max
                             : undefined
                         )}
@@ -398,6 +448,131 @@ const WeatherDashboard: React.FC = () => {
               selectedDay={forecastType === 'hourly' ? selectedDay : undefined}
             />
           )}
+        </section>
+        {/* Super Detailed Overview Section */}
+        <section className="mt-12">
+          <h3 className="text-lg font-bold mb-4 text-neutral-800 dark:text-neutral-100 text-center">
+            {APP_NAME} – Super Detailed Overview
+          </h3>
+          <div className="overflow-x-auto">
+            <div
+              className="grid"
+              style={{
+                gridTemplateColumns: `80px repeat(${availableDays.length}, minmax(80px, 1fr))`,
+                borderRadius: '1rem',
+                boxShadow: '0 2px 16px 0 rgba(0,0,0,0.08)',
+                overflow: 'hidden',
+                background: 'var(--table-bg, #f8fafc)',
+              }}
+            >
+              {/* Header Row */}
+              <div className="sticky left-0 z-10 bg-neutral-100 dark:bg-neutral-800 font-semibold flex items-center justify-center p-2 border-b border-r rounded-tl-xl">
+                Hour
+              </div>
+              {availableDays.map((day, dayIdx) => (
+                <div
+                  key={day}
+                  className="p-2 border-b bg-neutral-100 dark:bg-neutral-800 font-semibold text-center"
+                  style={{
+                    borderRight:
+                      dayIdx === availableDays.length - 1
+                        ? undefined
+                        : '1px solid #e5e7eb',
+                  }}
+                >
+                  {new Date(day).toLocaleDateString(
+                    language === 'de' ? 'de-AT' : undefined,
+                    {
+                      weekday: 'short',
+                      month: 'short',
+                      day: 'numeric',
+                    }
+                  )}
+                </div>
+              ))}
+              {/* Data Rows */}
+              {Array.from({ length: 24 }).map((_, hourIdx) => [
+                <div
+                  key={`hour-${hourIdx}`}
+                  className="sticky left-0 z-10 bg-neutral-50 dark:bg-neutral-900 font-semibold flex items-center justify-center p-2 border-r border-b"
+                  style={{
+                    borderBottomLeftRadius: hourIdx === 23 ? '1rem' : undefined,
+                  }}
+                >
+                  {hourIdx.toString().padStart(2, '0')}:00
+                </div>,
+                ...availableDays.map((day, dayIdx) => {
+                  // Extract this hour’s entry to display data
+                  const entry = hourly_forecast.find(
+                    (e) =>
+                      typeof e.time === 'string' &&
+                      e.time.startsWith(day) &&
+                      Number(e.time.slice(11, 13)) === hourIdx
+                  );
+                  // Entry values
+                  let entryTemp: number | undefined;
+                  if (typeof entry?.temperature === 'number')
+                    entryTemp = entry.temperature;
+                  else if (
+                    entry?.temperature &&
+                    typeof entry.temperature === 'object' &&
+                    'value' in entry.temperature
+                  )
+                    entryTemp = (entry.temperature as { value?: number }).value;
+                  let entryRain: number | undefined;
+                  if (typeof entry?.rain === 'number') entryRain = entry.rain;
+                  let entryHumidity: number | undefined;
+                  if (
+                    entry?.humidity &&
+                    typeof entry.humidity === 'object' &&
+                    'value' in entry.humidity
+                  )
+                    entryHumidity = (entry.humidity as { value?: number })
+                      .value;
+                  return (
+                    <div
+                      key={day + hourIdx}
+                      className="group relative flex items-center justify-center p-2 border-b border-r min-h-[56px] transition-transform duration-200 hover:scale-105 hover:shadow-lg hover:z-20 cursor-pointer"
+                      style={{
+                        backgroundImage: dayGradients[day],
+                        backgroundSize: '100% 2400%',
+                        backgroundPosition: `0 ${(hourIdx / 23) * 100}%`,
+                        backgroundRepeat: 'no-repeat',
+                      }}
+                      title={`${day} ${hourIdx}:00`}
+                    >
+                      {/* Display actual data */}
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="font-bold text-neutral-800 dark:text-neutral-900">
+                          {entryTemp !== undefined
+                            ? Math.round(entryTemp) + '°'
+                            : '--'}
+                        </div>
+                        <div className="text-xs text-blue-600 dark:text-blue-300">
+                          {entryRain !== undefined ? entryRain + ' mm' : ''}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {entryHumidity !== undefined
+                            ? entryHumidity + '%'
+                            : ''}
+                        </div>
+                      </div>
+                      {/* Hover overlay with full details */}
+                      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xl hidden group-hover:block w-64 z-30">
+                        <h4 className="font-semibold mb-2">
+                          Details @ {day} {hourIdx.toString().padStart(2, '0')}
+                          :00
+                        </h4>
+                        <pre className="text-xs whitespace-pre-wrap">
+                          {JSON.stringify(entry, null, 2)}
+                        </pre>
+                      </div>
+                    </div>
+                  );
+                }),
+              ])}
+            </div>
+          </div>
         </section>
         <footer className="text-center text-xs text-muted-foreground py-4">
           {t.dataProvided}{' '}

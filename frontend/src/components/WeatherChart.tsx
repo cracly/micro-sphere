@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Card } from '@/components/ui/card';
-import { formatDate } from '@/lib/weather-utils';
+import { formatDate, getViennaDateAndHour } from '@/lib/weather-utils';
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -16,31 +16,6 @@ import {
   ReferenceArea,
   ReferenceLine,
 } from 'recharts';
-
-// Helper to get Vienna date and hour
-function getViennaDateAndHour() {
-  const now = new Date();
-  // Get Vienna date string (YYYY-MM-DD) and hour (0-23)
-  const formatterDate = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Europe/Vienna',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  });
-  const formatterHour = new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Europe/Vienna',
-    hour: '2-digit',
-    hour12: false,
-  });
-  // en-CA gives YYYY-MM-DD
-  const parts = formatterDate.formatToParts(now);
-  const year = parts.find((p) => p.type === 'year')?.value;
-  const month = parts.find((p) => p.type === 'month')?.value;
-  const day = parts.find((p) => p.type === 'day')?.value;
-  const viennaDate = `${year}-${month}-${day}`;
-  const viennaHour = parseInt(formatterHour.format(now), 10);
-  return { viennaDate, viennaHour };
-}
 
 interface WeatherChartProps {
   hourly: Record<string, unknown>[];
