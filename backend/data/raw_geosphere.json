@@ -1,57 +1,137 @@
 {
-  "location": "Kledering",
-  "last_updated": "2025-05-23T00:05:02.217867+02:00",
-  "source": "Geosphere",
-  "forecast_type": "nowcast",
-  "forecast_period": "3 hour",
-  "resolution": "15 minute",
-  "forecast_data": [
-    {
-      "time": "2025-05-22T22:00+00:00",
-      "temperature": 10.26
-    },
-    {
-      "time": "2025-05-22T22:15+00:00",
-      "temperature": 10.12
-    },
-    {
-      "time": "2025-05-22T22:30+00:00",
-      "temperature": 10.29
-    },
-    {
-      "time": "2025-05-22T22:45+00:00",
-      "temperature": 10.64
-    },
-    {
-      "time": "2025-05-22T23:00+00:00",
-      "temperature": 10.98
-    },
-    {
-      "time": "2025-05-22T23:15+00:00",
-      "temperature": 11.26
-    },
-    {
-      "time": "2025-05-22T23:30+00:00",
-      "temperature": 11.39
-    },
-    {
-      "time": "2025-05-22T23:45+00:00",
-      "temperature": 11.42
-    },
-    {
-      "time": "2025-05-23T00:00+00:00",
-      "temperature": 11.38
-    },
-    {
-      "time": "2025-05-23T00:15+00:00",
-      "temperature": 11.25
-    },
-    {
-      "time": "2025-05-23T00:30+00:00",
-      "temperature": 11.11
-    }
+  "reference_time": "2025-05-22T22:30+00:00",
+  "media_type": "application/json",
+  "type": "FeatureCollection",
+  "version": "v1",
+  "timestamps": [
+    "2025-05-22T23:00+00:00",
+    "2025-05-22T23:15+00:00",
+    "2025-05-22T23:30+00:00",
+    "2025-05-22T23:45+00:00",
+    "2025-05-23T00:00+00:00",
+    "2025-05-23T00:15+00:00",
+    "2025-05-23T00:30+00:00",
+    "2025-05-23T00:45+00:00",
+    "2025-05-23T01:00+00:00",
+    "2025-05-23T01:15+00:00",
+    "2025-05-23T01:30+00:00"
   ],
-  "units": {
-    "temperature": "degree_Celsius"
-  }
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.42424201965332,
+          48.13316345214844
+        ]
+      },
+      "properties": {
+        "parameters": {
+          "t2m": {
+            "name": "air temperature 2m above ground",
+            "unit": "degree_Celsius",
+            "data": [
+              10.6,
+              10.49,
+              10.56,
+              10.74,
+              10.91,
+              10.97,
+              10.94,
+              10.85,
+              10.72,
+              10.69,
+              10.66
+            ]
+          },
+          "rr": {
+            "name": "precipitation sum",
+            "unit": "kg m-2",
+            "data": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.01,
+              0.01,
+              0.01,
+              0.01,
+              0.01
+            ]
+          },
+          "td": {
+            "name": "dew point temperature 2m above ground",
+            "unit": "degree_Celsius",
+            "data": [
+              7.63,
+              7.38,
+              7.47,
+              7.76,
+              8.04,
+              8.23,
+              8.26,
+              8.16,
+              8.0,
+              7.9,
+              7.78
+            ]
+          },
+          "dd": {
+            "name": "10m wind direction",
+            "unit": "m s-1",
+            "data": [
+              319.3,
+              318.9,
+              318.6,
+              318.2,
+              317.8,
+              317.5,
+              317.2,
+              317.3,
+              317.5,
+              317.8,
+              318.2
+            ]
+          },
+          "ff": {
+            "name": "10m wind speed",
+            "unit": "m s-1",
+            "data": [
+              4.85,
+              4.82,
+              4.79,
+              4.76,
+              4.73,
+              4.65,
+              4.58,
+              4.42,
+              4.27,
+              4.2,
+              4.13
+            ]
+          },
+          "fx": {
+            "name": "10m gust speed",
+            "unit": "m s-1",
+            "data": [
+              9.79,
+              9.74,
+              9.68,
+              9.63,
+              9.57,
+              9.43,
+              9.29,
+              8.96,
+              8.62,
+              8.43,
+              8.24
+            ]
+          }
+        }
+      }
+    }
+  ]
 }

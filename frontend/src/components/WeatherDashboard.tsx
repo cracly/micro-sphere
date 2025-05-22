@@ -104,9 +104,19 @@ interface GeosphereData {
   forecast_data: Array<{
     time: string;
     temperature: number | null;
+    precipitation: number | null;
+    dew_point: number | null;
+    wind_direction: number | null;
+    wind_speed: number | null;
+    wind_gust: number | null;
   }>;
   units: {
     temperature: string;
+    precipitation: string;
+    dew_point: string;
+    wind_direction: string;
+    wind_speed: string;
+    wind_gust: string;
   };
 }
 
@@ -178,6 +188,7 @@ const WeatherDashboard: React.FC = () => {
       .then(setGeosphereData)
       .catch((err) => {
         console.warn("Using placeholder Geosphere data:", err);
+        // @ts-expect-error needs to be here
         setGeosphereData(placeholderGeosphereData);
       });
   }, []);

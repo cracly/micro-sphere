@@ -7,7 +7,7 @@ import pytz  # For timezone handling
 
 # Configuration
 # short term nowcast 3 hours
-GEOSPHERE_API_NOWCAST_URL = "https://dataset.api.hub.geosphere.at/v1/timeseries/forecast/nowcast-v1-15min-1km?parameters=t2m&lat_lon=48.133029,16.4277403"
+GEOSPHERE_API_NOWCAST_URL = "https://dataset.api.hub.geosphere.at/v1/timeseries/forecast/nowcast-v1-15min-1km?parameters=t2m,rr,td,dd,ff,fx&lat_lon=48.133029,16.4277403"
 OPEN_METEO_API_URL = "https://api.open-meteo.com/v1/forecast?latitude=48.133&longitude=16.4366&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&hourly=temperature_2m,rain,cloud_cover,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&models=best_match&current=temperature_2m,apparent_temperature,rain,showers,precipitation,cloud_cover,wind_speed_10m,wind_gusts_10m,wind_direction_10m&timezone=auto&past_days=2"
 
 # Path to frontend public directory
@@ -59,19 +59,34 @@ def process_geosphere_data(data):
         parameters = {}
 
     temperature = parameters.get("t2m", {}).get("data", [])
+    precipitation = parameters.get("rr", {}).get("data", [])
+    dew_point = parameters.get("td", {}).get("data", [])
+    wind_direction = parameters.get("dd", {}).get("data", [])
+    wind_speed = parameters.get("ff", {}).get("data", [])
+    wind_gust = parameters.get("fx", {}).get("data", [])
 
     forecast_data = []
     for i, timestamp in enumerate(timestamps):
         entry = {
             "time": timestamp,
-            "temperature": temperature[i] if i < len(temperature) else None
+            "temperature": temperature[i] if i < len(temperature) else None,
+            "precipitation": precipitation[i] if i < len(precipitation) else None,
+            "dew_point": dew_point[i] if i < len(dew_point) else None,
+            "wind_direction": wind_direction[i] if i < len(wind_direction) else None,
+            "wind_speed": wind_speed[i] if i < len(wind_speed) else None,
+            "wind_gust": wind_gust[i] if i < len(wind_gust) else None
         }
         forecast_data.append(entry)
 
     processed_data["forecast_data"] = forecast_data
 
     processed_data["units"] = {
-        "temperature": parameters.get("t2m", {}).get("unit", "°C")
+        "temperature": parameters.get("t2m", {}).get("unit", "°C"),
+        "precipitation": parameters.get("rr", {}).get("unit", "kg m-2"),
+        "dew_point": parameters.get("td", {}).get("unit", "°C"),
+        "wind_direction": parameters.get("dd", {}).get("unit", "m s-1"),
+        "wind_speed": parameters.get("ff", {}).get("unit", "m s-1"),
+        "wind_gust": parameters.get("fx", {}).get("unit", "m s-1")
     }
 
     return processed_data
@@ -175,9 +190,7 @@ def save_data(data, filename, is_processed=False):
     # Ensure directories exist
     ensure_directories()
 
-    # Save as latest
-    with open(f"data/raw_{filename}", "w") as f:
-        json.dump(data, f, indent=2)
+
 
     # If this is processed data, also save to frontend directory
     if is_processed:
@@ -188,6 +201,10 @@ def save_data(data, filename, is_processed=False):
 
         # Copy to frontend public directory
         copy_to_frontend_public_dir(processed_filename)
+    else:
+        # Save as raw
+        with open(f"data/raw_{filename}", "w") as f:
+            json.dump(data, f, indent=2)
 
 def main():
     try:
@@ -278,5 +295,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
