@@ -32,15 +32,29 @@ export function formatDate(
   type: 'full' | 'date' | 'day' | 'time'
 ): string {
   const d = new Date(date);
-  if (type === 'full') return d.toLocaleString();
-  if (type === 'date') return d.toLocaleDateString();
-  if (type === 'day')
-    return d.toLocaleDateString(undefined, { weekday: 'long' });
-  if (type === 'time')
-    return d.toLocaleTimeString(undefined, {
-      hour: '2-digit',
-      minute: '2-digit',
-    });
+
+  // Define options for date formatting with CEST timezone
+  const options: Intl.DateTimeFormatOptions = {
+    timeZone: 'Europe/Paris' // Paris uses CEST timezone
+  };
+
+  if (type === 'full') {
+    options.dateStyle = 'full';
+    options.timeStyle = 'medium';
+    return new Intl.DateTimeFormat(undefined, options).format(d);
+  }
+  if (type === 'date') {
+    options.dateStyle = 'medium';
+    return new Intl.DateTimeFormat(undefined, options).format(d);
+  }
+  if (type === 'day') {
+    options.weekday = 'long';
+    return new Intl.DateTimeFormat(undefined, options).format(d);
+  }
+  if (type === 'time') {
+    options.timeStyle = 'short';
+    return new Intl.DateTimeFormat(undefined, options).format(d);
+  }
   return d.toString();
 }
 

@@ -38,5 +38,5 @@ jobs:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git add backend/data/latest_*.json backend/data/processed_*.json
-          git diff --staged --quiet || git commit -m "Auto-update weather data $(date +%Y-%m-%d-%H:%M)"
+          git diff --staged --quiet || git commit -m "Auto-update weather data $(TZ='Europe/Paris' date +%Y-%m-%d-%H:%M)"
           git push https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}
