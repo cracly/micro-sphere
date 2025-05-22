@@ -1,10 +1,14 @@
 import os
 import json
 import requests
-from datetime import datetime
+from datetime import datetime, timezone
+import pytz  # For timezone handling
 
 # Configuration
 OPEN_METEO_API_URL = "https://api.open-meteo.com/v1/forecast?latitude=48.133&longitude=16.4366&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&hourly=temperature_2m,rain,cloud_cover,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&models=best_match&current=temperature_2m,apparent_temperature,rain,showers,precipitation,cloud_cover,wind_speed_10m,wind_gusts_10m,wind_direction_10m&timezone=auto&past_days=2"
+
+# Define timezone for CEST
+TIMEZONE_CEST = pytz.timezone('Europe/Vienna')  # Vienna is in CEST timezone
 
 def fetch_open_meteo_data():
     """Fetch data from Open-Meteo API"""
@@ -24,7 +28,7 @@ def process_data_for_frontend(data):
     # Extract only the data we need for frontend
     processed_data = {
         "location": "Kledering",
-        "last_updated": datetime.now().isoformat(),
+        "last_updated": datetime.now(TIMEZONE_CEST).isoformat(),
         "current_weather": {
             "time": data.get("current", {}).get("time"),
             "temperature": {
@@ -150,7 +154,7 @@ def main():
 
         # Save metadata about this update
         metadata = {
-            "last_update": datetime.now().isoformat(),
+            "last_update": datetime.now(TIMEZONE_CEST).isoformat(),
             "source": "Open-Meteo API",
             "status": "success"
         }
@@ -162,7 +166,7 @@ def main():
         print(f"Error in weather data processing: {e}")
         # Save error metadata
         metadata = {
-            "last_update": datetime.now().isoformat(),
+            "last_update": datetime.now(TIMEZONE_CEST).isoformat(),
             "source": "Open-Meteo API",
             "status": "error",
             "error_message": str(e)
