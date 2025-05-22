@@ -300,10 +300,6 @@ const WeatherDashboard: React.FC = () => {
       {/* Header Bar */}
       <header className="w-full flex items-center justify-between px-4 py-2 bg-background border-b border-border relative">
         <div className="font-bold text-lg text-primary">micro-sphere</div>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
-          <span className="text-base font-semibold opacity-80">Kledering</span>
-        </div>
-        <div style={{ width: '90px' }} /> {/* Spacer for symmetry */}
       </header>
       {/* Main content */}
       <main className="flex-1">
@@ -319,9 +315,9 @@ const WeatherDashboard: React.FC = () => {
                   {language === 'en' ? '🇬🇧 English' : '🇦🇹 Deutsch'}
                 </Button>
               </div>
-              <h1 className="text-4xl font-extrabold tracking-tight drop-shadow-lg text-neutral-900 dark:text-neutral-100">
-                {APP_NAME}
-              </h1>
+              <h2 className="text-4xl font-extrabold tracking-tight drop-shadow-lg text-neutral-900 dark:text-neutral-100">
+                Kledering
+              </h2>
               <p className="text-xs text-gray">
                 {t.lastUpdated}:{' '}
                 {new Date(dataSource === 'open-meteo' ? last_updated : (geosphereData?.last_updated || last_updated)).toLocaleString(
