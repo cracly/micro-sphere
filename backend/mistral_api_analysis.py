@@ -203,7 +203,7 @@ Your response should be informative but accessible, mentioning specific values a
         except Exception as e:
             return f"Error calling Mistral API: {str(e)}"
 
-    def save_analysis_for_frontend(self, analysis: str, save_path: str = "frontend/public/backend/data/weather_analysis.json") -> str:
+    def save_analysis_for_frontend(self, analysis: str, save_path: str = "../frontend/public/backend/data/weather_analysis.json") -> str:
         """
         Save the Mistral API analysis to a JSON file that can be accessed by the frontend.
 
