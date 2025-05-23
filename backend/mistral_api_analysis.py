@@ -1,10 +1,18 @@
 import re
-
-from mistralai import Mistral
+import os
 import json
 import requests
-import os
+from mistralai import Mistral
 from typing import Dict, Any, Tuple
+
+# Import configuration if available
+try:
+    import config
+except ImportError:
+    # Create a minimal config if not found
+    class config:
+        MISTRAL_API_KEY = None
+        MISTRAL_MODEL = "mistral-small-latest"
 
 # Open-Meteo API URL for your location (Vienna)
 open_meteo_api_url = "https://api.open-meteo.com/v1/forecast?latitude=48.1327459&longitude=16.4342418&hourly=temperature_2m,cloud_cover,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation_probability,uv_index,relative_humidity_2m,apparent_temperature,precipitation,weather_code,sunshine_duration&models=best_match&minutely_15=temperature_2m,apparent_temperature,precipitation,sunshine_duration,wind_speed_10m,weather_code,wind_gusts_10m,visibility,cape,lightning_potential,is_day&timezone=auto&forecast_days=1"
@@ -305,37 +313,76 @@ Your response should be informative but accessible, mentioning specific values a
             return f"Error analyzing from saved file: {str(e)}", None
 
 
+def get_api_key():
+    """
+    Get Mistral API key from environment variables or config file.
+    Order of priority:
+    1. Environment variable (MISTRAL_API_KEY)
+    2. Config file (config.py)
+    3. User prompt if interactive session
+
+    Returns:
+        str: Mistral API key
+    """
+    # Check environment variable first
+    api_key = os.environ.get("MISTRAL_API_KEY")
+
+    # If not in environment, use config file
+    if not api_key and hasattr(config, "MISTRAL_API_KEY"):
+        api_key = config.MISTRAL_API_KEY
+
+    # If still not found and in interactive session, prompt user
+    if not api_key and os.isatty(0):  # Check if running in interactive terminal
+        import getpass
+        print("Mistral API key not found in environment or config file.")
+        api_key = getpass.getpass("Please enter your Mistral API key: ")
+
+    if not api_key:
+        raise ValueError("Mistral API key not found. Set it in environment variable MISTRAL_API_KEY or in config.py")
+
+    return api_key
+
 def main():
     """Main function to demonstrate the complete workflow"""
 
-    # Your Mistral API key
-    mistral_api_key = "goMqejLgA0bhHF8KGZLGqsGTCPtiVT4J"  # Replace with your actual key
-    model = "mistral-small-latest"
+    try:
+        # Get API key securely
+        mistral_api_key = get_api_key()
 
-    # Initialize the weather analyzer
-    analyzer = WeatherAnalyzer(mistral_api_key, model)
+        # Get model from config or use default
+        model = getattr(config, "MISTRAL_MODEL", "mistral-small-latest")
 
-    print("=== Weather Analysis for Outdoor Activities ===")
-    print("=" * 55)
+        # Initialize the weather analyzer
+        analyzer = WeatherAnalyzer(mistral_api_key, model)
 
-    # Option 1: Complete workflow (fetch + analyze)
-    print("\n🌤️  Running complete analysis (fetch + analyze)...")
-    result, saved_path = analyzer.run_complete_analysis("today_weather.json")
-    print("\n📊 ANALYSIS RESULT:")
-    print("-" * 50)
-    print(result)
-    print(f"\nAnalysis saved at: {saved_path}")
+        print("=== Weather Analysis for Outdoor Activities ===")
+        print("=" * 55)
 
-    # Option 2: Analyze from existing file (if you already have the data)
-    # print("\n🔄 Analyzing from existing file...")
-    # result_from_file, saved_path_from_file = analyzer.analyze_from_saved_file("today_weather.json")
-    # print(result_from_file)
-    # print(f"\nAnalysis saved at: {saved_path_from_file}")
+        # Option 1: Complete workflow (fetch + analyze)
+        print("\n🌤️  Running complete analysis (fetch + analyze)...")
+        result, saved_path = analyzer.run_complete_analysis("today_weather.json")
+        print("\n📊 ANALYSIS RESULT:")
+        print("-" * 50)
+        print(result)
+        print(f"\nAnalysis saved at: {saved_path}")
+
+        # Option 2: Analyze from existing file (if you already have the data)
+        # print("\n🔄 Analyzing from existing file...")
+        # result_from_file, saved_path_from_file = analyzer.analyze_from_saved_file("today_weather.json")
+        # print(result_from_file)
+        # print(f"\nAnalysis saved at: {saved_path_from_file}")
+
+    except ValueError as e:
+        print(f"Error: {str(e)}")
+        return
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return
 
 
 # Utility functions for direct use
 def quick_weather_analysis(
-    mistral_api_key: str,
+    mistral_api_key: str = None,
     weather_save_path: str = "quick_weather.json",
     analysis_save_path: str = "frontend/public/backend/data/weather_analysis.json"
 ) -> Tuple[str, str]:
@@ -343,17 +390,18 @@ def quick_weather_analysis(
     Quick function to fetch weather data and get analysis in one call.
 
     Args:
-        mistral_api_key (str): Your Mistral API key
+        mistral_api_key (str, optional): Your Mistral API key. If None, will try to get from environment or config
         weather_save_path (str): Where to save the weather data
         analysis_save_path (str): Where to save the analysis for frontend use
 
     Returns:
         Tuple[str, str]: Weather analysis text and the path where it was saved
     """
+    # Get API key if not provided
+    if not mistral_api_key:
+        mistral_api_key = get_api_key()
+
     analyzer = WeatherAnalyzer(mistral_api_key)
     analysis, saved_path = analyzer.run_complete_analysis(weather_save_path, analysis_save_path)
     return analysis, saved_path
 
-
-if __name__ == "__main__":
-    main()
