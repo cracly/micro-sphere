@@ -13,6 +13,7 @@ import {
 } from '@/lib/weather-utils';
 import WeatherChart from './WeatherChart';
 import GeosphereChart, { GeosphereTechnicalPanel } from './GeosphereChart';
+import WeatherBriefing from './WeatherBriefing';
 
 // Helper: get background type from weather
 function getWeatherBackgroundType(
@@ -66,6 +67,10 @@ const translations = {
     showGraph: 'Show Graph',
     dataProvided: 'Data provided by',
     now: 'Now',
+    weatherBriefing: 'Weather Briefing',
+    poweredBy: 'Powered by',
+    expandBriefing: 'Show briefing',
+    collapseBriefing: 'Hide briefing',
   },
   de: {
     today: 'Heute',
@@ -83,6 +88,10 @@ const translations = {
     showGraph: 'Diagramm anzeigen',
     dataProvided: 'Daten bereitgestellt von',
     now: 'Jetzt',
+    weatherBriefing: 'Wetterbericht',
+    poweredBy: 'Unterstützt von',
+    expandBriefing: 'Bericht anzeigen',
+    collapseBriefing: 'Bericht verbergen',
   },
 };
 
@@ -136,8 +145,6 @@ const WeatherDashboard: React.FC = () => {
   const [language, setLanguage] = useState<'en' | 'de'>('en');
   const t = translations[language];
   // Non-translated app name
-  const APP_NAME = 'micro-sphere';
-
   useEffect(() => {
     // Fetch Open-Meteo data using the file that's actually in the public directory
     fetch('/backend/data/processed_open_meteo.json')
@@ -408,6 +415,10 @@ const WeatherDashboard: React.FC = () => {
                   </div>
                 </div>
               </Card>
+
+              {/* Weather Briefing Section */}
+              <WeatherBriefing language={language} />
+
             </main>
             {/* Weather Chart Section */}
             <section className="mt-8">
@@ -499,189 +510,89 @@ const WeatherDashboard: React.FC = () => {
                             )}
                       </div>
                       <div className="text-2xl font-bold">
-                        {forecastType === 'hourly'
-                          ? formatTemperature(
-                              typeof item.temperature === 'number'
-                                ? item.temperature
-                                : item.temperature &&
-                                  typeof item.temperature === 'object' &&
-                                  'value' in item.temperature
-                                ? (item.temperature as { value?: number }).value
-                                : undefined
-                            )
-                          : formatTemperature(
-                              item.temperature &&
-                                typeof item.temperature === 'object' &&
-                                'max' in item.temperature
-                                ? (item.temperature as { max?: number }).max
-                                : undefined
-                            )}
+                        {formatTemperature(
+                          typeof item.temperature === 'number'
+                            ? item.temperature
+                            : typeof item.temperature === 'object'
+                            ? (item.temperature as { value?: number }).value
+                            : undefined
+                        )}
                       </div>
-                      <div className="text-xs text-muted-foreground">
-                        {item.rain !== undefined
-                          ? `${item.rain} mm`
-                          : item.precipitation_sum !== undefined
-                          ? `${item.precipitation_sum} mm`
-                          : ''}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {item.cloud_cover !== undefined
-                          ? `${item.cloud_cover}% ${t.cloudCover.toLowerCase()}`
-                          : ''}
+                      <div className="text-sm text-muted-foreground">
+                        {formatPrecipitation(
+                          typeof item.precipitation === 'number'
+                            ? item.precipitation
+                            : typeof item.precipitation === 'object'
+                            ? (item.precipitation as { value?: number }).value
+                            : typeof item.rain === 'number'
+                            ? item.rain
+                            : undefined,
+                          'mm'
+                        )}
                       </div>
                     </Card>
                   ))}
                 </div>
               ) : (
-                dataSource === 'open-meteo' ? (
-                  <WeatherChart
-                    hourly={hourly_forecast}
-                    daily={daily_forecast}
-                    type={forecastType}
-                    selectedDay={forecastType === 'hourly' ? selectedDay : undefined}
-                  />
-                ) : (
-                  <>
-                    <GeosphereChart data={geosphereData} darkMode={darkMode} />
-                    <GeosphereTechnicalPanel data={geosphereData} />
-                  </>
-                )
+                <Card className="p-4 bg-white/40 dark:bg-neutral-800/40 backdrop-blur-md border border-white/30 dark:border-neutral-700/40">
+                  {dataSource === 'open-meteo' ? (
+                    <WeatherChart
+                        hourly={hourly_forecast}
+                        daily={daily_forecast}
+                        forecastType={forecastType}
+                        darkMode={darkMode}
+                        selectedDay={selectedDay}
+                        language={language} type={'hourly'}                    />
+                  ) : (
+                    <GeosphereChart
+                      data={geosphereData}
+                      darkMode={darkMode}
+                      language={language}
+                    />
+                  )}
+                </Card>
               )}
-            </section>
-            {/* Super Detailed Overview Section */}
-            <section className="mt-12">
-              <h3 className="text-lg font-bold mb-4 text-neutral-800 dark:text-neutral-100 text-center">
-                {APP_NAME} – Super Detailed Overview
-              </h3>
-              <div className="overflow-x-auto">
-                <div
-                  className="grid"
-                  style={{
-                    gridTemplateColumns: `80px repeat(${availableDays.length}, minmax(80px, 1fr))`,
-                    borderRadius: '1rem',
-                    boxShadow: '0 2px 16px 0 rgba(0,0,0,0.08)',
-                    overflow: 'hidden',
-                    background: 'var(--table-bg, #f8fafc)',
-                  }}
-                >
-                  {/* Header Row */}
-                  <div className="sticky left-0 z-10 bg-neutral-100 dark:bg-neutral-800 font-semibold flex items-center justify-center p-2 border-b border-r rounded-tl-xl">
-                    Hour
+              <div className="mt-6">
+                {dataSource === 'geosphere' && geosphereData && (
+                  <div className="mt-4">
+                    <GeosphereTechnicalPanel
+                      data={geosphereData}
+                      language={language}
+                    />
                   </div>
-                  {availableDays.map((day) => (
-                    <div
-                      key={day}
-                      className="p-2 border-b bg-neutral-100 dark:bg-neutral-800 font-semibold text-center"
-                      style={{
-                        borderRight:
-                          day === availableDays[availableDays.length - 1]
-                            ? undefined
-                            : '1px solid #e5e7eb',
-                      }}
-                    >
-                      {new Date(day).toLocaleDateString(
-                        language === 'de' ? 'de-AT' : undefined,
-                        {
-                          weekday: 'short',
-                          month: 'short',
-                          day: 'numeric',
-                        }
-                      )}
-                    </div>
-                  ))}
-                  {/* Data Rows */}
-                  {Array.from({ length: 24 }).map((_, hourIdx) => [
-                    <div
-                      key={`hour-${hourIdx}`}
-                      className="sticky left-0 z-10 bg-neutral-50 dark:bg-neutral-900 font-semibold flex items-center justify-center p-2 border-r border-b"
-                      style={{
-                        borderBottomLeftRadius: hourIdx === 23 ? '1rem' : undefined,
-                      }}
-                    >
-                      {hourIdx.toString().padStart(2, '0')}:00
-                    </div>,
-                    ...availableDays.map((day) => {
-                      // Extract this hour’s entry to display data
-                      const entry = hourly_forecast.find(
-                        (e) =>
-                          typeof e.time === 'string' &&
-                          e.time.startsWith(day) &&
-                          Number(e.time.slice(11, 13)) === hourIdx
-                      );
-                      // Entry values
-                      let entryTemp: number | undefined;
-                      if (typeof entry?.temperature === 'number')
-                        entryTemp = entry.temperature;
-                      else if (
-                        entry?.temperature &&
-                        typeof entry.temperature === 'object' &&
-                        'value' in entry.temperature
-                      )
-                        entryTemp = (entry.temperature as { value?: number }).value;
-                      let entryRain: number | undefined;
-                      if (typeof entry?.rain === 'number') entryRain = entry.rain;
-                      let entryHumidity: number | undefined;
-                      if (
-                        entry?.humidity &&
-                        typeof entry.humidity === 'object' &&
-                        'value' in entry.humidity
-                      )
-                        entryHumidity = (entry.humidity as { value?: number })
-                          .value;
-                      return (
-                        <div
-                          key={day + hourIdx}
-                          className="group relative flex items-center justify-center p-2 border-b border-r min-h-[56px] transition-transform duration-200 hover:scale-105 hover:shadow-lg hover:z-20 cursor-pointer"
-                          style={{
-                            backgroundImage: dayGradients[day],
-                            backgroundSize: '100% 2400%',
-                            backgroundPosition: `0 ${(hourIdx / 23) * 100}%`,
-                            backgroundRepeat: 'no-repeat',
-                          }}
-                          title={`${day} ${hourIdx}:00`}
-                        >
-                          {/* Display actual data */}
-                          <div className="flex flex-col items-center gap-1">
-                            <div className="font-bold text-neutral-800 dark:text-neutral-900">
-                              {entryTemp !== undefined
-                                ? Math.round(entryTemp) + '°'
-                                : '--'}
-                            </div>
-                            <div className="text-xs text-blue-600 dark:text-blue-300">
-                              {entryRain !== undefined ? entryRain + ' mm' : ''}
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              {entryHumidity !== undefined
-                                ? entryHumidity + '%'
-                                : ''}
-                            </div>
-                          </div>
-                          {/* Hover overlay with full details */}
-                          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xl hidden group-hover:block w-64 z-30">
-                            <h4 className="font-semibold mb-2">
-                              Details @ {day} {hourIdx.toString().padStart(2, '0')}
-                              :00
-                            </h4>
-                            <pre className="text-xs whitespace-pre-wrap">
-                              {JSON.stringify(entry, null, 2)}
-                            </pre>
-                          </div>
-                        </div>
-                      );
-                    }),
-                  ])}
-                </div>
+                )}
               </div>
             </section>
-            <footer className="text-center text-xs text-muted-foreground py-4">
-              Contact: onebluefive@protonmail.com
-            </footer>
           </div>
         </div>
       </main>
+      <footer className="w-full py-2 px-4 border-t border-border bg-background text-center text-xs text-muted-foreground">
+        <div>
+          {t.dataProvided}{' '}
+          <a
+            href="https://open-meteo.com/"
+            className="underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open-Meteo
+          </a>{' '}
+          &{' '}
+          <a
+            href="https://www.geosphere.at/"
+            className="underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GeoSphere Austria
+          </a>
+        </div>
+        <div className="text-[9px] opacity-50 mt-1">
+          API → Backend → Frontend refresh system © micro-sphere 2025
+        </div>
+      </footer>
     </div>
   );
 };
 
-// Export the component as a named export instead of default export
-export { WeatherDashboard };
+export default WeatherDashboard;

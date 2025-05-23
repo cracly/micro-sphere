@@ -59,8 +59,8 @@ export function formatDate(
 }
 
 export function getWeatherIcon(
-  cloudCover?: number,
-  precipitation?: number
+    cloudCover?: number | undefined,
+    precipitation?: number | undefined
 ): string {
   if (precipitation && precipitation > 1) return 'fas fa-cloud-rain';
   if (precipitation && precipitation > 0) return 'fas fa-cloud-sun-rain';
