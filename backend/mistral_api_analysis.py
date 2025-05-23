@@ -1,3 +1,5 @@
+import re
+
 from mistralai import Mistral
 import json
 import requests
@@ -185,6 +187,13 @@ Instructions:
 5. Identify weather patterns and transitions throughout the day
 6. ALWAYS conclude with one sentence identifying the best time window for outdoor activities
 
+FORMAT YOUR RESPONSE IN HTML:
+- Use <h2> and <h3> tags for main sections
+- Use <strong> tags for important values and highlights
+- Use <ul> and <li> tags for lists
+- Use <p> tags for paragraphs
+- Keep your formatting clean and accessible
+
 Your response should be informative but accessible, mentioning specific values and technical aspects while explaining their practical implications for outdoor activities."""
 
         try:
@@ -206,9 +215,10 @@ Your response should be informative but accessible, mentioning specific values a
     def save_analysis_for_frontend(self, analysis: str, save_path: str = "../frontend/public/backend/data/weather_analysis.json") -> str:
         """
         Save the Mistral API analysis to a JSON file that can be accessed by the frontend.
+        The analysis is expected to be in HTML format directly from Mistral API.
 
         Args:
-            analysis (str): The analysis text from Mistral API
+            analysis (str): The analysis in HTML format from Mistral API
             save_path (str): Path where to save the analysis, relative to project root
 
         Returns:
@@ -218,21 +228,19 @@ Your response should be informative but accessible, mentioning specific values a
             # Create a JSON structure for the frontend
             analysis_data = {
                 "timestamp": self._get_current_timestamp(),
-                "analysis": analysis
+                "analysis": analysis  # Use the HTML directly without preprocessing
             }
 
             # Ensure directory exists
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
-            # Save to file
-            with open(save_path, 'w', encoding='utf-8') as f:
-                json.dump(analysis_data, f, indent=2, ensure_ascii=False)
+            # Save the JSON file
+            with open(save_path, 'w') as f:
+                json.dump(analysis_data, f, indent=2)
 
-            print(f"Analysis saved for frontend at {save_path}")
             return save_path
-
         except Exception as e:
-            print(f"Error saving analysis for frontend: {e}")
+            print(f"Error saving analysis for frontend: {str(e)}")
             return None
 
     def _get_current_timestamp(self) -> str:
@@ -241,7 +249,7 @@ Your response should be informative but accessible, mentioning specific values a
         return datetime.now().isoformat()
 
     def run_complete_analysis(self, weather_file_path: str = "weather_data.json",
-                             save_analysis_path: str = "frontend/public/backend/data/weather_analysis.json") -> Tuple[str, str]:
+                             save_analysis_path: str = "../frontend/public/backend/data/weather_analysis.json") -> Tuple[str, str]:
         """
         Complete workflow: fetch data, save it, and analyze with Mistral.
 

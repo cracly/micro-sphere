@@ -107,9 +107,9 @@ const WeatherBriefing: React.FC<WeatherBriefingProps> = ({ language }) => {
 
       {expanded && (
         <Card className="mt-2 p-4 bg-white/40 dark:bg-neutral-800/40 backdrop-blur-md border border-white/30 dark:border-neutral-700/40 max-w-none">
-          <div className="text-sm leading-relaxed">
-            {formatAnalysisText(analysis.analysis)}
-          </div>
+          <div className="text-sm leading-relaxed weather-content"
+               dangerouslySetInnerHTML={{ __html: analysis.analysis }}
+          />
 
           <div className="mt-3 text-xs text-muted-foreground flex items-center justify-end gap-1">
             <span>{t.poweredBy}</span>
@@ -122,59 +122,5 @@ const WeatherBriefing: React.FC<WeatherBriefingProps> = ({ language }) => {
     </div>
   );
 };
-
-/**
- * Formats the analysis text by converting markdown-style content to proper HTML structure
- */
-function formatAnalysisText(text: string): React.ReactNode {
-  if (!text) return null;
-
-  // Process the text to handle common markdown patterns
-  const paragraphs = text.split('\n\n').filter(p => p.trim().length > 0);
-
-  return (
-    <div className="weather-analysis">
-      {paragraphs.map((paragraph, i) => {
-        // Check if paragraph is a heading (starts with # or ##)
-        if (paragraph.startsWith('# ')) {
-          return <h3 key={i} className="font-bold text-base mt-3 mb-1">{paragraph.replace('# ', '')}</h3>;
-        } else if (paragraph.startsWith('## ')) {
-          return <h4 key={i} className="font-semibold text-sm mt-2 mb-1">{paragraph.replace('## ', '')}</h4>;
-        }
-        // Check if paragraph is a list
-        else if (paragraph.includes('\n- ')) {
-          const listTitle = paragraph.split('\n- ')[0];
-          const listItems = paragraph.split('\n- ').slice(1);
-          return (
-            <div key={i} className="my-2">
-              {listTitle && <p className="font-medium text-sm">{listTitle}</p>}
-              <ul className="list-disc pl-4 text-sm space-y-0.5">
-                {listItems.map((item, j) => <li key={j}>{item}</li>)}
-              </ul>
-            </div>
-          );
-        }
-        // Handle bold text (surrounded by **)
-        else if (paragraph.includes('**')) {
-          const parts = paragraph.split(/(\*\*.*?\*\*)/g);
-          return (
-            <p key={i} className="text-sm my-1.5">
-              {parts.map((part, j) => {
-                if (part.startsWith('**') && part.endsWith('**')) {
-                  return <strong key={j}>{part.slice(2, -2)}</strong>;
-                }
-                return part;
-              })}
-            </p>
-          );
-        }
-        // Regular paragraph
-        else {
-          return <p key={i} className="text-sm my-1.5">{paragraph}</p>;
-        }
-      })}
-    </div>
-  );
-}
 
 export default WeatherBriefing;
