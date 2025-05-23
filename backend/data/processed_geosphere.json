@@ -1,30 +1,11 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-05-23T11:54:15.077182+02:00",
+  "last_updated": "2025-05-23T12:24:12.570491+02:00",
   "source": "Geosphere",
   "forecast_type": "nowcast",
   "forecast_period": "3 hour",
   "resolution": "15 minute",
-  "forecast_data": [
-    {
-      "time": "2025-05-23T09:45+00:00",
-      "temperature": 14.39,
-      "precipitation": 0.0,
-      "dew_point": 0.63,
-      "wind_direction": 343.3,
-      "wind_speed": 5.09,
-      "wind_gust": 8.42
-    },
-    {
-      "time": "2025-05-23T10:00+00:00",
-      "temperature": 14.62,
-      "precipitation": 0.0,
-      "dew_point": 0.46,
-      "wind_direction": 343.5,
-      "wind_speed": 5.05,
-      "wind_gust": 8.47
-    }
-  ],
+  "forecast_data": [],
   "units": {
     "temperature": "degree_Celsius",
     "precipitation": "kg m-2",
