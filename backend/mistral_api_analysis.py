@@ -151,7 +151,7 @@ Time | Temp | Wind | UV | Precip% | Cloud%
         """Analyze weather data using Mistral AI."""
         weather_summary = self.prepare_weather_summary(weather_data)
 
-        prompt = f"""Generate a concise yet technical daily weather report based on the following  comprehensive weather forecast data for Kledering:
+        prompt = f"""Generate a concise yet technical daily weather report based on the following comprehensive forecast data for Kledering:
 
 {weather_summary}
 
@@ -189,7 +189,8 @@ Further Instructions:
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}]
             )
-            return response.choices[0].message.content
+            # Clean the response before returning
+            return self._clean_html_response(response.choices[0].message.content)
         except Exception as e:
             return f"Error calling Mistral API: {str(e)}"
 
@@ -217,9 +218,25 @@ Instructions:
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}]
             )
-            return response.choices[0].message.content
+            # Clean the response before returning
+            return self._clean_html_response(response.choices[0].message.content)
         except Exception as e:
             return f"Error translating to German: {str(e)}"
+
+    def _clean_html_response(self, content: str) -> str:
+        """Clean up HTML response by removing markdown code block syntax."""
+        # Remove ```html from the beginning if present
+        if content.startswith("```html"):
+            content = content[7:]
+        elif content.startswith("```"):
+            content = content[3:]
+
+        # Remove ``` from the end if present
+        if content.endswith("```"):
+            content = content[:-3]
+
+        # Trim any whitespace
+        return content.strip()
 
 def run_weather_analysis(
     weather_path: str = "today_weather.json",
