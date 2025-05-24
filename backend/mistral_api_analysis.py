@@ -151,7 +151,7 @@ Time | Temp | Wind | UV | Precip% | Cloud%
         """Analyze weather data using Mistral AI."""
         weather_summary = self.prepare_weather_summary(weather_data)
 
-        prompt = f"""Generate a concise yet technical daily weather report based on the following  comprehensive weather forecast data:
+        prompt = f"""Generate a concise yet technical daily weather report based on the following  comprehensive weather forecast data for Kledering:
 
 {weather_summary}
 
@@ -169,13 +169,18 @@ Guidelines for the Report:
 
     Formatting:
         Format the report in HTML for easy embedding in a frontend.
-        Ensure the report is visually pleasing and easy to read.
+        Ensure it has visually pleasing html and/or css formatting, including headings, paragraphs, and lists and bold text where appropriate.
+        There's no need for general headings like "Weather Analysis" or "Report" as the report is embedded.
+        NO MARKDOWN!
+
 
 Further Instructions:
-1. Include technical meteorological details that are noteworthy
+1. Include technical meteorological details that are noteworthy(if there are any)
 2. Focus specifically on implications for outdoor sports activities
 3. Analyze all relevant parameters (temperature, wind, UV, precipitation, visibility, etc.)
 4. Identify weather patterns and transitions throughout the day
+5. Only respond with the HTML content, do not include any additional text or explanations.
+6. The report should not be too long, it should be concise but informative. It can be longer if there are special weather conditions, but if its a typical day it should be short.
 """
 
         try:
@@ -187,6 +192,34 @@ Further Instructions:
             return response.choices[0].message.content
         except Exception as e:
             return f"Error calling Mistral API: {str(e)}"
+
+    def translate_to_german(self, english_content: str) -> str:
+        """Translate English weather report to German while preserving HTML structure."""
+        prompt = f"""Translate the following English weather report to German. 
+Maintain all HTML tags and structure exactly as they are - do not modify any HTML elements or attributes.
+Only translate the text content inside the HTML tags. Keep temperature values, metrics, and units unchanged.
+
+Original English HTML content:
+{english_content}
+
+Instructions:
+1. Preserve all HTML tags (<div>, <h1>, <p>, etc.) exactly as they appear
+2. Translate only the English text to German
+3. Do not change any numbers or measurements
+4. Keep special characters like °C unchanged
+5. Maintain the same level of technical vocabulary in German
+6. Only respond with the HTML content, do not include any additional text or explanations.
+"""
+
+        try:
+            print("Translating weather report to German...")
+            response = self.client.chat.complete(
+                model=self.model,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            return f"Error translating to German: {str(e)}"
 
 def run_weather_analysis(
     weather_path: str = "today_weather.json",
@@ -206,16 +239,20 @@ def run_weather_analysis(
 
         # 3. Analyze with Mistral
         analyzer = WeatherAnalyzer(api_key, model)
-        analysis = analyzer.analyze_weather(weather_data)
+        english_analysis = analyzer.analyze_weather(weather_data)
 
-        # 4. Save analysis for frontend
+        # 4. Translate to German
+        german_analysis = analyzer.translate_to_german(english_analysis)
+
+        # 5. Save analysis for frontend
         analysis_data = {
             "timestamp": datetime.now().isoformat(),
-            "analysis": analysis
+            "english": english_analysis,
+            "german": german_analysis
         }
         save_json_file(analysis_data, analysis_path)
 
-        return analysis, analysis_path
+        return english_analysis, analysis_path
 
     except Exception as e:
         return f"Error in analysis workflow: {str(e)}", None
@@ -233,15 +270,19 @@ def analyze_saved_weather_file(
             return "Failed to load weather data", None
 
         analyzer = WeatherAnalyzer(api_key, model)
-        analysis = analyzer.analyze_weather(weather_data)
+        english_analysis = analyzer.analyze_weather(weather_data)
+
+        # Translate to German
+        german_analysis = analyzer.translate_to_german(english_analysis)
 
         analysis_data = {
             "timestamp": datetime.now().isoformat(),
-            "analysis": analysis
+            "english": english_analysis,
+            "german": german_analysis
         }
         save_json_file(analysis_data, analysis_path)
 
-        return analysis, analysis_path
+        return english_analysis, analysis_path
 
     except Exception as e:
         return f"Error analyzing from saved file: {str(e)}", None
