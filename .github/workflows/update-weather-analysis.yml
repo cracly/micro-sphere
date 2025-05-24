@@ -40,6 +40,6 @@ jobs:
 
       - name: Commit and push updated analysis
         run: |
-          git add frontend/public/backend/data/weather_analysis.json today_weather.json
+          git add frontend/public/backend/data/weather_analysis.json
           git commit -m "Update weather analysis via GitHub Actions" || echo "No changes to commit"
           git push
