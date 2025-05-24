@@ -45,9 +45,20 @@ def fetch_weather_data() -> Optional[Dict[str, Any]]:
 def save_json_file(data: Dict[str, Any], path: str) -> bool:
     """Save data to a JSON file."""
     try:
-        os.makedirs(os.path.dirname(path), exist_ok=True)
+        # Check if path is empty or None
+        if not path:
+            print("Error: Empty file path provided")
+            return False
+
+        # Ensure directory exists if path contains directories
+        directory = os.path.dirname(path)
+        if directory:  # Only create directories if path has a directory component
+            os.makedirs(directory, exist_ok=True)
+
+        # Save the file
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2)
+        print(f"Data successfully saved to {path}")
         return True
     except Exception as e:
         print(f"Error saving file {path}: {e}")
