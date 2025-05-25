@@ -1,8 +1,8 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-05-25T23:19:16.734330+02:00",
+  "last_updated": "2025-05-25T23:38:44.418037+02:00",
   "current_weather": {
-    "time": "2025-05-25T23:15",
+    "time": "2025-05-25T23:30",
     "temperature": {
       "value": 13.7,
       "unit": "\u00b0C",
@@ -13,9 +13,9 @@
       "unit": "mm"
     },
     "wind": {
-      "speed": 10.4,
+      "speed": 11.0,
       "gusts": 24.5,
-      "direction": 290,
+      "direction": 289,
       "unit": "km/h"
     },
     "cloud_cover": {
@@ -2222,74 +2222,74 @@
     },
     {
       "time": "2025-05-30T15:00",
-      "temperature": 21.4,
-      "rain": 0.0,
-      "cloud_cover": 75,
-      "visibility": 14760.0,
-      "wind": {
-        "speed": 16.2,
-        "direction": 343,
-        "gusts": 40.3
-      }
-    },
-    {
-      "time": "2025-05-30T16:00",
-      "temperature": 21.7,
-      "rain": 0.0,
-      "cloud_cover": 81,
-      "visibility": 17340.0,
-      "wind": {
-        "speed": 14.6,
-        "direction": 344,
-        "gusts": 36.4
-      }
-    },
-    {
-      "time": "2025-05-30T17:00",
-      "temperature": 21.7,
+      "temperature": 20.1,
       "rain": 0.0,
       "cloud_cover": 86,
-      "visibility": 19920.0,
+      "visibility": 14760.0,
       "wind": {
-        "speed": 12.2,
-        "direction": 346,
+        "speed": 9.8,
+        "direction": 294,
         "gusts": 32.8
       }
     },
     {
-      "time": "2025-05-30T18:00",
-      "temperature": 21.4,
+      "time": "2025-05-30T16:00",
+      "temperature": 21.8,
       "rain": 0.0,
-      "cloud_cover": 81,
+      "cloud_cover": 80,
+      "visibility": 17340.0,
+      "wind": {
+        "speed": 9.0,
+        "direction": 307,
+        "gusts": 38.9
+      }
+    },
+    {
+      "time": "2025-05-30T17:00",
+      "temperature": 22.9,
+      "rain": 0.0,
+      "cloud_cover": 75,
+      "visibility": 19920.0,
+      "wind": {
+        "speed": 7.4,
+        "direction": 317,
+        "gusts": 45.0
+      }
+    },
+    {
+      "time": "2025-05-30T18:00",
+      "temperature": 22.6,
+      "rain": 0.0,
+      "cloud_cover": 67,
       "visibility": 18980.0,
       "wind": {
-        "speed": 8.6,
-        "direction": 358,
-        "gusts": 27.7
+        "speed": 2.5,
+        "direction": 315,
+        "gusts": 37.1
       }
     },
     {
       "time": "2025-05-30T19:00",
-      "temperature": 20.9,
+      "temperature": 21.5,
       "rain": 0.0,
-      "cloud_cover": 77,
+      "cloud_cover": 58,
       "visibility": 18040.0,
       "wind": {
-        "speed": 5.2,
-        "direction": 34,
-        "gusts": 22.3
+        "speed": 4.3,
+        "direction": 156,
+        "gusts": 29.2
       }
     },
     {
       "time": "2025-05-30T20:00",
-      "temperature": 20.1,
+      "temperature": 20.7,
       "rain": 0.0,
-      "cloud_cover": 72,
+      "cloud_cover": 50,
       "visibility": 17100.0,
       "wind": {
-        "speed": 4.8,
-        "direction": 77,
-        "gusts": 17.3
+        "speed": 9.0,
+        "direction": 151,
+        "gusts": 21.2
       }
     },
     {
@@ -2719,7 +2719,7 @@
     {
       "date": "2025-05-30",
       "temperature": {
-        "max": 21.7,
+        "max": 22.9,
         "min": 13.8
       },
       "sun": {
