@@ -1,25 +1,25 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-07-10T08:59:14.199425+02:00",
+  "last_updated": "2025-07-10T09:28:32.259838+02:00",
   "current_weather": {
-    "time": "2025-07-10T08:45",
+    "time": "2025-07-10T09:15",
     "temperature": {
-      "value": 17.0,
+      "value": 17.1,
       "unit": "\u00b0C",
-      "feels_like": 14.4
+      "feels_like": 14.7
     },
     "precipitation": {
       "value": 0.0,
       "unit": "mm"
     },
     "wind": {
-      "speed": 20.7,
-      "gusts": 36.4,
-      "direction": 301,
+      "speed": 20.6,
+      "gusts": 36.7,
+      "direction": 303,
       "unit": "km/h"
     },
     "cloud_cover": {
-      "value": 100,
+      "value": 91,
       "unit": "%"
     }
   },
@@ -711,7 +711,7 @@
     {
       "time": "2025-07-10T09:00",
       "temperature": 17.0,
-      "rain": 0.0,
+      "rain": 0.4,
       "cloud_cover": 91,
       "visibility": 50460.0,
       "wind": {
@@ -723,7 +723,7 @@
     {
       "time": "2025-07-10T10:00",
       "temperature": 17.4,
-      "rain": 0.3,
+      "rain": 0.0,
       "cloud_cover": 94,
       "visibility": 44760.0,
       "wind": {
@@ -747,7 +747,7 @@
     {
       "time": "2025-07-10T12:00",
       "temperature": 19.1,
-      "rain": 0.0,
+      "rain": 0.1,
       "cloud_cover": 100,
       "visibility": 59420.0,
       "wind": {
@@ -783,7 +783,7 @@
     {
       "time": "2025-07-10T15:00",
       "temperature": 19.3,
-      "rain": 1.0,
+      "rain": 0.0,
       "cloud_cover": 98,
       "visibility": 58620.0,
       "wind": {
@@ -951,7 +951,7 @@
     {
       "time": "2025-07-11T05:00",
       "temperature": 15.6,
-      "rain": 0.0,
+      "rain": 0.3,
       "cloud_cover": 96,
       "visibility": 34000.0,
       "wind": {
@@ -999,7 +999,7 @@
     {
       "time": "2025-07-11T09:00",
       "temperature": 16.6,
-      "rain": 0.7,
+      "rain": 0.1,
       "cloud_cover": 68,
       "visibility": 40260.0,
       "wind": {
@@ -1239,7 +1239,7 @@
     {
       "time": "2025-07-12T05:00",
       "temperature": 14.9,
-      "rain": 0.1,
+      "rain": 0.0,
       "cloud_cover": 100,
       "visibility": 34560.0,
       "wind": {
@@ -2658,7 +2658,7 @@
         "daylight_duration": 56920.22
       },
       "uv_index_max": 5.9,
-      "precipitation_sum": 1.4
+      "precipitation_sum": 0.6
     },
     {
       "date": "2025-07-11",
@@ -2672,7 +2672,7 @@
         "daylight_duration": 56824.64
       },
       "uv_index_max": 6.8,
-      "precipitation_sum": 0.7
+      "precipitation_sum": 0.4
     },
     {
       "date": "2025-07-12",
@@ -2686,7 +2686,7 @@
         "daylight_duration": 56724.64
       },
       "uv_index_max": 6.05,
-      "precipitation_sum": 0.4
+      "precipitation_sum": 0.3
     },
     {
       "date": "2025-07-13",
