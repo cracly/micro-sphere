@@ -1,25 +1,25 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-07-12T17:55:19.452714+02:00",
+  "last_updated": "2025-07-12T18:26:51.589226+02:00",
   "current_weather": {
-    "time": "2025-07-12T17:45",
+    "time": "2025-07-12T18:15",
     "temperature": {
-      "value": 21.4,
+      "value": 21.6,
       "unit": "\u00b0C",
-      "feels_like": 22.4
+      "feels_like": 22.5
     },
     "precipitation": {
       "value": 0.0,
       "unit": "mm"
     },
     "wind": {
-      "speed": 5.8,
-      "gusts": 13.7,
-      "direction": 158,
+      "speed": 6.6,
+      "gusts": 12.6,
+      "direction": 167,
       "unit": "km/h"
     },
     "cloud_cover": {
-      "value": 81,
+      "value": 97,
       "unit": "%"
     }
   },
@@ -819,7 +819,7 @@
     {
       "time": "2025-07-12T18:00",
       "temperature": 21.5,
-      "rain": 0.0,
+      "rain": 0.6,
       "cloud_cover": 97,
       "visibility": 52480.0,
       "wind": {
@@ -843,7 +843,7 @@
     {
       "time": "2025-07-12T20:00",
       "temperature": 20.9,
-      "rain": 0.0,
+      "rain": 0.2,
       "cloud_cover": 89,
       "visibility": 49000.0,
       "wind": {
@@ -2658,7 +2658,7 @@
         "daylight_duration": 56724.64
       },
       "uv_index_max": 5.8,
-      "precipitation_sum": 5.1
+      "precipitation_sum": 5.9
     },
     {
       "date": "2025-07-13",
@@ -2686,7 +2686,7 @@
         "daylight_duration": 56512.15
       },
       "uv_index_max": 6.25,
-      "precipitation_sum": 0.1
+      "precipitation_sum": 0.0
     },
     {
       "date": "2025-07-15",
