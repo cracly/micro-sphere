@@ -1,19 +1,19 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-07-20T11:23:24.427090+02:00",
+  "last_updated": "2025-07-20T11:42:51.806648+02:00",
   "current_weather": {
-    "time": "2025-07-20T11:15",
+    "time": "2025-07-20T11:30",
     "temperature": {
-      "value": 27.8,
+      "value": 28.2,
       "unit": "\u00b0C",
-      "feels_like": 30.8
+      "feels_like": 31.1
     },
     "precipitation": {
       "value": 0.0,
       "unit": "mm"
     },
     "wind": {
-      "speed": 4.7,
+      "speed": 5.1,
       "gusts": 11.2,
       "direction": 184,
       "unit": "km/h"
@@ -1286,562 +1286,490 @@
     },
     {
       "time": "2025-07-22T09:00",
-      "temperature": 22.4,
+      "temperature": 23.2,
       "rain": 0.0,
-      "cloud_cover": 78,
-      "visibility": 67280.0,
+      "cloud_cover": 11,
+      "visibility": 71080.0,
       "wind": {
-        "speed": 10.3,
-        "direction": 282,
-        "gusts": 20.2
+        "speed": 19.2,
+        "direction": 287,
+        "gusts": 37.1
       }
     },
     {
       "time": "2025-07-22T10:00",
-      "temperature": 23.1,
+      "temperature": 24.0,
       "rain": 0.0,
-      "cloud_cover": 91,
-      "visibility": 72140.0,
+      "cloud_cover": 100,
+      "visibility": 73660.0,
       "wind": {
-        "speed": 21.7,
-        "direction": 276,
-        "gusts": 45.7
+        "speed": 21.1,
+        "direction": 279,
+        "gusts": 42.8
       }
     },
     {
       "time": "2025-07-22T11:00",
-      "temperature": 24.7,
+      "temperature": 23.7,
       "rain": 0.0,
-      "cloud_cover": 61,
-      "visibility": 73780.0,
+      "cloud_cover": 96,
+      "visibility": 72160.0,
       "wind": {
-        "speed": 23.4,
-        "direction": 274,
-        "gusts": 46.1
+        "speed": 21.2,
+        "direction": 280,
+        "gusts": 41.4
       }
     },
     {
       "time": "2025-07-22T12:00",
-      "temperature": 25.2,
+      "temperature": 25.4,
       "rain": 0.0,
-      "cloud_cover": 68,
-      "visibility": 74360.0,
+      "cloud_cover": 57,
+      "visibility": 74700.0,
       "wind": {
-        "speed": 26.6,
-        "direction": 279,
-        "gusts": 52.6
+        "speed": 22.0,
+        "direction": 280,
+        "gusts": 42.8
       }
     },
     {
       "time": "2025-07-22T13:00",
-      "temperature": 25.8,
-      "rain": 0.0,
-      "cloud_cover": 62,
-      "visibility": 74660.0,
-      "wind": {
-        "speed": 25.9,
-        "direction": 280,
-        "gusts": 54.0
-      }
-    },
-    {
-      "time": "2025-07-22T14:00",
-      "temperature": 26.6,
-      "rain": 0.0,
-      "cloud_cover": 33,
-      "visibility": 75500.0,
-      "wind": {
-        "speed": 27.0,
-        "direction": 280,
-        "gusts": 53.6
-      }
-    },
-    {
-      "time": "2025-07-22T15:00",
-      "temperature": 26.6,
-      "rain": 0.0,
-      "cloud_cover": 70,
-      "visibility": 75840.0,
-      "wind": {
-        "speed": 25.3,
-        "direction": 281,
-        "gusts": 54.0
-      }
-    },
-    {
-      "time": "2025-07-22T16:00",
       "temperature": 26.4,
       "rain": 0.0,
-      "cloud_cover": 63,
+      "cloud_cover": 53,
       "visibility": 75840.0,
       "wind": {
-        "speed": 25.4,
+        "speed": 25.8,
         "direction": 282,
         "gusts": 50.4
       }
     },
     {
-      "time": "2025-07-22T17:00",
-      "temperature": 26.1,
+      "time": "2025-07-22T14:00",
+      "temperature": 26.8,
       "rain": 0.0,
-      "cloud_cover": 69,
-      "visibility": 75780.0,
+      "cloud_cover": 48,
+      "visibility": 75880.0,
       "wind": {
-        "speed": 24.1,
-        "direction": 279,
-        "gusts": 49.7
+        "speed": 24.7,
+        "direction": 283,
+        "gusts": 56.5
+      }
+    },
+    {
+      "time": "2025-07-22T15:00",
+      "temperature": 26.2,
+      "rain": 0.0,
+      "cloud_cover": 72,
+      "visibility": 75900.0,
+      "wind": {
+        "speed": 24.7,
+        "direction": 283,
+        "gusts": 51.5
+      }
+    },
+    {
+      "time": "2025-07-22T16:00",
+      "temperature": 26.3,
+      "rain": 0.0,
+      "cloud_cover": 70,
+      "visibility": 75860.0,
+      "wind": {
+        "speed": 25.1,
+        "direction": 283,
+        "gusts": 50.0
+      }
+    },
+    {
+      "time": "2025-07-22T17:00",
+      "temperature": 25.9,
+      "rain": 0.0,
+      "cloud_cover": 70,
+      "visibility": 75880.0,
+      "wind": {
+        "speed": 23.2,
+        "direction": 282,
+        "gusts": 49.0
       }
     },
     {
       "time": "2025-07-22T18:00",
-      "temperature": 25.6,
+      "temperature": 25.0,
       "rain": 0.0,
-      "cloud_cover": 50,
-      "visibility": 75820.0,
+      "cloud_cover": 80,
+      "visibility": 75700.0,
       "wind": {
-        "speed": 21.6,
-        "direction": 281,
-        "gusts": 47.2
+        "speed": 21.3,
+        "direction": 282,
+        "gusts": 45.0
       }
     },
     {
       "time": "2025-07-22T19:00",
-      "temperature": 25.0,
+      "temperature": 23.9,
       "rain": 0.0,
-      "cloud_cover": 66,
-      "visibility": 75420.0,
+      "cloud_cover": 99,
+      "visibility": 75060.0,
       "wind": {
-        "speed": 19.1,
-        "direction": 274,
-        "gusts": 41.8
+        "speed": 18.1,
+        "direction": 277,
+        "gusts": 41.0
       }
     },
     {
       "time": "2025-07-22T20:00",
-      "temperature": 23.9,
+      "temperature": 23.2,
       "rain": 0.0,
-      "cloud_cover": 72,
-      "visibility": 74180.0,
+      "cloud_cover": 100,
+      "visibility": 72980.0,
       "wind": {
-        "speed": 15.5,
+        "speed": 16.3,
         "direction": 275,
-        "gusts": 36.7
+        "gusts": 34.6
       }
     },
     {
       "time": "2025-07-22T21:00",
-      "temperature": 22.9,
+      "temperature": 22.4,
       "rain": 0.0,
-      "cloud_cover": 67,
-      "visibility": 72640.0,
+      "cloud_cover": 100,
+      "visibility": 71500.0,
       "wind": {
-        "speed": 13.0,
-        "direction": 276,
-        "gusts": 29.5
+        "speed": 13.3,
+        "direction": 270,
+        "gusts": 30.6
       }
     },
     {
       "time": "2025-07-22T22:00",
-      "temperature": 22.0,
+      "temperature": 21.9,
       "rain": 0.0,
-      "cloud_cover": 58,
-      "visibility": 69820.0,
+      "cloud_cover": 74,
+      "visibility": 71220.0,
       "wind": {
-        "speed": 10.4,
+        "speed": 10.9,
+        "direction": 278,
+        "gusts": 25.2
+      }
+    },
+    {
+      "time": "2025-07-22T23:00",
+      "temperature": 21.3,
+      "rain": 0.0,
+      "cloud_cover": 71,
+      "visibility": 68500.0,
+      "wind": {
+        "speed": 8.7,
+        "direction": 287,
+        "gusts": 21.2
+      }
+    },
+    {
+      "time": "2025-07-23T00:00",
+      "temperature": 20.7,
+      "rain": 0.0,
+      "cloud_cover": 74,
+      "visibility": 65920.0,
+      "wind": {
+        "speed": 8.0,
+        "direction": 288,
+        "gusts": 16.2
+      }
+    },
+    {
+      "time": "2025-07-23T01:00",
+      "temperature": 20.4,
+      "rain": 0.0,
+      "cloud_cover": 83,
+      "visibility": 64500.0,
+      "wind": {
+        "speed": 10.5,
+        "direction": 297,
+        "gusts": 19.4
+      }
+    },
+    {
+      "time": "2025-07-23T02:00",
+      "temperature": 19.5,
+      "rain": 0.0,
+      "cloud_cover": 27,
+      "visibility": 60140.0,
+      "wind": {
+        "speed": 5.8,
+        "direction": 277,
+        "gusts": 19.1
+      }
+    },
+    {
+      "time": "2025-07-23T03:00",
+      "temperature": 18.6,
+      "rain": 0.0,
+      "cloud_cover": 0,
+      "visibility": 54280.0,
+      "wind": {
+        "speed": 3.4,
+        "direction": 252,
+        "gusts": 10.4
+      }
+    },
+    {
+      "time": "2025-07-23T04:00",
+      "temperature": 17.8,
+      "rain": 0.0,
+      "cloud_cover": 4,
+      "visibility": 47300.0,
+      "wind": {
+        "speed": 4.0,
+        "direction": 207,
+        "gusts": 6.8
+      }
+    },
+    {
+      "time": "2025-07-23T05:00",
+      "temperature": 17.2,
+      "rain": 0.0,
+      "cloud_cover": 0,
+      "visibility": 41460.0,
+      "wind": {
+        "speed": 4.3,
+        "direction": 204,
+        "gusts": 7.6
+      }
+    },
+    {
+      "time": "2025-07-23T06:00",
+      "temperature": 16.9,
+      "rain": 0.0,
+      "cloud_cover": 0,
+      "visibility": 37400.0,
+      "wind": {
+        "speed": 4.0,
+        "direction": 207,
+        "gusts": 7.6
+      }
+    },
+    {
+      "time": "2025-07-23T07:00",
+      "temperature": 17.7,
+      "rain": 0.0,
+      "cloud_cover": 13,
+      "visibility": 36720.0,
+      "wind": {
+        "speed": 2.9,
+        "direction": 187,
+        "gusts": 6.8
+      }
+    },
+    {
+      "time": "2025-07-23T08:00",
+      "temperature": 19.6,
+      "rain": 0.0,
+      "cloud_cover": 37,
+      "visibility": 48740.0,
+      "wind": {
+        "speed": 3.6,
+        "direction": 264,
+        "gusts": 7.9
+      }
+    },
+    {
+      "time": "2025-07-23T09:00",
+      "temperature": 21.7,
+      "rain": 0.0,
+      "cloud_cover": 21,
+      "visibility": 62260.0,
+      "wind": {
+        "speed": 9.4,
+        "direction": 293,
+        "gusts": 19.1
+      }
+    },
+    {
+      "time": "2025-07-23T10:00",
+      "temperature": 23.3,
+      "rain": 0.0,
+      "cloud_cover": 47,
+      "visibility": 70000.0,
+      "wind": {
+        "speed": 12.6,
+        "direction": 294,
+        "gusts": 25.2
+      }
+    },
+    {
+      "time": "2025-07-23T11:00",
+      "temperature": 24.8,
+      "rain": 0.0,
+      "cloud_cover": 43,
+      "visibility": 74100.0,
+      "wind": {
+        "speed": 12.2,
+        "direction": 289,
+        "gusts": 25.2
+      }
+    },
+    {
+      "time": "2025-07-23T12:00",
+      "temperature": 26.0,
+      "rain": 0.0,
+      "cloud_cover": 73,
+      "visibility": 75740.0,
+      "wind": {
+        "speed": 11.5,
         "direction": 284,
         "gusts": 24.5
       }
     },
     {
-      "time": "2025-07-22T23:00",
-      "temperature": 21.5,
+      "time": "2025-07-23T13:00",
+      "temperature": 27.0,
       "rain": 0.0,
-      "cloud_cover": 57,
-      "visibility": 67860.0,
+      "cloud_cover": 75,
+      "visibility": 75980.0,
       "wind": {
         "speed": 10.5,
-        "direction": 274,
-        "gusts": 19.8
-      }
-    },
-    {
-      "time": "2025-07-23T00:00",
-      "temperature": 20.8,
-      "rain": 0.0,
-      "cloud_cover": 63,
-      "visibility": 65260.0,
-      "wind": {
-        "speed": 9.7,
-        "direction": 272,
-        "gusts": 20.2
-      }
-    },
-    {
-      "time": "2025-07-23T01:00",
-      "temperature": 20.2,
-      "rain": 0.0,
-      "cloud_cover": 42,
-      "visibility": 64960.0,
-      "wind": {
-        "speed": 8.8,
-        "direction": 282,
-        "gusts": 18.4
-      }
-    },
-    {
-      "time": "2025-07-23T02:00",
-      "temperature": 19.4,
-      "rain": 0.0,
-      "cloud_cover": 43,
-      "visibility": 59280.0,
-      "wind": {
-        "speed": 5.4,
-        "direction": 274,
-        "gusts": 16.6
-      }
-    },
-    {
-      "time": "2025-07-23T03:00",
-      "temperature": 18.8,
-      "rain": 0.0,
-      "cloud_cover": 57,
-      "visibility": 49920.0,
-      "wind": {
-        "speed": 3.7,
-        "direction": 259,
-        "gusts": 9.7
-      }
-    },
-    {
-      "time": "2025-07-23T04:00",
-      "temperature": 18.6,
-      "rain": 0.0,
-      "cloud_cover": 66,
-      "visibility": 46920.0,
-      "wind": {
-        "speed": 3.0,
-        "direction": 256,
-        "gusts": 6.5
-      }
-    },
-    {
-      "time": "2025-07-23T05:00",
-      "temperature": 18.5,
-      "rain": 0.0,
-      "cloud_cover": 77,
-      "visibility": 45560.0,
-      "wind": {
-        "speed": 2.8,
-        "direction": 320,
-        "gusts": 5.0
-      }
-    },
-    {
-      "time": "2025-07-23T06:00",
-      "temperature": 18.3,
-      "rain": 0.0,
-      "cloud_cover": 54,
-      "visibility": 44620.0,
-      "wind": {
-        "speed": 3.5,
-        "direction": 336,
-        "gusts": 6.5
-      }
-    },
-    {
-      "time": "2025-07-23T07:00",
-      "temperature": 18.9,
-      "rain": 0.0,
-      "cloud_cover": 58,
-      "visibility": 45480.0,
-      "wind": {
-        "speed": 4.3,
-        "direction": 360,
-        "gusts": 8.3
-      }
-    },
-    {
-      "time": "2025-07-23T08:00",
-      "temperature": 20.2,
-      "rain": 0.0,
-      "cloud_cover": 66,
-      "visibility": 53040.0,
-      "wind": {
-        "speed": 5.6,
-        "direction": 345,
-        "gusts": 11.5
-      }
-    },
-    {
-      "time": "2025-07-23T09:00",
-      "temperature": 21.5,
-      "rain": 0.0,
-      "cloud_cover": 68,
-      "visibility": 59440.0,
-      "wind": {
-        "speed": 6.0,
-        "direction": 335,
-        "gusts": 12.6
-      }
-    },
-    {
-      "time": "2025-07-23T10:00",
-      "temperature": 23.1,
-      "rain": 0.0,
-      "cloud_cover": 69,
-      "visibility": 65840.0,
-      "wind": {
-        "speed": 6.4,
-        "direction": 317,
-        "gusts": 13.7
-      }
-    },
-    {
-      "time": "2025-07-23T11:00",
-      "temperature": 24.5,
-      "rain": 0.0,
-      "cloud_cover": 71,
-      "visibility": 72240.0,
-      "wind": {
-        "speed": 6.8,
-        "direction": 302,
-        "gusts": 14.8
-      }
-    },
-    {
-      "time": "2025-07-23T12:00",
-      "temperature": 25.4,
-      "rain": 0.0,
-      "cloud_cover": 67,
-      "visibility": 73460.0,
-      "wind": {
-        "speed": 6.8,
-        "direction": 288,
-        "gusts": 15.8
-      }
-    },
-    {
-      "time": "2025-07-23T13:00",
-      "temperature": 26.0,
-      "rain": 0.0,
-      "cloud_cover": 63,
-      "visibility": 74680.0,
-      "wind": {
-        "speed": 6.5,
-        "direction": 273,
-        "gusts": 16.6
+        "direction": 286,
+        "gusts": 23.0
       }
     },
     {
       "time": "2025-07-23T14:00",
-      "temperature": 26.5,
+      "temperature": 27.2,
       "rain": 0.0,
-      "cloud_cover": 59,
-      "visibility": 75900.0,
+      "cloud_cover": 66,
+      "visibility": 76520.0,
       "wind": {
-        "speed": 6.2,
-        "direction": 263,
-        "gusts": 17.6
+        "speed": 7.8,
+        "direction": 292,
+        "gusts": 22.0
       }
     },
     {
       "time": "2025-07-23T15:00",
-      "temperature": 27.0,
+      "temperature": 27.8,
       "rain": 0.0,
-      "cloud_cover": 60,
-      "visibility": 76140.0,
+      "cloud_cover": 74,
+      "visibility": 76520.0,
       "wind": {
-        "speed": 4.3,
-        "direction": 265,
-        "gusts": 14.4
+        "speed": 4.0,
+        "direction": 275,
+        "gusts": 19.1
       }
     },
     {
       "time": "2025-07-23T16:00",
-      "temperature": 27.3,
+      "temperature": 28.2,
       "rain": 0.0,
-      "cloud_cover": 62,
-      "visibility": 76380.0,
+      "cloud_cover": 83,
+      "visibility": 76540.0,
       "wind": {
-        "speed": 2.2,
-        "direction": 279,
-        "gusts": 11.5
+        "speed": 3.3,
+        "direction": 174,
+        "gusts": 16.6
       }
     },
     {
       "time": "2025-07-23T17:00",
-      "temperature": 27.3,
+      "temperature": 28.2,
       "rain": 0.0,
-      "cloud_cover": 63,
-      "visibility": 76620.0,
+      "cloud_cover": 91,
+      "visibility": 76540.0,
       "wind": {
-        "speed": 1.1,
-        "direction": 360,
-        "gusts": 8.3
+        "speed": 6.5,
+        "direction": 146,
+        "gusts": 13.7
       }
     },
     {
       "time": "2025-07-23T18:00",
-      "temperature": 27.0,
+      "temperature": 27.6,
       "rain": 0.0,
-      "cloud_cover": 62,
-      "visibility": 76220.0,
+      "cloud_cover": 94,
+      "visibility": 75880.0,
       "wind": {
-        "speed": 1.9,
-        "direction": 68,
-        "gusts": 8.6
+        "speed": 7.1,
+        "direction": 131,
+        "gusts": 14.4
       }
     },
     {
       "time": "2025-07-23T19:00",
-      "temperature": 26.4,
+      "temperature": 26.6,
       "rain": 0.0,
-      "cloud_cover": 61,
-      "visibility": 75840.0,
+      "cloud_cover": 97,
+      "visibility": 75200.0,
       "wind": {
-        "speed": 3.6,
-        "direction": 84,
-        "gusts": 9.4
+        "speed": 7.0,
+        "direction": 111,
+        "gusts": 14.8
       }
     },
     {
       "time": "2025-07-23T20:00",
       "temperature": 25.6,
       "rain": 0.0,
-      "cloud_cover": 60,
-      "visibility": 75440.0,
+      "cloud_cover": 100,
+      "visibility": 74540.0,
       "wind": {
-        "speed": 4.3,
-        "direction": 90,
-        "gusts": 9.7
+        "speed": 6.9,
+        "direction": 99,
+        "gusts": 15.5
       }
     },
     {
       "time": "2025-07-23T21:00",
-      "temperature": 24.6,
+      "temperature": 24.5,
       "rain": 0.0,
-      "cloud_cover": 70,
-      "visibility": 73040.0,
+      "cloud_cover": 98,
+      "visibility": 71040.0,
       "wind": {
-        "speed": 3.6,
-        "direction": 90,
-        "gusts": 7.6
+        "speed": 6.5,
+        "direction": 96,
+        "gusts": 13.7
       }
     },
     {
       "time": "2025-07-23T22:00",
       "temperature": 23.5,
       "rain": 0.0,
-      "cloud_cover": 80,
-      "visibility": 70620.0,
+      "cloud_cover": 96,
+      "visibility": 67560.0,
       "wind": {
-        "speed": 2.5,
-        "direction": 82,
-        "gusts": 5.8
+        "speed": 5.9,
+        "direction": 101,
+        "gusts": 11.9
       }
     },
     {
       "time": "2025-07-23T23:00",
-      "temperature": 22.4,
+      "temperature": 22.5,
       "rain": 0.0,
-      "cloud_cover": 90,
-      "visibility": 68220.0,
+      "cloud_cover": 94,
+      "visibility": 64060.0,
       "wind": {
-        "speed": 1.5,
-        "direction": 76,
-        "gusts": 3.6
+        "speed": 5.2,
+        "direction": 106,
+        "gusts": 10.1
       }
     },
     {
       "time": "2025-07-24T00:00",
-      "temperature": 21.5,
+      "temperature": 21.8,
       "rain": 0.0,
-      "cloud_cover": 90,
-      "visibility": 62800.0,
+      "cloud_cover": 86,
+      "visibility": 59280.0,
       "wind": {
-        "speed": 1.5,
-        "direction": 104,
-        "gusts": 4.3
+        "speed": 4.7,
+        "direction": 113,
+        "gusts": 9.7
       }
     },
     {
       "time": "2025-07-24T01:00",
-      "temperature": 20.7,
+      "temperature": 21.2,
       "rain": 0.0,
-      "cloud_cover": 91,
-      "visibility": 57380.0,
-      "wind": {
-        "speed": 2.1,
-        "direction": 121,
-        "gusts": 4.7
-      }
-    },
-    {
-      "time": "2025-07-24T02:00",
-      "temperature": 20.0,
-      "rain": 0.0,
-      "cloud_cover": 91,
-      "visibility": 51960.0,
-      "wind": {
-        "speed": 2.8,
-        "direction": 130,
-        "gusts": 5.4
-      }
-    },
-    {
-      "time": "2025-07-24T03:00",
-      "temperature": 19.4,
-      "rain": 0.0,
-      "cloud_cover": 89,
-      "visibility": 49660.0,
-      "wind": {
-        "speed": 2.6,
-        "direction": 124,
-        "gusts": 5.4
-      }
-    },
-    {
-      "time": "2025-07-24T04:00",
-      "temperature": 19.0,
-      "rain": 0.0,
-      "cloud_cover": 88,
-      "visibility": 47380.0,
-      "wind": {
-        "speed": 2.4,
-        "direction": 117,
-        "gusts": 5.0
-      }
-    },
-    {
-      "time": "2025-07-24T05:00",
-      "temperature": 18.9,
-      "rain": 0.0,
-      "cloud_cover": 86,
-      "visibility": 45080.0,
-      "wind": {
-        "speed": 2.6,
-        "direction": 106,
-        "gusts": 5.0
-      }
-    },
-    {
-      "time": "2025-07-24T06:00",
-      "temperature": 19.2,
-      "rain": 0.0,
-      "cloud_cover": 91,
-      "visibility": 48220.0,
-      "wind": {
-        "speed": 3.2,
-        "direction": 117,
-        "gusts": 7.2
-      }
-    },
-    {
-      "time": "2025-07-24T07:00",
-      "temperature": 19.8,
-      "rain": 0.0,
-      "cloud_cover": 95,
-      "visibility": 51380.0,
+      "cloud_cover": 77,
+      "visibility": 54500.0,
       "wind": {
         "speed": 4.2,
         "direction": 121,
@@ -1849,303 +1777,375 @@
       }
     },
     {
-      "time": "2025-07-24T08:00",
+      "time": "2025-07-24T02:00",
       "temperature": 20.7,
       "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 54520.0,
+      "cloud_cover": 69,
+      "visibility": 49720.0,
       "wind": {
-        "speed": 5.6,
-        "direction": 130,
-        "gusts": 11.5
+        "speed": 3.6,
+        "direction": 127,
+        "gusts": 9.0
       }
     },
     {
-      "time": "2025-07-24T09:00",
-      "temperature": 22.0,
+      "time": "2025-07-24T03:00",
+      "temperature": 20.3,
       "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 58880.0,
+      "cloud_cover": 79,
+      "visibility": 47140.0,
       "wind": {
-        "speed": 8.1,
-        "direction": 135,
-        "gusts": 16.6
-      }
-    },
-    {
-      "time": "2025-07-24T10:00",
-      "temperature": 23.6,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 63220.0,
-      "wind": {
-        "speed": 11.2,
-        "direction": 138,
-        "gusts": 21.6
-      }
-    },
-    {
-      "time": "2025-07-24T11:00",
-      "temperature": 24.7,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 67580.0,
-      "wind": {
-        "speed": 13.2,
-        "direction": 137,
-        "gusts": 26.6
-      }
-    },
-    {
-      "time": "2025-07-24T12:00",
-      "temperature": 24.8,
-      "rain": 0.1,
-      "cloud_cover": 100,
-      "visibility": 66280.0,
-      "wind": {
-        "speed": 13.8,
-        "direction": 129,
-        "gusts": 32.0
-      }
-    },
-    {
-      "time": "2025-07-24T13:00",
-      "temperature": 24.4,
-      "rain": 0.1,
-      "cloud_cover": 100,
-      "visibility": 64980.0,
-      "wind": {
-        "speed": 13.8,
-        "direction": 118,
-        "gusts": 37.4
-      }
-    },
-    {
-      "time": "2025-07-24T14:00",
-      "temperature": 24.3,
-      "rain": 0.1,
-      "cloud_cover": 100,
-      "visibility": 63680.0,
-      "wind": {
-        "speed": 14.0,
-        "direction": 113,
-        "gusts": 42.8
-      }
-    },
-    {
-      "time": "2025-07-24T15:00",
-      "temperature": 25.1,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 65140.0,
-      "wind": {
-        "speed": 14.9,
-        "direction": 122,
-        "gusts": 42.1
-      }
-    },
-    {
-      "time": "2025-07-24T16:00",
-      "temperature": 26.2,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 66580.0,
-      "wind": {
-        "speed": 16.0,
-        "direction": 136,
-        "gusts": 41.8
-      }
-    },
-    {
-      "time": "2025-07-24T17:00",
-      "temperature": 26.3,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 68040.0,
-      "wind": {
-        "speed": 15.1,
-        "direction": 147,
-        "gusts": 41.0
-      }
-    },
-    {
-      "time": "2025-07-24T18:00",
-      "temperature": 24.4,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 57320.0,
-      "wind": {
-        "speed": 8.4,
-        "direction": 170,
-        "gusts": 38.9
-      }
-    },
-    {
-      "time": "2025-07-24T19:00",
-      "temperature": 21.6,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 46620.0,
-      "wind": {
-        "speed": 7.3,
-        "direction": 259,
-        "gusts": 37.1
-      }
-    },
-    {
-      "time": "2025-07-24T20:00",
-      "temperature": 19.6,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 35900.0,
-      "wind": {
-        "speed": 12.8,
-        "direction": 286,
-        "gusts": 34.9
-      }
-    },
-    {
-      "time": "2025-07-24T21:00",
-      "temperature": 19.0,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 37400.0,
-      "wind": {
-        "speed": 10.8,
-        "direction": 296,
-        "gusts": 26.3
-      }
-    },
-    {
-      "time": "2025-07-24T22:00",
-      "temperature": 19.2,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 38900.0,
-      "wind": {
-        "speed": 5.4,
-        "direction": 323,
-        "gusts": 18.0
-      }
-    },
-    {
-      "time": "2025-07-24T23:00",
-      "temperature": 19.4,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 40400.0,
-      "wind": {
-        "speed": 4.1,
-        "direction": 15,
+        "speed": 1.8,
+        "direction": 101,
         "gusts": 9.4
       }
     },
     {
-      "time": "2025-07-25T00:00",
+      "time": "2025-07-24T04:00",
+      "temperature": 19.9,
+      "rain": 0.0,
+      "cloud_cover": 90,
+      "visibility": 44580.0,
+      "wind": {
+        "speed": 2.1,
+        "direction": 31,
+        "gusts": 9.4
+      }
+    },
+    {
+      "time": "2025-07-24T05:00",
+      "temperature": 19.7,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 42000.0,
+      "wind": {
+        "speed": 3.1,
+        "direction": 21,
+        "gusts": 9.7
+      }
+    },
+    {
+      "time": "2025-07-24T06:00",
+      "temperature": 19.5,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 39720.0,
+      "wind": {
+        "speed": 3.0,
+        "direction": 76,
+        "gusts": 14.0
+      }
+    },
+    {
+      "time": "2025-07-24T07:00",
       "temperature": 19.3,
       "rain": 0.0,
       "cloud_cover": 100,
-      "visibility": 40700.0,
+      "visibility": 37460.0,
       "wind": {
-        "speed": 4.7,
-        "direction": 360,
-        "gusts": 11.9
+        "speed": 6.3,
+        "direction": 114,
+        "gusts": 18.0
+      }
+    },
+    {
+      "time": "2025-07-24T08:00",
+      "temperature": 19.4,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 35180.0,
+      "wind": {
+        "speed": 9.4,
+        "direction": 122,
+        "gusts": 22.3
+      }
+    },
+    {
+      "time": "2025-07-24T09:00",
+      "temperature": 19.7,
+      "rain": 0.1,
+      "cloud_cover": 100,
+      "visibility": 32520.0,
+      "wind": {
+        "speed": 10.5,
+        "direction": 121,
+        "gusts": 24.8
+      }
+    },
+    {
+      "time": "2025-07-24T10:00",
+      "temperature": 20.1,
+      "rain": 0.1,
+      "cloud_cover": 100,
+      "visibility": 29880.0,
+      "wind": {
+        "speed": 10.9,
+        "direction": 117,
+        "gusts": 27.4
+      }
+    },
+    {
+      "time": "2025-07-24T11:00",
+      "temperature": 20.7,
+      "rain": 0.1,
+      "cloud_cover": 100,
+      "visibility": 27220.0,
+      "wind": {
+        "speed": 10.8,
+        "direction": 111,
+        "gusts": 29.9
+      }
+    },
+    {
+      "time": "2025-07-24T12:00",
+      "temperature": 21.6,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 34340.0,
+      "wind": {
+        "speed": 11.0,
+        "direction": 101,
+        "gusts": 29.9
+      }
+    },
+    {
+      "time": "2025-07-24T13:00",
+      "temperature": 22.7,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 41460.0,
+      "wind": {
+        "speed": 11.5,
+        "direction": 90,
+        "gusts": 30.2
+      }
+    },
+    {
+      "time": "2025-07-24T14:00",
+      "temperature": 23.3,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 48580.0,
+      "wind": {
+        "speed": 10.3,
+        "direction": 78,
+        "gusts": 30.2
+      }
+    },
+    {
+      "time": "2025-07-24T15:00",
+      "temperature": 23.0,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 45160.0,
+      "wind": {
+        "speed": 6.4,
+        "direction": 52,
+        "gusts": 27.4
+      }
+    },
+    {
+      "time": "2025-07-24T16:00",
+      "temperature": 22.3,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 41720.0,
+      "wind": {
+        "speed": 6.0,
+        "direction": 343,
+        "gusts": 24.8
+      }
+    },
+    {
+      "time": "2025-07-24T17:00",
+      "temperature": 21.7,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 38300.0,
+      "wind": {
+        "speed": 9.9,
+        "direction": 314,
+        "gusts": 22.0
+      }
+    },
+    {
+      "time": "2025-07-24T18:00",
+      "temperature": 21.4,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 42660.0,
+      "wind": {
+        "speed": 11.9,
+        "direction": 305,
+        "gusts": 23.0
+      }
+    },
+    {
+      "time": "2025-07-24T19:00",
+      "temperature": 21.2,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 47000.0,
+      "wind": {
+        "speed": 12.6,
+        "direction": 301,
+        "gusts": 24.5
+      }
+    },
+    {
+      "time": "2025-07-24T20:00",
+      "temperature": 20.9,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 51360.0,
+      "wind": {
+        "speed": 13.4,
+        "direction": 297,
+        "gusts": 25.6
+      }
+    },
+    {
+      "time": "2025-07-24T21:00",
+      "temperature": 20.3,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 49640.0,
+      "wind": {
+        "speed": 14.3,
+        "direction": 295,
+        "gusts": 27.4
+      }
+    },
+    {
+      "time": "2025-07-24T22:00",
+      "temperature": 19.7,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 47900.0,
+      "wind": {
+        "speed": 15.5,
+        "direction": 295,
+        "gusts": 28.8
+      }
+    },
+    {
+      "time": "2025-07-24T23:00",
+      "temperature": 19.2,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 46180.0,
+      "wind": {
+        "speed": 16.1,
+        "direction": 294,
+        "gusts": 30.6
+      }
+    },
+    {
+      "time": "2025-07-25T00:00",
+      "temperature": 18.9,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 46620.0,
+      "wind": {
+        "speed": 16.1,
+        "direction": 294,
+        "gusts": 30.6
       }
     },
     {
       "time": "2025-07-25T01:00",
-      "temperature": 19.2,
+      "temperature": 18.7,
       "rain": 0.0,
       "cloud_cover": 100,
-      "visibility": 41000.0,
+      "visibility": 47060.0,
       "wind": {
-        "speed": 6.8,
-        "direction": 328,
-        "gusts": 14.8
+        "speed": 16.1,
+        "direction": 294,
+        "gusts": 30.6
       }
     },
     {
       "time": "2025-07-25T02:00",
-      "temperature": 19.1,
+      "temperature": 18.6,
       "rain": 0.0,
       "cloud_cover": 100,
-      "visibility": 41300.0,
+      "visibility": 47500.0,
       "wind": {
-        "speed": 8.9,
-        "direction": 317,
-        "gusts": 17.3
+        "speed": 15.8,
+        "direction": 294,
+        "gusts": 30.6
       }
     },
     {
       "time": "2025-07-25T03:00",
-      "temperature": 17.8,
+      "temperature": 18.4,
       "rain": 0.0,
-      "cloud_cover": 91,
-      "visibility": 24140.0,
+      "cloud_cover": 100,
+      "visibility": 47680.0,
       "wind": {
-        "speed": 14.6,
-        "direction": 286,
-        "gusts": 34.9
+        "speed": 15.8,
+        "direction": 294,
+        "gusts": 32.0
       }
     },
     {
       "time": "2025-07-25T04:00",
-      "temperature": 17.4,
+      "temperature": 18.3,
       "rain": 0.0,
-      "cloud_cover": 82,
-      "visibility": 24140.0,
+      "cloud_cover": 100,
+      "visibility": 47840.0,
       "wind": {
-        "speed": 15.2,
-        "direction": 284,
-        "gusts": 36.4
+        "speed": 15.9,
+        "direction": 295,
+        "gusts": 33.1
       }
     },
     {
       "time": "2025-07-25T05:00",
-      "temperature": 17.3,
+      "temperature": 18.3,
       "rain": 0.0,
-      "cloud_cover": 73,
-      "visibility": 24140.0,
+      "cloud_cover": 100,
+      "visibility": 48020.0,
       "wind": {
-        "speed": 15.5,
-        "direction": 283,
-        "gusts": 37.4
+        "speed": 15.9,
+        "direction": 295,
+        "gusts": 34.6
       }
     },
     {
       "time": "2025-07-25T06:00",
-      "temperature": 17.4,
+      "temperature": 18.7,
       "rain": 0.0,
-      "cloud_cover": 68,
-      "visibility": 24140.0,
+      "cloud_cover": 100,
+      "visibility": 49420.0,
       "wind": {
-        "speed": 16.2,
-        "direction": 283,
-        "gusts": 39.6
+        "speed": 16.1,
+        "direction": 297,
+        "gusts": 33.8
       }
     },
     {
       "time": "2025-07-25T07:00",
-      "temperature": 17.8,
+      "temperature": 19.2,
       "rain": 0.0,
-      "cloud_cover": 64,
-      "visibility": 24140.0,
+      "cloud_cover": 100,
+      "visibility": 50840.0,
       "wind": {
-        "speed": 17.3,
-        "direction": 282,
-        "gusts": 41.8
+        "speed": 16.1,
+        "direction": 297,
+        "gusts": 33.1
       }
     },
     {
       "time": "2025-07-25T08:00",
-      "temperature": 18.5,
+      "temperature": 19.6,
       "rain": 0.0,
-      "cloud_cover": 59,
-      "visibility": 24140.0,
+      "cloud_cover": 100,
+      "visibility": 52240.0,
       "wind": {
-        "speed": 17.7,
-        "direction": 283,
-        "gusts": 43.9
+        "speed": 16.3,
+        "direction": 298,
+        "gusts": 32.4
       }
     },
     {
@@ -2677,7 +2677,7 @@
     {
       "date": "2025-07-22",
       "temperature": {
-        "max": 26.6,
+        "max": 26.8,
         "min": 17.5
       },
       "sun": {
@@ -2691,8 +2691,8 @@
     {
       "date": "2025-07-23",
       "temperature": {
-        "max": 27.3,
-        "min": 18.3
+        "max": 28.2,
+        "min": 16.9
       },
       "sun": {
         "sunrise": "2025-07-23T05:19",
@@ -2705,8 +2705,8 @@
     {
       "date": "2025-07-24",
       "temperature": {
-        "max": 26.3,
-        "min": 18.9
+        "max": 23.3,
+        "min": 19.2
       },
       "sun": {
         "sunrise": "2025-07-24T05:20",
@@ -2714,13 +2714,13 @@
         "daylight_duration": 55243.62
       },
       "uv_index_max": 5.0,
-      "precipitation_sum": 4.5
+      "precipitation_sum": 5.7
     },
     {
       "date": "2025-07-25",
       "temperature": {
         "max": 25.5,
-        "min": 17.3
+        "min": 18.3
       },
       "sun": {
         "sunrise": "2025-07-25T05:21",
