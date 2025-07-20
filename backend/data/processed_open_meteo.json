@@ -1,10 +1,10 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-07-20T11:54:12.460065+02:00",
+  "last_updated": "2025-07-20T12:25:42.192453+02:00",
   "current_weather": {
-    "time": "2025-07-20T11:45",
+    "time": "2025-07-20T12:15",
     "temperature": {
-      "value": 28.6,
+      "value": 29.1,
       "unit": "\u00b0C",
       "feels_like": 31.2
     },
@@ -13,13 +13,13 @@
       "unit": "mm"
     },
     "wind": {
-      "speed": 5.4,
-      "gusts": 11.2,
-      "direction": 184,
+      "speed": 6.5,
+      "gusts": 11.5,
+      "direction": 180,
       "unit": "km/h"
     },
     "cloud_cover": {
-      "value": 0,
+      "value": 13,
       "unit": "%"
     }
   },
@@ -1071,7 +1071,7 @@
     {
       "time": "2025-07-21T15:00",
       "temperature": 24.1,
-      "rain": 1.2,
+      "rain": 0.0,
       "cloud_cover": 52,
       "visibility": 57380.0,
       "wind": {
@@ -1095,7 +1095,7 @@
     {
       "time": "2025-07-21T17:00",
       "temperature": 23.8,
-      "rain": 0.1,
+      "rain": 0.0,
       "cloud_cover": 17,
       "visibility": 68180.0,
       "wind": {
@@ -1119,7 +1119,7 @@
     {
       "time": "2025-07-21T19:00",
       "temperature": 19.6,
-      "rain": 1.2,
+      "rain": 7.2,
       "cloud_cover": 100,
       "visibility": 3400.0,
       "wind": {
@@ -1131,7 +1131,7 @@
     {
       "time": "2025-07-21T20:00",
       "temperature": 19.0,
-      "rain": 5.7,
+      "rain": 4.8,
       "cloud_cover": 100,
       "visibility": 6980.0,
       "wind": {
@@ -1143,7 +1143,7 @@
     {
       "time": "2025-07-21T21:00",
       "temperature": 19.1,
-      "rain": 0.7,
+      "rain": 0.0,
       "cloud_cover": 91,
       "visibility": 33760.0,
       "wind": {
@@ -2189,7 +2189,7 @@
       "temperature": 23.3,
       "rain": 0.0,
       "cloud_cover": 65,
-      "visibility": 22640.0,
+      "visibility": 22100.0,
       "wind": {
         "speed": 16.4,
         "direction": 299,
@@ -2201,7 +2201,7 @@
       "temperature": 24.3,
       "rain": 0.0,
       "cloud_cover": 82,
-      "visibility": 21120.0,
+      "visibility": 20040.0,
       "wind": {
         "speed": 15.5,
         "direction": 301,
@@ -2213,7 +2213,7 @@
       "temperature": 25.0,
       "rain": 0.0,
       "cloud_cover": 98,
-      "visibility": 19620.0,
+      "visibility": 18000.0,
       "wind": {
         "speed": 14.6,
         "direction": 303,
@@ -2225,7 +2225,7 @@
       "temperature": 25.4,
       "rain": 0.0,
       "cloud_cover": 99,
-      "visibility": 21120.0,
+      "visibility": 20040.0,
       "wind": {
         "speed": 13.7,
         "direction": 305,
@@ -2237,7 +2237,7 @@
       "temperature": 25.5,
       "rain": 0.0,
       "cloud_cover": 99,
-      "visibility": 22640.0,
+      "visibility": 22100.0,
       "wind": {
         "speed": 13.1,
         "direction": 307,
@@ -2441,7 +2441,7 @@
       "temperature": 19.9,
       "rain": 0.0,
       "cloud_cover": 100,
-      "visibility": 21260.0,
+      "visibility": 24140.0,
       "wind": {
         "speed": 18.6,
         "direction": 302,
@@ -2453,7 +2453,7 @@
       "temperature": 21.0,
       "rain": 0.0,
       "cloud_cover": 100,
-      "visibility": 18360.0,
+      "visibility": 24140.0,
       "wind": {
         "speed": 18.6,
         "direction": 313,
@@ -2465,7 +2465,7 @@
       "temperature": 21.9,
       "rain": 0.0,
       "cloud_cover": 100,
-      "visibility": 15480.0,
+      "visibility": 24140.0,
       "wind": {
         "speed": 18.9,
         "direction": 320,
@@ -2477,7 +2477,7 @@
       "temperature": 22.6,
       "rain": 0.0,
       "cloud_cover": 100,
-      "visibility": 18360.0,
+      "visibility": 24140.0,
       "wind": {
         "speed": 18.7,
         "direction": 320,
@@ -2489,7 +2489,7 @@
       "temperature": 23.1,
       "rain": 0.0,
       "cloud_cover": 100,
-      "visibility": 21260.0,
+      "visibility": 24140.0,
       "wind": {
         "speed": 18.1,
         "direction": 319,
@@ -2672,7 +2672,7 @@
         "daylight_duration": 55655.06
       },
       "uv_index_max": 6.8,
-      "precipitation_sum": 9.0
+      "precipitation_sum": 12.0
     },
     {
       "date": "2025-07-22",
