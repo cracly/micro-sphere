@@ -1,21 +1,21 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-09-01T03:58:31.408140+02:00",
+  "last_updated": "2025-09-01T05:25:03.750470+02:00",
   "current_weather": {
-    "time": "2025-09-01T03:45",
+    "time": "2025-09-01T05:15",
     "temperature": {
-      "value": 14.1,
+      "value": 12.8,
       "unit": "\u00b0C",
-      "feels_like": 14.6
+      "feels_like": 13.0
     },
     "precipitation": {
       "value": 0.0,
       "unit": "mm"
     },
     "wind": {
-      "speed": 2.4,
-      "gusts": 5.0,
-      "direction": 207,
+      "speed": 2.6,
+      "gusts": 5.4,
+      "direction": 214,
       "unit": "km/h"
     },
     "cloud_cover": {
@@ -1071,7 +1071,7 @@
     {
       "time": "2025-09-02T15:00",
       "temperature": 21.1,
-      "rain": 0.3,
+      "rain": 0.0,
       "cloud_cover": 100,
       "visibility": 24740.0,
       "wind": {
@@ -1083,7 +1083,7 @@
     {
       "time": "2025-09-02T16:00",
       "temperature": 19.1,
-      "rain": 0.0,
+      "rain": 0.4,
       "cloud_cover": 100,
       "visibility": 32180.0,
       "wind": {
@@ -1119,7 +1119,7 @@
     {
       "time": "2025-09-02T19:00",
       "temperature": 18.3,
-      "rain": 0.0,
+      "rain": 0.4,
       "cloud_cover": 100,
       "visibility": 26660.0,
       "wind": {
@@ -2671,8 +2671,8 @@
         "sunset": "2025-09-02T19:33",
         "daylight_duration": 47998.85
       },
-      "uv_index_max": 5.0,
-      "precipitation_sum": 0.5
+      "uv_index_max": 5.45,
+      "precipitation_sum": 1.0
     },
     {
       "date": "2025-09-03",
@@ -2685,7 +2685,7 @@
         "sunset": "2025-09-03T19:31",
         "daylight_duration": 47797.79
       },
-      "uv_index_max": 5.4,
+      "uv_index_max": 4.9,
       "precipitation_sum": 0.0
     },
     {
@@ -2713,7 +2713,7 @@
         "sunset": "2025-09-05T19:27",
         "daylight_duration": 47395.06
       },
-      "uv_index_max": 5.1,
+      "uv_index_max": 5.2,
       "precipitation_sum": 0.0
     },
     {
@@ -2727,7 +2727,7 @@
         "sunset": "2025-09-06T19:25",
         "daylight_duration": 47191.84
       },
-      "uv_index_max": 5.15,
+      "uv_index_max": 5.2,
       "precipitation_sum": 3.3
     },
     {
@@ -2741,7 +2741,7 @@
         "sunset": "2025-09-07T19:23",
         "daylight_duration": 46987.45
       },
-      "uv_index_max": 5.0,
+      "uv_index_max": 4.85,
       "precipitation_sum": 0.0
     }
   ]
