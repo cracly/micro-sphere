@@ -1,25 +1,25 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-09-08T11:54:56.601101+02:00",
+  "last_updated": "2025-09-08T12:24:02.633201+02:00",
   "current_weather": {
-    "time": "2025-09-08T11:45",
+    "time": "2025-09-08T12:15",
     "temperature": {
-      "value": 20.5,
+      "value": 21.2,
       "unit": "\u00b0C",
-      "feels_like": 21.5
+      "feels_like": 22.3
     },
     "precipitation": {
       "value": 0.0,
       "unit": "mm"
     },
     "wind": {
-      "speed": 4.1,
-      "gusts": 9.0,
-      "direction": 15,
+      "speed": 4.5,
+      "gusts": 10.8,
+      "direction": 29,
       "unit": "km/h"
     },
     "cloud_cover": {
-      "value": 39,
+      "value": 49,
       "unit": "%"
     }
   },
@@ -1143,7 +1143,7 @@
     {
       "time": "2025-09-09T21:00",
       "temperature": 21.4,
-      "rain": 0.0,
+      "rain": 0.1,
       "cloud_cover": 100,
       "visibility": 65800.0,
       "wind": {
@@ -1155,7 +1155,7 @@
     {
       "time": "2025-09-09T22:00",
       "temperature": 20.0,
-      "rain": 0.0,
+      "rain": 1.0,
       "cloud_cover": 98,
       "visibility": 53920.0,
       "wind": {
@@ -1167,7 +1167,7 @@
     {
       "time": "2025-09-09T23:00",
       "temperature": 19.3,
-      "rain": 0.0,
+      "rain": 0.7,
       "cloud_cover": 100,
       "visibility": 31300.0,
       "wind": {
@@ -1179,7 +1179,7 @@
     {
       "time": "2025-09-10T00:00",
       "temperature": 18.9,
-      "rain": 0.0,
+      "rain": 0.2,
       "cloud_cover": 100,
       "visibility": 27700.0,
       "wind": {
@@ -1191,7 +1191,7 @@
     {
       "time": "2025-09-10T01:00",
       "temperature": 18.7,
-      "rain": 0.0,
+      "rain": 0.3,
       "cloud_cover": 100,
       "visibility": 29220.0,
       "wind": {
@@ -2672,7 +2672,7 @@
         "daylight_duration": 46575.7
       },
       "uv_index_max": 5.2,
-      "precipitation_sum": 0.0
+      "precipitation_sum": 1.8
     },
     {
       "date": "2025-09-10",
@@ -2686,7 +2686,7 @@
         "daylight_duration": 46368.59
       },
       "uv_index_max": 2.5,
-      "precipitation_sum": 2.6
+      "precipitation_sum": 3.3
     },
     {
       "date": "2025-09-11",
