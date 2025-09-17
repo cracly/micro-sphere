@@ -1,109 +1,118 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-09-17T20:31:00.736465+02:00",
+  "last_updated": "2025-09-17T20:53:30.091005+02:00",
   "source": "Geosphere",
   "forecast_type": "nowcast",
   "forecast_period": "3 hour",
   "resolution": "15 minute",
   "forecast_data": [
     {
-      "time": "2025-09-17T18:30+00:00",
-      "temperature": 16.11,
-      "precipitation": 0.0,
-      "dew_point": 7.75,
-      "wind_direction": 280.5,
-      "wind_speed": 2.73,
-      "wind_gust": 4.02
-    },
-    {
       "time": "2025-09-17T18:45+00:00",
-      "temperature": 16.03,
+      "temperature": 15.67,
       "precipitation": 0.0,
-      "dew_point": 7.61,
-      "wind_direction": 280.8,
-      "wind_speed": 2.7,
-      "wind_gust": 4.02
+      "dew_point": 7.95,
+      "wind_direction": 277.9,
+      "wind_speed": 3.4,
+      "wind_gust": 4.84
     },
     {
       "time": "2025-09-17T19:00+00:00",
-      "temperature": 16.04,
+      "temperature": 15.58,
       "precipitation": 0.0,
-      "dew_point": 7.4,
-      "wind_direction": 281.1,
-      "wind_speed": 2.67,
-      "wind_gust": 4.02
+      "dew_point": 7.82,
+      "wind_direction": 278.1,
+      "wind_speed": 3.37,
+      "wind_gust": 4.84
     },
     {
       "time": "2025-09-17T19:15+00:00",
-      "temperature": 16.08,
+      "temperature": 15.48,
       "precipitation": 0.0,
-      "dew_point": 7.2,
-      "wind_direction": 280.8,
-      "wind_speed": 2.65,
-      "wind_gust": 4.02
+      "dew_point": 7.76,
+      "wind_direction": 277.8,
+      "wind_speed": 3.35,
+      "wind_gust": 4.84
     },
     {
       "time": "2025-09-17T19:30+00:00",
-      "temperature": 16.13,
+      "temperature": 15.52,
       "precipitation": 0.0,
-      "dew_point": 7.01,
-      "wind_direction": 280.4,
-      "wind_speed": 2.63,
-      "wind_gust": 4.02
+      "dew_point": 7.56,
+      "wind_direction": 277.6,
+      "wind_speed": 3.32,
+      "wind_gust": 4.84
     },
     {
       "time": "2025-09-17T19:45+00:00",
-      "temperature": 16.14,
+      "temperature": 15.66,
       "precipitation": 0.0,
-      "dew_point": 6.84,
-      "wind_direction": 280.1,
-      "wind_speed": 2.6,
-      "wind_gust": 4.02
+      "dew_point": 7.28,
+      "wind_direction": 277.3,
+      "wind_speed": 3.3,
+      "wind_gust": 4.84
     },
     {
       "time": "2025-09-17T20:00+00:00",
-      "temperature": 16.1,
+      "temperature": 15.79,
       "precipitation": 0.0,
-      "dew_point": 6.71,
-      "wind_direction": 279.8,
-      "wind_speed": 2.58,
-      "wind_gust": 4.02
+      "dew_point": 7.0,
+      "wind_direction": 277.0,
+      "wind_speed": 3.28,
+      "wind_gust": 4.84
     },
     {
       "time": "2025-09-17T20:15+00:00",
-      "temperature": 15.84,
+      "temperature": 15.67,
       "precipitation": 0.0,
-      "dew_point": 6.66,
-      "wind_direction": 280.5,
-      "wind_speed": 2.55,
-      "wind_gust": 4.05
+      "dew_point": 6.82,
+      "wind_direction": 277.3,
+      "wind_speed": 3.26,
+      "wind_gust": 4.84
     },
     {
       "time": "2025-09-17T20:30+00:00",
-      "temperature": 15.55,
+      "temperature": 15.48,
       "precipitation": 0.0,
-      "dew_point": 6.63,
-      "wind_direction": 281.2,
-      "wind_speed": 2.51,
-      "wind_gust": 4.08
+      "dew_point": 6.7,
+      "wind_direction": 277.6,
+      "wind_speed": 3.25,
+      "wind_gust": 4.84
     },
     {
       "time": "2025-09-17T20:45+00:00",
-      "temperature": 15.26,
+      "temperature": 15.23,
       "precipitation": 0.0,
-      "dew_point": 6.6,
-      "wind_direction": 282.0,
-      "wind_speed": 2.48,
-      "wind_gust": 4.1
+      "dew_point": 6.63,
+      "wind_direction": 278.3,
+      "wind_speed": 3.17,
+      "wind_gust": 4.9
     },
     {
       "time": "2025-09-17T21:00+00:00",
-      "temperature": 14.97,
+      "temperature": 14.96,
       "precipitation": 0.0,
-      "dew_point": 6.58,
-      "wind_direction": 282.8,
-      "wind_speed": 2.45,
-      "wind_gust": 4.11
+      "dew_point": 6.59,
+      "wind_direction": 279.0,
+      "wind_speed": 3.09,
+      "wind_gust": 4.93
+    },
+    {
+      "time": "2025-09-17T21:15+00:00",
+      "temperature": 14.66,
+      "precipitation": 0.0,
+      "dew_point": 6.59,
+      "wind_direction": 278.9,
+      "wind_speed": 3.1,
+      "wind_gust": 4.99
+    },
+    {
+      "time": "2025-09-17T21:30+00:00",
+      "temperature": 14.36,
+      "precipitation": 0.0,
+      "dew_point": 6.59,
+      "wind_direction": 278.9,
+      "wind_speed": 3.11,
+      "wind_gust": 5.04
     }
   ],
   "units": {
