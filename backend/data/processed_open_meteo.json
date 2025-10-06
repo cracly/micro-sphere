@@ -1,25 +1,25 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-10-06T14:46:27.259775+02:00",
+  "last_updated": "2025-10-06T15:31:21.767296+02:00",
   "current_weather": {
-    "time": "2025-10-06T14:45",
+    "time": "2025-10-06T15:30",
     "temperature": {
-      "value": 12.6,
+      "value": 13.1,
       "unit": "\u00b0C",
-      "feels_like": 8.4
+      "feels_like": 9.2
     },
     "precipitation": {
       "value": 0.0,
       "unit": "mm"
     },
     "wind": {
-      "speed": 23.7,
-      "gusts": 45.4,
+      "speed": 21.7,
+      "gusts": 43.6,
       "direction": 294,
       "unit": "km/h"
     },
     "cloud_cover": {
-      "value": 99,
+      "value": 70,
       "unit": "%"
     }
   },
@@ -783,7 +783,7 @@
     {
       "time": "2025-10-06T15:00",
       "temperature": 12.6,
-      "rain": 0.2,
+      "rain": 0.1,
       "cloud_cover": 70,
       "visibility": 45760.0,
       "wind": {
@@ -831,7 +831,7 @@
     {
       "time": "2025-10-06T19:00",
       "temperature": 11.4,
-      "rain": 0.1,
+      "rain": 0.0,
       "cloud_cover": 94,
       "visibility": 40820.0,
       "wind": {
@@ -843,7 +843,7 @@
     {
       "time": "2025-10-06T20:00",
       "temperature": 11.1,
-      "rain": 0.1,
+      "rain": 0.0,
       "cloud_cover": 91,
       "visibility": 38160.0,
       "wind": {
@@ -855,7 +855,7 @@
     {
       "time": "2025-10-06T21:00",
       "temperature": 10.9,
-      "rain": 0.4,
+      "rain": 0.0,
       "cloud_cover": 100,
       "visibility": 35900.0,
       "wind": {
@@ -867,7 +867,7 @@
     {
       "time": "2025-10-06T22:00",
       "temperature": 10.9,
-      "rain": 0.1,
+      "rain": 0.0,
       "cloud_cover": 100,
       "visibility": 31720.0,
       "wind": {
@@ -891,7 +891,7 @@
     {
       "time": "2025-10-07T00:00",
       "temperature": 10.7,
-      "rain": 0.3,
+      "rain": 0.5,
       "cloud_cover": 100,
       "visibility": 24380.0,
       "wind": {
@@ -903,7 +903,7 @@
     {
       "time": "2025-10-07T01:00",
       "temperature": 10.7,
-      "rain": 0.1,
+      "rain": 0.0,
       "cloud_cover": 94,
       "visibility": 22220.0,
       "wind": {
@@ -927,7 +927,7 @@
     {
       "time": "2025-10-07T03:00",
       "temperature": 10.7,
-      "rain": 0.0,
+      "rain": 0.2,
       "cloud_cover": 95,
       "visibility": 20360.0,
       "wind": {
@@ -939,7 +939,7 @@
     {
       "time": "2025-10-07T04:00",
       "temperature": 10.7,
-      "rain": 0.2,
+      "rain": 0.3,
       "cloud_cover": 94,
       "visibility": 17100.0,
       "wind": {
@@ -2658,7 +2658,7 @@
         "daylight_duration": 40950.98
       },
       "uv_index_max": 2.15,
-      "precipitation_sum": 4.6
+      "precipitation_sum": 3.8
     },
     {
       "date": "2025-10-07",
@@ -2672,7 +2672,7 @@
         "daylight_duration": 40742.51
       },
       "uv_index_max": 2.95,
-      "precipitation_sum": 0.6
+      "precipitation_sum": 1.0
     },
     {
       "date": "2025-10-08",
