@@ -1,21 +1,21 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-11-25T12:52:40.939469+01:00",
+  "last_updated": "2025-11-25T13:49:43.956745+01:00",
   "current_weather": {
-    "time": "2025-11-25T12:45",
+    "time": "2025-11-25T13:45",
     "temperature": {
-      "value": 3.6,
+      "value": 3.3,
       "unit": "\u00b0C",
-      "feels_like": 0.4
+      "feels_like": -0.1
     },
     "precipitation": {
-      "value": 0.0,
+      "value": 0.08,
       "unit": "mm"
     },
     "wind": {
-      "speed": 8.7,
-      "gusts": 15.1,
-      "direction": 312,
+      "speed": 10.4,
+      "gusts": 17.3,
+      "direction": 304,
       "unit": "km/h"
     },
     "cloud_cover": {
@@ -1274,38 +1274,38 @@
     },
     {
       "time": "2025-11-27T08:00",
-      "temperature": 1.9,
+      "temperature": 1.7,
       "rain": 0.0,
-      "cloud_cover": 68,
-      "visibility": 23500.0,
+      "cloud_cover": 60,
+      "visibility": 22035.0,
       "wind": {
-        "speed": 17.8,
-        "direction": 302,
-        "gusts": 32.0
+        "speed": 16.6,
+        "direction": 303,
+        "gusts": 30.8
       }
     },
     {
       "time": "2025-11-27T09:00",
-      "temperature": 2.4,
+      "temperature": 2.2,
       "rain": 0.0,
-      "cloud_cover": 44,
-      "visibility": 27660.0,
+      "cloud_cover": 42,
+      "visibility": 24120.0,
       "wind": {
-        "speed": 16.9,
-        "direction": 304,
-        "gusts": 32.0
+        "speed": 15.9,
+        "direction": 310,
+        "gusts": 30.2
       }
     },
     {
       "time": "2025-11-27T10:00",
-      "temperature": 3.3,
+      "temperature": 3.0,
       "rain": 0.0,
-      "cloud_cover": 79,
-      "visibility": 33440.0,
+      "cloud_cover": 63,
+      "visibility": 33125.0,
       "wind": {
-        "speed": 16.8,
-        "direction": 305,
-        "gusts": 29.9
+        "speed": 17.6,
+        "direction": 316,
+        "gusts": 33.1
       }
     },
     {
@@ -2104,36 +2104,36 @@
       "time": "2025-11-30T05:00",
       "temperature": -0.9,
       "rain": 0.0,
-      "cloud_cover": 53,
-      "visibility": 16800.0,
+      "cloud_cover": 47,
+      "visibility": 18635.0,
       "wind": {
-        "speed": 1.1,
-        "direction": 90,
-        "gusts": 4.7
+        "speed": 1.8,
+        "direction": 100,
+        "gusts": 7.0
       }
     },
     {
       "time": "2025-11-30T06:00",
-      "temperature": -1.1,
+      "temperature": -1.2,
       "rain": 0.0,
-      "cloud_cover": 37,
-      "visibility": 18120.0,
+      "cloud_cover": 26,
+      "visibility": 21130.0,
       "wind": {
-        "speed": 1.9,
-        "direction": 68,
-        "gusts": 5.0
+        "speed": 3.3,
+        "direction": 98,
+        "gusts": 10.6
       }
     },
     {
       "time": "2025-11-30T07:00",
-      "temperature": -1.2,
+      "temperature": -1.4,
       "rain": 0.0,
-      "cloud_cover": 21,
-      "visibility": 19440.0,
+      "cloud_cover": 5,
+      "visibility": 22965.0,
       "wind": {
-        "speed": 2.7,
-        "direction": 67,
-        "gusts": 5.0
+        "speed": 4.4,
+        "direction": 111,
+        "gusts": 14.8
       }
     },
     {
@@ -2657,7 +2657,7 @@
         "sunset": "2025-11-25T16:06",
         "daylight_duration": 31844.48
       },
-      "uv_index_max": 0.7,
+      "uv_index_max": 0.65,
       "precipitation_sum": 4.9
     },
     {
@@ -2671,7 +2671,7 @@
         "sunset": "2025-11-26T16:05",
         "daylight_duration": 31720.07
       },
-      "uv_index_max": 0.7,
+      "uv_index_max": 0.45,
       "precipitation_sum": 0.0
     },
     {
@@ -2713,21 +2713,21 @@
         "sunset": "2025-11-29T16:04",
         "daylight_duration": 31366.51
       },
-      "uv_index_max": 1.6,
+      "uv_index_max": 1.65,
       "precipitation_sum": 0.0
     },
     {
       "date": "2025-11-30",
       "temperature": {
         "max": 2.7,
-        "min": -1.2
+        "min": -1.4
       },
       "sun": {
         "sunrise": "2025-11-30T07:22",
         "sunset": "2025-11-30T16:03",
         "daylight_duration": 31255.8
       },
-      "uv_index_max": 0.95,
+      "uv_index_max": 1.35,
       "precipitation_sum": 0.0
     },
     {
@@ -2741,7 +2741,7 @@
         "sunset": "2025-12-01T16:02",
         "daylight_duration": 31148.97
       },
-      "uv_index_max": 1.1,
+      "uv_index_max": 0.95,
       "precipitation_sum": 0.6
     }
   ]
