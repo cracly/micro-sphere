@@ -1,8 +1,8 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-12-06T08:20:58.270780+01:00",
+  "last_updated": "2025-12-06T08:38:58.234658+01:00",
   "current_weather": {
-    "time": "2025-12-06T08:15",
+    "time": "2025-12-06T08:30",
     "temperature": {
       "value": 3.9,
       "unit": "\u00b0C",
@@ -13,8 +13,8 @@
       "unit": "mm"
     },
     "wind": {
-      "speed": 2.5,
-      "gusts": 4.7,
+      "speed": 2.2,
+      "gusts": 5.0,
       "direction": 90,
       "unit": "km/h"
     },
@@ -807,7 +807,7 @@
     {
       "time": "2025-12-06T17:00",
       "temperature": 6.1,
-      "rain": 0.7,
+      "rain": 0.0,
       "cloud_cover": 98,
       "visibility": 8160.0,
       "wind": {
@@ -819,7 +819,7 @@
     {
       "time": "2025-12-06T18:00",
       "temperature": 5.8,
-      "rain": 0.2,
+      "rain": 0.0,
       "cloud_cover": 96,
       "visibility": 5800.0,
       "wind": {
@@ -867,7 +867,7 @@
     {
       "time": "2025-12-06T22:00",
       "temperature": 4.1,
-      "rain": 0.0,
+      "rain": 0.4,
       "cloud_cover": 100,
       "visibility": 1460.0,
       "wind": {
@@ -1239,7 +1239,7 @@
     {
       "time": "2025-12-08T05:00",
       "temperature": 4.8,
-      "rain": 0.2,
+      "rain": 0.1,
       "cloud_cover": 100,
       "visibility": 2240.0,
       "wind": {
@@ -1251,7 +1251,7 @@
     {
       "time": "2025-12-08T06:00",
       "temperature": 4.9,
-      "rain": 0.4,
+      "rain": 0.3,
       "cloud_cover": 100,
       "visibility": 1680.0,
       "wind": {
@@ -2658,7 +2658,7 @@
         "daylight_duration": 30679.39
       },
       "uv_index_max": 1.0,
-      "precipitation_sum": 1.1
+      "precipitation_sum": 0.2
     },
     {
       "date": "2025-12-07",
@@ -2672,7 +2672,7 @@
         "daylight_duration": 30599.71
       },
       "uv_index_max": 1.5,
-      "precipitation_sum": 0.1
+      "precipitation_sum": 0.5
     },
     {
       "date": "2025-12-08",
@@ -2686,7 +2686,7 @@
         "daylight_duration": 30525.19
       },
       "uv_index_max": 0.1,
-      "precipitation_sum": 3.25
+      "precipitation_sum": 3.08
     },
     {
       "date": "2025-12-09",
