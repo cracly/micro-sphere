@@ -1,25 +1,25 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-12-19T22:53:02.106343+01:00",
+  "last_updated": "2025-12-19T23:23:49.098143+01:00",
   "current_weather": {
-    "time": "2025-12-19T22:45",
+    "time": "2025-12-19T23:15",
     "temperature": {
-      "value": 3.7,
+      "value": 3.5,
       "unit": "\u00b0C",
-      "feels_like": 1.4
+      "feels_like": 1.1
     },
     "precipitation": {
       "value": 0.0,
       "unit": "mm"
     },
     "wind": {
-      "speed": 4.0,
-      "gusts": 7.6,
+      "speed": 4.3,
+      "gusts": 7.9,
       "direction": 275,
       "unit": "km/h"
     },
     "cloud_cover": {
-      "value": 94,
+      "value": 91,
       "unit": "%"
     }
   },
@@ -2246,38 +2246,38 @@
     },
     {
       "time": "2025-12-24T17:00",
-      "temperature": 1.8,
-      "rain": 0.15,
+      "temperature": 0.8,
+      "rain": 0.08,
       "cloud_cover": 100,
       "visibility": 5130.0,
       "wind": {
-        "speed": 12.1,
-        "direction": 35,
-        "gusts": 25.4
+        "speed": 11.5,
+        "direction": 16,
+        "gusts": 24.6
       }
     },
     {
       "time": "2025-12-24T18:00",
-      "temperature": 2.5,
-      "rain": 0.2,
+      "temperature": 0.3,
+      "rain": 0.05,
       "cloud_cover": 100,
       "visibility": 3660.0,
       "wind": {
-        "speed": 11.4,
-        "direction": 57,
-        "gusts": 27.0
+        "speed": 9.9,
+        "direction": 19,
+        "gusts": 23.9
       }
     },
     {
       "time": "2025-12-24T19:00",
-      "temperature": 3.3,
-      "rain": 0.25,
+      "temperature": -0.0,
+      "rain": 0.03,
       "cloud_cover": 100,
       "visibility": 2115.0,
       "wind": {
-        "speed": 11.1,
-        "direction": 80,
-        "gusts": 28.8
+        "speed": 8.2,
+        "direction": 23,
+        "gusts": 23.1
       }
     },
     {
@@ -2720,7 +2720,7 @@
       "date": "2025-12-24",
       "temperature": {
         "max": 4.5,
-        "min": 0.2
+        "min": -0.0
       },
       "sun": {
         "sunrise": "2025-12-24T07:43",
@@ -2728,7 +2728,7 @@
         "daylight_duration": 30083.94
       },
       "uv_index_max": 0.7,
-      "precipitation_sum": 22.1
+      "precipitation_sum": 22.25
     },
     {
       "date": "2025-12-25",
