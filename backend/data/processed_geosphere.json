@@ -1,118 +1,118 @@
 {
   "location": "Kledering",
-  "last_updated": "2025-12-24T00:53:21.096530+01:00",
+  "last_updated": "2025-12-24T02:55:05.946103+01:00",
   "source": "Geosphere",
   "forecast_type": "nowcast",
   "forecast_period": "3 hour",
   "resolution": "15 minute",
   "forecast_data": [
     {
-      "time": "2025-12-23T23:45+00:00",
-      "temperature": 1.9,
-      "precipitation": 0.01,
-      "dew_point": 1.13,
-      "wind_direction": 23.1,
-      "wind_speed": 3.63,
-      "wind_gust": 6.42
-    },
-    {
-      "time": "2025-12-24T00:00+00:00",
-      "temperature": 1.73,
-      "precipitation": 0.01,
-      "dew_point": 0.97,
-      "wind_direction": 22.9,
-      "wind_speed": 3.63,
-      "wind_gust": 6.42
-    },
-    {
-      "time": "2025-12-24T00:15+00:00",
-      "temperature": 1.57,
-      "precipitation": 0.02,
-      "dew_point": 0.84,
-      "wind_direction": 22.7,
-      "wind_speed": 3.63,
-      "wind_gust": 6.42
-    },
-    {
-      "time": "2025-12-24T00:30+00:00",
-      "temperature": 1.4,
-      "precipitation": 0.02,
-      "dew_point": 0.73,
-      "wind_direction": 22.5,
-      "wind_speed": 3.63,
-      "wind_gust": 6.42
-    },
-    {
-      "time": "2025-12-24T00:45+00:00",
-      "temperature": 1.23,
-      "precipitation": 0.03,
-      "dew_point": 0.64,
-      "wind_direction": 22.3,
-      "wind_speed": 3.63,
-      "wind_gust": 6.42
-    },
-    {
-      "time": "2025-12-24T01:00+00:00",
-      "temperature": 1.06,
-      "precipitation": 0.04,
-      "dew_point": 0.55,
-      "wind_direction": 22.1,
-      "wind_speed": 3.64,
-      "wind_gust": 6.43
-    },
-    {
-      "time": "2025-12-24T01:15+00:00",
-      "temperature": 0.96,
-      "precipitation": 0.04,
-      "dew_point": 0.46,
-      "wind_direction": 22.4,
-      "wind_speed": 3.64,
-      "wind_gust": 6.44
-    },
-    {
-      "time": "2025-12-24T01:30+00:00",
-      "temperature": 0.87,
-      "precipitation": 0.05,
-      "dew_point": 0.37,
-      "wind_direction": 22.6,
-      "wind_speed": 3.66,
-      "wind_gust": 6.48
-    },
-    {
       "time": "2025-12-24T01:45+00:00",
-      "temperature": 0.78,
-      "precipitation": 0.06,
-      "dew_point": 0.26,
-      "wind_direction": 22.5,
+      "temperature": 1.23,
+      "precipitation": 0.0,
+      "dew_point": 0.53,
+      "wind_direction": 20.5,
       "wind_speed": 3.7,
-      "wind_gust": 6.55
+      "wind_gust": 6.32
     },
     {
       "time": "2025-12-24T02:00+00:00",
-      "temperature": 0.69,
-      "precipitation": 0.07,
-      "dew_point": 0.15,
-      "wind_direction": 22.4,
+      "temperature": 1.16,
+      "precipitation": 0.0,
+      "dew_point": 0.42,
+      "wind_direction": 20.6,
       "wind_speed": 3.73,
-      "wind_gust": 6.63
+      "wind_gust": 6.37
     },
     {
       "time": "2025-12-24T02:15+00:00",
-      "temperature": 0.63,
-      "precipitation": 0.08,
-      "dew_point": 0.06,
-      "wind_direction": 22.4,
-      "wind_speed": 3.73,
-      "wind_gust": 6.64
+      "temperature": 1.1,
+      "precipitation": 0.01,
+      "dew_point": 0.34,
+      "wind_direction": 20.6,
+      "wind_speed": 3.72,
+      "wind_gust": 6.36
     },
     {
       "time": "2025-12-24T02:30+00:00",
-      "temperature": 0.56,
-      "precipitation": 0.09,
-      "dew_point": -0.03,
-      "wind_direction": 22.3,
+      "temperature": 0.97,
+      "precipitation": 0.01,
+      "dew_point": 0.21,
+      "wind_direction": 20.5,
       "wind_speed": 3.72,
-      "wind_gust": 6.64
+      "wind_gust": 6.34
+    },
+    {
+      "time": "2025-12-24T02:45+00:00",
+      "temperature": 0.79,
+      "precipitation": 0.03,
+      "dew_point": 0.05,
+      "wind_direction": 20.4,
+      "wind_speed": 3.71,
+      "wind_gust": 6.33
+    },
+    {
+      "time": "2025-12-24T03:00+00:00",
+      "temperature": 0.62,
+      "precipitation": 0.05,
+      "dew_point": -0.11,
+      "wind_direction": 20.3,
+      "wind_speed": 3.71,
+      "wind_gust": 6.33
+    },
+    {
+      "time": "2025-12-24T03:15+00:00",
+      "temperature": 0.48,
+      "precipitation": 0.06,
+      "dew_point": -0.22,
+      "wind_direction": 20.1,
+      "wind_speed": 3.7,
+      "wind_gust": 6.32
+    },
+    {
+      "time": "2025-12-24T03:30+00:00",
+      "temperature": 0.39,
+      "precipitation": 0.07,
+      "dew_point": -0.3,
+      "wind_direction": 19.8,
+      "wind_speed": 3.7,
+      "wind_gust": 6.32
+    },
+    {
+      "time": "2025-12-24T03:45+00:00",
+      "temperature": 0.32,
+      "precipitation": 0.08,
+      "dew_point": -0.37,
+      "wind_direction": 19.5,
+      "wind_speed": 3.7,
+      "wind_gust": 6.35
+    },
+    {
+      "time": "2025-12-24T04:00+00:00",
+      "temperature": 0.27,
+      "precipitation": 0.08,
+      "dew_point": -0.44,
+      "wind_direction": 19.4,
+      "wind_speed": 3.69,
+      "wind_gust": 6.37
+    },
+    {
+      "time": "2025-12-24T04:15+00:00",
+      "temperature": 0.24,
+      "precipitation": 0.09,
+      "dew_point": -0.48,
+      "wind_direction": 19.6,
+      "wind_speed": 3.68,
+      "wind_gust": 6.4
+    },
+    {
+      "time": "2025-12-24T04:30+00:00",
+      "temperature": 0.22,
+      "precipitation": 0.1,
+      "dew_point": -0.52,
+      "wind_direction": 19.9,
+      "wind_speed": 3.68,
+      "wind_gust": 6.42
     }
   ],
   "units": {
