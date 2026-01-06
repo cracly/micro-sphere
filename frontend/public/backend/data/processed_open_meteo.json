@@ -1,12 +1,12 @@
 {
   "location": "Kledering",
-  "last_updated": "2026-01-06T23:47:47.022485+01:00",
+  "last_updated": "2026-01-07T00:24:39.573474+01:00",
   "current_weather": {
-    "time": "2026-01-06T23:45",
+    "time": "2026-01-07T00:15",
     "temperature": {
       "value": -2.7,
       "unit": "\u00b0C",
-      "feels_like": -8.4
+      "feels_like": -8.5
     },
     "precipitation": {
       "value": 0.0,
@@ -14,7 +14,7 @@
     },
     "wind": {
       "speed": 17.3,
-      "gusts": 31.7,
+      "gusts": 32.0,
       "direction": 317,
       "unit": "km/h"
     },
@@ -24,294 +24,6 @@
     }
   },
   "hourly_forecast": [
-    {
-      "time": "2026-01-04T00:00",
-      "temperature": 1.6,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 76560.0,
-      "wind": {
-        "speed": 8.8,
-        "direction": 279,
-        "gusts": 15.1
-      }
-    },
-    {
-      "time": "2026-01-04T01:00",
-      "temperature": 1.2,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 71540.0,
-      "wind": {
-        "speed": 15.0,
-        "direction": 291,
-        "gusts": 35.6
-      }
-    },
-    {
-      "time": "2026-01-04T02:00",
-      "temperature": 0.8,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 71100.0,
-      "wind": {
-        "speed": 12.2,
-        "direction": 284,
-        "gusts": 30.6
-      }
-    },
-    {
-      "time": "2026-01-04T03:00",
-      "temperature": 0.6,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 71660.0,
-      "wind": {
-        "speed": 13.5,
-        "direction": 279,
-        "gusts": 24.1
-      }
-    },
-    {
-      "time": "2026-01-04T04:00",
-      "temperature": 0.3,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 70820.0,
-      "wind": {
-        "speed": 19.4,
-        "direction": 292,
-        "gusts": 27.0
-      }
-    },
-    {
-      "time": "2026-01-04T05:00",
-      "temperature": 0.1,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 70520.0,
-      "wind": {
-        "speed": 16.1,
-        "direction": 290,
-        "gusts": 32.0
-      }
-    },
-    {
-      "time": "2026-01-04T06:00",
-      "temperature": -0.1,
-      "rain": 0.0,
-      "cloud_cover": 100,
-      "visibility": 68680.0,
-      "wind": {
-        "speed": 15.0,
-        "direction": 291,
-        "gusts": 26.3
-      }
-    },
-    {
-      "time": "2026-01-04T07:00",
-      "temperature": -0.3,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 72800.0,
-      "wind": {
-        "speed": 18.9,
-        "direction": 288,
-        "gusts": 34.6
-      }
-    },
-    {
-      "time": "2026-01-04T08:00",
-      "temperature": -0.4,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 72080.0,
-      "wind": {
-        "speed": 12.2,
-        "direction": 284,
-        "gusts": 30.6
-      }
-    },
-    {
-      "time": "2026-01-04T09:00",
-      "temperature": -0.3,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 71480.0,
-      "wind": {
-        "speed": 14.8,
-        "direction": 271,
-        "gusts": 24.1
-      }
-    },
-    {
-      "time": "2026-01-04T10:00",
-      "temperature": 0.7,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 73800.0,
-      "wind": {
-        "speed": 16.2,
-        "direction": 273,
-        "gusts": 27.4
-      }
-    },
-    {
-      "time": "2026-01-04T11:00",
-      "temperature": 1.6,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 74540.0,
-      "wind": {
-        "speed": 16.6,
-        "direction": 268,
-        "gusts": 27.7
-      }
-    },
-    {
-      "time": "2026-01-04T12:00",
-      "temperature": 2.2,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 75080.0,
-      "wind": {
-        "speed": 19.1,
-        "direction": 271,
-        "gusts": 32.0
-      }
-    },
-    {
-      "time": "2026-01-04T13:00",
-      "temperature": 2.6,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 75800.0,
-      "wind": {
-        "speed": 18.4,
-        "direction": 269,
-        "gusts": 32.0
-      }
-    },
-    {
-      "time": "2026-01-04T14:00",
-      "temperature": 2.6,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 75880.0,
-      "wind": {
-        "speed": 15.9,
-        "direction": 265,
-        "gusts": 31.0
-      }
-    },
-    {
-      "time": "2026-01-04T15:00",
-      "temperature": 2.5,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 76040.0,
-      "wind": {
-        "speed": 12.6,
-        "direction": 257,
-        "gusts": 25.2
-      }
-    },
-    {
-      "time": "2026-01-04T16:00",
-      "temperature": 1.9,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 76960.0,
-      "wind": {
-        "speed": 9.0,
-        "direction": 272,
-        "gusts": 20.2
-      }
-    },
-    {
-      "time": "2026-01-04T17:00",
-      "temperature": 1.1,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 76720.0,
-      "wind": {
-        "speed": 9.9,
-        "direction": 289,
-        "gusts": 18.0
-      }
-    },
-    {
-      "time": "2026-01-04T18:00",
-      "temperature": 0.4,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 75860.0,
-      "wind": {
-        "speed": 7.2,
-        "direction": 273,
-        "gusts": 15.5
-      }
-    },
-    {
-      "time": "2026-01-04T19:00",
-      "temperature": -1.0,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 73580.0,
-      "wind": {
-        "speed": 3.1,
-        "direction": 234,
-        "gusts": 10.1
-      }
-    },
-    {
-      "time": "2026-01-04T20:00",
-      "temperature": -1.1,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 70680.0,
-      "wind": {
-        "speed": 1.0,
-        "direction": 45,
-        "gusts": 3.6
-      }
-    },
-    {
-      "time": "2026-01-04T21:00",
-      "temperature": -1.9,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 64160.0,
-      "wind": {
-        "speed": 3.6,
-        "direction": 53,
-        "gusts": 5.8
-      }
-    },
-    {
-      "time": "2026-01-04T22:00",
-      "temperature": -2.7,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 68900.0,
-      "wind": {
-        "speed": 1.8,
-        "direction": 53,
-        "gusts": 6.1
-      }
-    },
-    {
-      "time": "2026-01-04T23:00",
-      "temperature": -3.1,
-      "rain": 0.0,
-      "cloud_cover": 0,
-      "visibility": 64560.0,
-      "wind": {
-        "speed": 3.1,
-        "direction": 69,
-        "gusts": 5.0
-      }
-    },
     {
       "time": "2026-01-05T00:00",
       "temperature": -3.8,
@@ -2615,23 +2327,297 @@
         "direction": 135,
         "gusts": 18.4
       }
+    },
+    {
+      "time": "2026-01-13T00:00",
+      "temperature": -6.6,
+      "rain": 0.1,
+      "cloud_cover": 98,
+      "visibility": 24140.0,
+      "wind": {
+        "speed": 5.6,
+        "direction": 140,
+        "gusts": 18.0
+      }
+    },
+    {
+      "time": "2026-01-13T01:00",
+      "temperature": -6.5,
+      "rain": 0.1,
+      "cloud_cover": 97,
+      "visibility": 24140.0,
+      "wind": {
+        "speed": 5.4,
+        "direction": 143,
+        "gusts": 16.9
+      }
+    },
+    {
+      "time": "2026-01-13T02:00",
+      "temperature": -6.4,
+      "rain": 0.6,
+      "cloud_cover": 97,
+      "visibility": 24140.0,
+      "wind": {
+        "speed": 4.6,
+        "direction": 141,
+        "gusts": 15.1
+      }
+    },
+    {
+      "time": "2026-01-13T03:00",
+      "temperature": -6.2,
+      "rain": 0.6,
+      "cloud_cover": 96,
+      "visibility": 24140.0,
+      "wind": {
+        "speed": 3.3,
+        "direction": 131,
+        "gusts": 13.0
+      }
+    },
+    {
+      "time": "2026-01-13T04:00",
+      "temperature": -6.1,
+      "rain": 0.6,
+      "cloud_cover": 96,
+      "visibility": 24140.0,
+      "wind": {
+        "speed": 2.9,
+        "direction": 120,
+        "gusts": 11.5
+      }
+    },
+    {
+      "time": "2026-01-13T05:00",
+      "temperature": -6.0,
+      "rain": 0.0,
+      "cloud_cover": 97,
+      "visibility": 23340.0,
+      "wind": {
+        "speed": 2.7,
+        "direction": 113,
+        "gusts": 11.2
+      }
+    },
+    {
+      "time": "2026-01-13T06:00",
+      "temperature": -5.8,
+      "rain": 0.0,
+      "cloud_cover": 99,
+      "visibility": 22540.0,
+      "wind": {
+        "speed": 3.1,
+        "direction": 111,
+        "gusts": 11.2
+      }
+    },
+    {
+      "time": "2026-01-13T07:00",
+      "temperature": -5.7,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 21740.0,
+      "wind": {
+        "speed": 3.4,
+        "direction": 108,
+        "gusts": 11.5
+      }
+    },
+    {
+      "time": "2026-01-13T08:00",
+      "temperature": -5.5,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 21760.0,
+      "wind": {
+        "speed": 3.3,
+        "direction": 103,
+        "gusts": 11.9
+      }
+    },
+    {
+      "time": "2026-01-13T09:00",
+      "temperature": -5.3,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 21800.0,
+      "wind": {
+        "speed": 3.3,
+        "direction": 103,
+        "gusts": 12.2
+      }
+    },
+    {
+      "time": "2026-01-13T10:00",
+      "temperature": -4.8,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 21820.0,
+      "wind": {
+        "speed": 3.0,
+        "direction": 104,
+        "gusts": 13.0
+      }
+    },
+    {
+      "time": "2026-01-13T11:00",
+      "temperature": -3.8,
+      "rain": 0.0,
+      "cloud_cover": 95,
+      "visibility": 22600.0,
+      "wind": {
+        "speed": 2.9,
+        "direction": 120,
+        "gusts": 14.0
+      }
+    },
+    {
+      "time": "2026-01-13T12:00",
+      "temperature": -2.7,
+      "rain": 0.0,
+      "cloud_cover": 91,
+      "visibility": 23360.0,
+      "wind": {
+        "speed": 3.4,
+        "direction": 148,
+        "gusts": 15.1
+      }
+    },
+    {
+      "time": "2026-01-13T13:00",
+      "temperature": -1.7,
+      "rain": 0.0,
+      "cloud_cover": 86,
+      "visibility": 24140.0,
+      "wind": {
+        "speed": 4.0,
+        "direction": 153,
+        "gusts": 15.8
+      }
+    },
+    {
+      "time": "2026-01-13T14:00",
+      "temperature": -0.9,
+      "rain": 0.0,
+      "cloud_cover": 91,
+      "visibility": 24140.0,
+      "wind": {
+        "speed": 4.1,
+        "direction": 142,
+        "gusts": 15.8
+      }
+    },
+    {
+      "time": "2026-01-13T15:00",
+      "temperature": -0.4,
+      "rain": 0.0,
+      "cloud_cover": 95,
+      "visibility": 24140.0,
+      "wind": {
+        "speed": 4.1,
+        "direction": 128,
+        "gusts": 15.5
+      }
+    },
+    {
+      "time": "2026-01-13T16:00",
+      "temperature": -0.3,
+      "rain": 0.0,
+      "cloud_cover": 100,
+      "visibility": 24140.0,
+      "wind": {
+        "speed": 4.3,
+        "direction": 114,
+        "gusts": 14.4
+      }
+    },
+    {
+      "time": "2026-01-13T17:00",
+      "temperature": -0.8,
+      "rain": 0.0,
+      "cloud_cover": 95,
+      "visibility": 23580.0,
+      "wind": {
+        "speed": 4.6,
+        "direction": 108,
+        "gusts": 12.6
+      }
+    },
+    {
+      "time": "2026-01-13T18:00",
+      "temperature": -1.8,
+      "rain": 0.0,
+      "cloud_cover": 89,
+      "visibility": 23040.0,
+      "wind": {
+        "speed": 4.5,
+        "direction": 104,
+        "gusts": 10.4
+      }
+    },
+    {
+      "time": "2026-01-13T19:00",
+      "temperature": -2.6,
+      "rain": 0.0,
+      "cloud_cover": 84,
+      "visibility": 22480.0,
+      "wind": {
+        "speed": 4.1,
+        "direction": 105,
+        "gusts": 9.0
+      }
+    },
+    {
+      "time": "2026-01-13T20:00",
+      "temperature": -3.0,
+      "rain": 0.0,
+      "cloud_cover": 73,
+      "visibility": 22460.0,
+      "wind": {
+        "speed": 3.7,
+        "direction": 119,
+        "gusts": 9.4
+      }
+    },
+    {
+      "time": "2026-01-13T21:00",
+      "temperature": -3.4,
+      "rain": 0.0,
+      "cloud_cover": 63,
+      "visibility": 22460.0,
+      "wind": {
+        "speed": 3.6,
+        "direction": 143,
+        "gusts": 10.8
+      }
+    },
+    {
+      "time": "2026-01-13T22:00",
+      "temperature": -3.7,
+      "rain": 0.0,
+      "cloud_cover": 52,
+      "visibility": 22440.0,
+      "wind": {
+        "speed": 4.2,
+        "direction": 160,
+        "gusts": 12.6
+      }
+    },
+    {
+      "time": "2026-01-13T23:00",
+      "temperature": -3.9,
+      "rain": 0.0,
+      "cloud_cover": 53,
+      "visibility": 17220.0,
+      "wind": {
+        "speed": 4.7,
+        "direction": 157,
+        "gusts": 14.4
+      }
     }
   ],
   "daily_forecast": [
-    {
-      "date": "2026-01-04",
-      "temperature": {
-        "max": 2.6,
-        "min": -3.1
-      },
-      "sun": {
-        "sunrise": "2026-01-04T07:44",
-        "sunset": "2026-01-04T16:13",
-        "daylight_duration": 30573.7
-      },
-      "uv_index_max": 1.4,
-      "precipitation_sum": 0.0
-    },
     {
       "date": "2026-01-05",
       "temperature": {
@@ -2743,6 +2729,20 @@
       },
       "uv_index_max": 1.5,
       "precipitation_sum": 6.0
+    },
+    {
+      "date": "2026-01-13",
+      "temperature": {
+        "max": -0.3,
+        "min": -6.6
+      },
+      "sun": {
+        "sunrise": "2026-01-13T07:40",
+        "sunset": "2026-01-13T16:24",
+        "daylight_duration": 31448.41
+      },
+      "uv_index_max": 1.25,
+      "precipitation_sum": 2.4
     }
   ]
 }
