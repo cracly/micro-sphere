@@ -1,25 +1,25 @@
 {
   "location": "Kledering",
-  "last_updated": "2026-01-10T10:55:09.436458+01:00",
+  "last_updated": "2026-01-10T11:24:30.004033+01:00",
   "current_weather": {
-    "time": "2026-01-10T10:45",
+    "time": "2026-01-10T11:15",
     "temperature": {
-      "value": -3.1,
+      "value": -2.6,
       "unit": "\u00b0C",
-      "feels_like": -6.6
+      "feels_like": -6.2
     },
     "precipitation": {
       "value": 0.0,
       "unit": "mm"
     },
     "wind": {
-      "speed": 4.4,
-      "gusts": 8.3,
+      "speed": 5.7,
+      "gusts": 10.8,
       "direction": 35,
       "unit": "km/h"
     },
     "cloud_cover": {
-      "value": 95,
+      "value": 100,
       "unit": "%"
     }
   },
@@ -2102,38 +2102,38 @@
     },
     {
       "time": "2026-01-15T05:00",
-      "temperature": -0.8,
+      "temperature": -0.5,
       "rain": 0.25,
       "cloud_cover": 100,
       "visibility": 6485.0,
       "wind": {
-        "speed": 4.5,
-        "direction": 180,
+        "speed": 4.4,
+        "direction": 179,
         "gusts": 12.5
       }
     },
     {
       "time": "2026-01-15T06:00",
-      "temperature": -0.9,
+      "temperature": 0.2,
       "rain": 0.2,
       "cloud_cover": 100,
       "visibility": 12480.0,
       "wind": {
-        "speed": 3.7,
-        "direction": 168,
-        "gusts": 11.9
+        "speed": 3.1,
+        "direction": 184,
+        "gusts": 10.8
       }
     },
     {
       "time": "2026-01-15T07:00",
-      "temperature": -1.0,
+      "temperature": 1.2,
       "rain": 0.15,
       "cloud_cover": 100,
       "visibility": 18360.0,
       "wind": {
-        "speed": 3.0,
-        "direction": 149,
-        "gusts": 11.8
+        "speed": 1.9,
+        "direction": 196,
+        "gusts": 9.1
       }
     },
     {
@@ -2658,7 +2658,7 @@
         "daylight_duration": 31115.07
       },
       "uv_index_max": 1.2,
-      "precipitation_sum": 0.5
+      "precipitation_sum": 0.3
     },
     {
       "date": "2026-01-11",
@@ -2719,7 +2719,7 @@
     {
       "date": "2026-01-15",
       "temperature": {
-        "max": 0.9,
+        "max": 1.2,
         "min": -1.1
       },
       "sun": {
