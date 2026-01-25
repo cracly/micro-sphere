@@ -1,12 +1,12 @@
 {
   "location": "Kledering",
-  "last_updated": "2026-01-25T06:01:11.392979+01:00",
+  "last_updated": "2026-01-25T06:44:27.483975+01:00",
   "current_weather": {
-    "time": "2026-01-25T06:00",
+    "time": "2026-01-25T06:30",
     "temperature": {
       "value": 0.4,
       "unit": "\u00b0C",
-      "feels_like": -2.1
+      "feels_like": -2.0
     },
     "precipitation": {
       "value": 0.0,
@@ -14,8 +14,8 @@
     },
     "wind": {
       "speed": 2.3,
-      "gusts": 5.8,
-      "direction": 141,
+      "gusts": 5.4,
+      "direction": 129,
       "unit": "km/h"
     },
     "cloud_cover": {
@@ -2657,7 +2657,7 @@
         "sunset": "2026-01-25T16:42",
         "daylight_duration": 33091.87
       },
-      "uv_index_max": 0.65,
+      "uv_index_max": 0.55,
       "precipitation_sum": 3.1
     },
     {
@@ -2671,7 +2671,7 @@
         "sunset": "2026-01-26T16:43",
         "daylight_duration": 33251.41
       },
-      "uv_index_max": 1.3,
+      "uv_index_max": 1.1,
       "precipitation_sum": 0.0
     },
     {
@@ -2699,7 +2699,7 @@
         "sunset": "2026-01-28T16:46",
         "daylight_duration": 33580.62
       },
-      "uv_index_max": 1.7,
+      "uv_index_max": 1.2,
       "precipitation_sum": 3.7
     },
     {
@@ -2713,7 +2713,7 @@
         "sunset": "2026-01-29T16:48",
         "daylight_duration": 33749.8
       },
-      "uv_index_max": 0.45,
+      "uv_index_max": 0.6,
       "precipitation_sum": 9.8
     },
     {
@@ -2727,7 +2727,7 @@
         "sunset": "2026-01-30T16:50",
         "daylight_duration": 33921.71
       },
-      "uv_index_max": 0.9,
+      "uv_index_max": 1.0,
       "precipitation_sum": 0.0
     },
     {
@@ -2741,7 +2741,7 @@
         "sunset": "2026-01-31T16:51",
         "daylight_duration": 34096.12
       },
-      "uv_index_max": 1.05,
+      "uv_index_max": 0.55,
       "precipitation_sum": 0.0
     }
   ]
