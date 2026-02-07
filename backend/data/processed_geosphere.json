@@ -1,109 +1,118 @@
 {
   "location": "Kledering",
-  "last_updated": "2026-02-07T15:30:16.433978+01:00",
+  "last_updated": "2026-02-07T15:55:43.570970+01:00",
   "source": "Geosphere",
   "forecast_type": "nowcast",
   "forecast_period": "3 hour",
   "resolution": "15 minute",
   "forecast_data": [
     {
-      "time": "2026-02-07T14:30+00:00",
-      "temperature": 8.4,
-      "precipitation": 0.0,
-      "dew_point": 5.25,
-      "wind_direction": 34.6,
-      "wind_speed": 2.61,
-      "wind_gust": 5.08
-    },
-    {
       "time": "2026-02-07T14:45+00:00",
-      "temperature": 8.36,
+      "temperature": 8.01,
       "precipitation": 0.0,
-      "dew_point": 5.23,
-      "wind_direction": 35.4,
-      "wind_speed": 2.61,
-      "wind_gust": 5.07
+      "dew_point": 4.98,
+      "wind_direction": 47.8,
+      "wind_speed": 2.17,
+      "wind_gust": 4.08
     },
     {
       "time": "2026-02-07T15:00+00:00",
-      "temperature": 8.23,
+      "temperature": 7.97,
       "precipitation": 0.0,
-      "dew_point": 5.34,
-      "wind_direction": 36.1,
-      "wind_speed": 2.6,
-      "wind_gust": 5.06
+      "dew_point": 4.97,
+      "wind_direction": 48.3,
+      "wind_speed": 2.17,
+      "wind_gust": 4.08
     },
     {
       "time": "2026-02-07T15:15+00:00",
-      "temperature": 7.91,
+      "temperature": 7.77,
       "precipitation": 0.0,
-      "dew_point": 5.47,
-      "wind_direction": 37.3,
-      "wind_speed": 2.59,
-      "wind_gust": 5.05
+      "dew_point": 4.88,
+      "wind_direction": 49.2,
+      "wind_speed": 2.17,
+      "wind_gust": 4.08
     },
     {
       "time": "2026-02-07T15:30+00:00",
-      "temperature": 7.58,
+      "temperature": 7.54,
       "precipitation": 0.0,
-      "dew_point": 5.59,
-      "wind_direction": 38.4,
-      "wind_speed": 2.59,
-      "wind_gust": 5.03
+      "dew_point": 4.96,
+      "wind_direction": 50.1,
+      "wind_speed": 2.17,
+      "wind_gust": 4.08
     },
     {
       "time": "2026-02-07T15:45+00:00",
-      "temperature": 7.29,
+      "temperature": 7.3,
       "precipitation": 0.0,
-      "dew_point": 5.65,
-      "wind_direction": 39.4,
-      "wind_speed": 2.58,
-      "wind_gust": 5.02
+      "dew_point": 5.15,
+      "wind_direction": 50.9,
+      "wind_speed": 2.17,
+      "wind_gust": 4.08
     },
     {
       "time": "2026-02-07T16:00+00:00",
-      "temperature": 7.03,
+      "temperature": 7.06,
       "precipitation": 0.0,
-      "dew_point": 5.66,
-      "wind_direction": 40.4,
-      "wind_speed": 2.57,
-      "wind_gust": 5.01
+      "dew_point": 5.33,
+      "wind_direction": 51.6,
+      "wind_speed": 2.17,
+      "wind_gust": 4.08
     },
     {
       "time": "2026-02-07T16:15+00:00",
-      "temperature": 6.83,
+      "temperature": 6.85,
       "precipitation": 0.0,
-      "dew_point": 5.56,
-      "wind_direction": 40.9,
-      "wind_speed": 2.48,
-      "wind_gust": 4.81
+      "dew_point": 5.38,
+      "wind_direction": 51.8,
+      "wind_speed": 2.17,
+      "wind_gust": 4.07
     },
     {
       "time": "2026-02-07T16:30+00:00",
-      "temperature": 6.64,
+      "temperature": 6.66,
       "precipitation": 0.0,
-      "dew_point": 5.44,
-      "wind_direction": 41.5,
-      "wind_speed": 2.37,
-      "wind_gust": 4.6
+      "dew_point": 5.36,
+      "wind_direction": 52.0,
+      "wind_speed": 2.16,
+      "wind_gust": 4.07
     },
     {
       "time": "2026-02-07T16:45+00:00",
       "temperature": 6.47,
       "precipitation": 0.0,
-      "dew_point": 5.3,
-      "wind_direction": 42.2,
-      "wind_speed": 2.26,
-      "wind_gust": 4.38
+      "dew_point": 5.27,
+      "wind_direction": 52.5,
+      "wind_speed": 2.09,
+      "wind_gust": 3.93
     },
     {
       "time": "2026-02-07T17:00+00:00",
       "temperature": 6.29,
       "precipitation": 0.0,
-      "dew_point": 5.16,
-      "wind_direction": 42.9,
-      "wind_speed": 2.15,
-      "wind_gust": 4.16
+      "dew_point": 5.15,
+      "wind_direction": 53.0,
+      "wind_speed": 2.01,
+      "wind_gust": 3.78
+    },
+    {
+      "time": "2026-02-07T17:15+00:00",
+      "temperature": 6.15,
+      "precipitation": 0.0,
+      "dew_point": 5.08,
+      "wind_direction": 52.0,
+      "wind_speed": 1.95,
+      "wind_gust": 3.65
+    },
+    {
+      "time": "2026-02-07T17:30+00:00",
+      "temperature": 6.01,
+      "precipitation": 0.0,
+      "dew_point": 5.0,
+      "wind_direction": 50.9,
+      "wind_speed": 1.89,
+      "wind_gust": 3.54
     }
   ],
   "units": {
