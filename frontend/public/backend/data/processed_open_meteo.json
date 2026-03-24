@@ -1,25 +1,25 @@
 {
   "location": "Kledering",
-  "last_updated": "2026-03-24T06:05:30.210123+01:00",
+  "last_updated": "2026-03-24T07:14:03.266074+01:00",
   "current_weather": {
-    "time": "2026-03-24T06:00",
+    "time": "2026-03-24T07:00",
     "temperature": {
-      "value": 8.2,
+      "value": 8.3,
       "unit": "\u00b0C",
-      "feels_like": 4.5
+      "feels_like": 5.4
     },
     "precipitation": {
       "value": 0.0,
       "unit": "mm"
     },
     "wind": {
-      "speed": 9.9,
-      "gusts": 19.4,
-      "direction": 289,
+      "speed": 4.1,
+      "gusts": 17.6,
+      "direction": 322,
       "unit": "km/h"
     },
     "cloud_cover": {
-      "value": 49,
+      "value": 67,
       "unit": "%"
     }
   },
@@ -1131,7 +1131,7 @@
     {
       "time": "2026-03-25T20:00",
       "temperature": 12.4,
-      "rain": 0.0,
+      "rain": 0.1,
       "cloud_cover": 100,
       "visibility": 40260.0,
       "wind": {
@@ -1143,7 +1143,7 @@
     {
       "time": "2026-03-25T21:00",
       "temperature": 10.2,
-      "rain": 0.0,
+      "rain": 0.4,
       "cloud_cover": 100,
       "visibility": 37280.0,
       "wind": {
@@ -1155,7 +1155,7 @@
     {
       "time": "2026-03-25T22:00",
       "temperature": 8.8,
-      "rain": 0.05,
+      "rain": 0.2,
       "cloud_cover": 100,
       "visibility": 35880.0,
       "wind": {
@@ -1167,7 +1167,7 @@
     {
       "time": "2026-03-25T23:00",
       "temperature": 8.6,
-      "rain": 0.6,
+      "rain": 0.3,
       "cloud_cover": 100,
       "visibility": 36600.0,
       "wind": {
@@ -1179,7 +1179,7 @@
     {
       "time": "2026-03-26T00:00",
       "temperature": 8.1,
-      "rain": 0.18,
+      "rain": 0.0,
       "cloud_cover": 100,
       "visibility": 35580.0,
       "wind": {
@@ -1191,7 +1191,7 @@
     {
       "time": "2026-03-26T01:00",
       "temperature": 7.8,
-      "rain": 0.1,
+      "rain": 0.03,
       "cloud_cover": 98,
       "visibility": 37840.0,
       "wind": {
@@ -2657,7 +2657,7 @@
         "sunset": "2026-03-24T18:12",
         "daylight_duration": 44608.8
       },
-      "uv_index_max": 4.2,
+      "uv_index_max": 4.25,
       "precipitation_sum": 0.0
     },
     {
@@ -2671,8 +2671,8 @@
         "sunset": "2026-03-25T18:13",
         "daylight_duration": 44818.39
       },
-      "uv_index_max": 4.65,
-      "precipitation_sum": 0.95
+      "uv_index_max": 4.6,
+      "precipitation_sum": 1.0
     },
     {
       "date": "2026-03-26",
@@ -2685,8 +2685,8 @@
         "sunset": "2026-03-26T18:15",
         "daylight_duration": 45028.61
       },
-      "uv_index_max": 1.95,
-      "precipitation_sum": 3.25
+      "uv_index_max": 3.05,
+      "precipitation_sum": 3.0
     },
     {
       "date": "2026-03-27",
@@ -2699,7 +2699,7 @@
         "sunset": "2026-03-27T18:16",
         "daylight_duration": 45239.33
       },
-      "uv_index_max": 4.2,
+      "uv_index_max": 4.05,
       "precipitation_sum": 0.0
     },
     {
@@ -2713,7 +2713,7 @@
         "sunset": "2026-03-28T18:18",
         "daylight_duration": 45450.44
       },
-      "uv_index_max": 4.7,
+      "uv_index_max": 4.65,
       "precipitation_sum": 0.0
     },
     {
@@ -2727,7 +2727,7 @@
         "sunset": "2026-03-29T18:19",
         "daylight_duration": 45661.8
       },
-      "uv_index_max": 4.35,
+      "uv_index_max": 4.15,
       "precipitation_sum": 0.0
     },
     {
@@ -2741,7 +2741,7 @@
         "sunset": "2026-03-30T18:20",
         "daylight_duration": 45873.31
       },
-      "uv_index_max": 4.6,
+      "uv_index_max": 4.5,
       "precipitation_sum": 0.3
     }
   ]
