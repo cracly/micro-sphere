@@ -1,25 +1,25 @@
 {
   "location": "Kledering",
-  "last_updated": "2026-05-25T22:09:33.120432+02:00",
+  "last_updated": "2026-05-25T23:34:54.878557+02:00",
   "current_weather": {
-    "time": "2026-05-25T22:00",
+    "time": "2026-05-25T23:30",
     "temperature": {
-      "value": 22.2,
+      "value": 20.4,
       "unit": "\u00b0C",
-      "feels_like": 22.5
+      "feels_like": 20.8
     },
     "precipitation": {
       "value": 0.0,
       "unit": "mm"
     },
     "wind": {
-      "speed": 6.3,
-      "gusts": 16.6,
-      "direction": 24,
+      "speed": 4.7,
+      "gusts": 9.4,
+      "direction": 356,
       "unit": "km/h"
     },
     "cloud_cover": {
-      "value": 8,
+      "value": 0,
       "unit": "%"
     }
   },
@@ -2188,7 +2188,7 @@
       "time": "2026-05-30T12:00",
       "temperature": 28.8,
       "rain": 0.0,
-      "cloud_cover": 99,
+      "cloud_cover": 100,
       "visibility": 39710.0,
       "wind": {
         "speed": 13.1,
@@ -2200,7 +2200,7 @@
       "time": "2026-05-30T13:00",
       "temperature": 30.0,
       "rain": 0.0,
-      "cloud_cover": 99,
+      "cloud_cover": 100,
       "visibility": 29730.0,
       "wind": {
         "speed": 17.2,
@@ -2212,7 +2212,7 @@
       "time": "2026-05-30T14:00",
       "temperature": 30.6,
       "rain": 0.0,
-      "cloud_cover": 98,
+      "cloud_cover": 100,
       "visibility": 12455.0,
       "wind": {
         "speed": 20.6,
@@ -2224,7 +2224,7 @@
       "time": "2026-05-30T15:00",
       "temperature": 29.7,
       "rain": 0.0,
-      "cloud_cover": 99,
+      "cloud_cover": 100,
       "visibility": 13920.0,
       "wind": {
         "speed": 22.2,
@@ -2236,7 +2236,7 @@
       "time": "2026-05-30T16:00",
       "temperature": 28.1,
       "rain": 0.0,
-      "cloud_cover": 99,
+      "cloud_cover": 100,
       "visibility": 26340.0,
       "wind": {
         "speed": 24.5,
@@ -2259,8 +2259,8 @@
     {
       "time": "2026-05-30T18:00",
       "temperature": 26.1,
-      "rain": 0.0,
-      "cloud_cover": 76,
+      "rain": 0.1,
+      "cloud_cover": 100,
       "visibility": 28720.0,
       "wind": {
         "speed": 27.8,
@@ -2271,8 +2271,8 @@
     {
       "time": "2026-05-30T19:00",
       "temperature": 25.8,
-      "rain": 0.0,
-      "cloud_cover": 51,
+      "rain": 0.1,
+      "cloud_cover": 100,
       "visibility": 18680.0,
       "wind": {
         "speed": 27.3,
@@ -2283,8 +2283,8 @@
     {
       "time": "2026-05-30T20:00",
       "temperature": 25.3,
-      "rain": 0.0,
-      "cloud_cover": 27,
+      "rain": 0.1,
+      "cloud_cover": 100,
       "visibility": 8620.0,
       "wind": {
         "speed": 26.4,
@@ -2728,7 +2728,7 @@
         "daylight_duration": 56646.66
       },
       "uv_index_max": 6.05,
-      "precipitation_sum": 0.0
+      "precipitation_sum": 0.3
     },
     {
       "date": "2026-05-31",
