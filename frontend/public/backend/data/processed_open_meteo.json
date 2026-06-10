@@ -1,25 +1,25 @@
 {
   "location": "Kledering",
-  "last_updated": "2026-06-11T00:13:37.895804+02:00",
+  "last_updated": "2026-06-11T01:51:01.209371+02:00",
   "current_weather": {
-    "time": "2026-06-11T00:00",
+    "time": "2026-06-11T01:45",
     "temperature": {
-      "value": 12.4,
+      "value": 12.0,
       "unit": "\u00b0C",
-      "feels_like": 9.3
+      "feels_like": 8.8
     },
     "precipitation": {
-      "value": 1.9,
+      "value": 0.2,
       "unit": "mm"
     },
     "wind": {
-      "speed": 22.0,
-      "gusts": 43.9,
-      "direction": 281,
+      "speed": 20.3,
+      "gusts": 38.5,
+      "direction": 290,
       "unit": "km/h"
     },
     "cloud_cover": {
-      "value": 100,
+      "value": 99,
       "unit": "%"
     }
   },
@@ -603,7 +603,7 @@
     {
       "time": "2026-06-11T00:00",
       "temperature": 12.4,
-      "rain": 6.1,
+      "rain": 6.5,
       "cloud_cover": 100,
       "visibility": 9160.0,
       "wind": {
@@ -615,7 +615,7 @@
     {
       "time": "2026-06-11T01:00",
       "temperature": 11.9,
-      "rain": 5.7,
+      "rain": 0.1,
       "cloud_cover": 100,
       "visibility": 16200.0,
       "wind": {
@@ -627,8 +627,8 @@
     {
       "time": "2026-06-11T02:00",
       "temperature": 12.0,
-      "rain": 1.2,
-      "cloud_cover": 95,
+      "rain": 0.4,
+      "cloud_cover": 98,
       "visibility": 32540.0,
       "wind": {
         "speed": 20.5,
@@ -640,7 +640,7 @@
       "time": "2026-06-11T03:00",
       "temperature": 11.9,
       "rain": 0.0,
-      "cloud_cover": 81,
+      "cloud_cover": 41,
       "visibility": 32220.0,
       "wind": {
         "speed": 20.7,
@@ -652,7 +652,7 @@
       "time": "2026-06-11T04:00",
       "temperature": 11.7,
       "rain": 0.0,
-      "cloud_cover": 25,
+      "cloud_cover": 32,
       "visibility": 32260.0,
       "wind": {
         "speed": 18.6,
@@ -664,7 +664,7 @@
       "time": "2026-06-11T05:00",
       "temperature": 11.7,
       "rain": 0.0,
-      "cloud_cover": 8,
+      "cloud_cover": 0,
       "visibility": 31420.0,
       "wind": {
         "speed": 18.4,
@@ -676,7 +676,7 @@
       "time": "2026-06-11T06:00",
       "temperature": 11.9,
       "rain": 0.0,
-      "cloud_cover": 16,
+      "cloud_cover": 1,
       "visibility": 30520.0,
       "wind": {
         "speed": 18.9,
@@ -688,7 +688,7 @@
       "time": "2026-06-11T07:00",
       "temperature": 12.8,
       "rain": 0.0,
-      "cloud_cover": 28,
+      "cloud_cover": 100,
       "visibility": 34080.0,
       "wind": {
         "speed": 18.6,
@@ -712,7 +712,7 @@
       "time": "2026-06-11T09:00",
       "temperature": 15.4,
       "rain": 0.0,
-      "cloud_cover": 43,
+      "cloud_cover": 93,
       "visibility": 38560.0,
       "wind": {
         "speed": 18.8,
@@ -724,7 +724,7 @@
       "time": "2026-06-11T10:00",
       "temperature": 16.3,
       "rain": 0.0,
-      "cloud_cover": 95,
+      "cloud_cover": 33,
       "visibility": 40060.0,
       "wind": {
         "speed": 20.4,
@@ -748,7 +748,7 @@
       "time": "2026-06-11T12:00",
       "temperature": 18.1,
       "rain": 0.0,
-      "cloud_cover": 97,
+      "cloud_cover": 100,
       "visibility": 40580.0,
       "wind": {
         "speed": 23.2,
@@ -796,7 +796,7 @@
       "time": "2026-06-11T16:00",
       "temperature": 18.7,
       "rain": 0.0,
-      "cloud_cover": 82,
+      "cloud_cover": 100,
       "visibility": 42620.0,
       "wind": {
         "speed": 22.9,
@@ -808,7 +808,7 @@
       "time": "2026-06-11T17:00",
       "temperature": 19.3,
       "rain": 0.0,
-      "cloud_cover": 25,
+      "cloud_cover": 100,
       "visibility": 41260.0,
       "wind": {
         "speed": 15.0,
@@ -819,8 +819,8 @@
     {
       "time": "2026-06-11T18:00",
       "temperature": 18.7,
-      "rain": 0.0,
-      "cloud_cover": 27,
+      "rain": 0.8,
+      "cloud_cover": 71,
       "visibility": 42720.0,
       "wind": {
         "speed": 16.9,
@@ -831,8 +831,8 @@
     {
       "time": "2026-06-11T19:00",
       "temperature": 16.4,
-      "rain": 0.2,
-      "cloud_cover": 13,
+      "rain": 0.0,
+      "cloud_cover": 67,
       "visibility": 41700.0,
       "wind": {
         "speed": 13.2,
@@ -844,7 +844,7 @@
       "time": "2026-06-11T20:00",
       "temperature": 16.2,
       "rain": 0.0,
-      "cloud_cover": 68,
+      "cloud_cover": 52,
       "visibility": 40420.0,
       "wind": {
         "speed": 10.8,
@@ -856,7 +856,7 @@
       "time": "2026-06-11T21:00",
       "temperature": 14.4,
       "rain": 0.0,
-      "cloud_cover": 58,
+      "cloud_cover": 66,
       "visibility": 39540.0,
       "wind": {
         "speed": 10.9,
@@ -868,7 +868,7 @@
       "time": "2026-06-11T22:00",
       "temperature": 13.4,
       "rain": 0.0,
-      "cloud_cover": 40,
+      "cloud_cover": 38,
       "visibility": 39640.0,
       "wind": {
         "speed": 10.0,
@@ -928,7 +928,7 @@
       "time": "2026-06-12T03:00",
       "temperature": 12.0,
       "rain": 0.0,
-      "cloud_cover": 57,
+      "cloud_cover": 0,
       "visibility": 35920.0,
       "wind": {
         "speed": 13.6,
@@ -952,7 +952,7 @@
       "time": "2026-06-12T05:00",
       "temperature": 11.4,
       "rain": 0.0,
-      "cloud_cover": 1,
+      "cloud_cover": 0,
       "visibility": 35760.0,
       "wind": {
         "speed": 11.8,
@@ -988,7 +988,7 @@
       "time": "2026-06-12T08:00",
       "temperature": 14.7,
       "rain": 0.0,
-      "cloud_cover": 0,
+      "cloud_cover": 4,
       "visibility": 38360.0,
       "wind": {
         "speed": 10.0,
@@ -1000,7 +1000,7 @@
       "time": "2026-06-12T09:00",
       "temperature": 16.8,
       "rain": 0.0,
-      "cloud_cover": 8,
+      "cloud_cover": 9,
       "visibility": 40200.0,
       "wind": {
         "speed": 12.7,
@@ -1012,7 +1012,7 @@
       "time": "2026-06-12T10:00",
       "temperature": 18.3,
       "rain": 0.0,
-      "cloud_cover": 78,
+      "cloud_cover": 2,
       "visibility": 41040.0,
       "wind": {
         "speed": 14.2,
@@ -1024,7 +1024,7 @@
       "time": "2026-06-12T11:00",
       "temperature": 19.3,
       "rain": 0.0,
-      "cloud_cover": 73,
+      "cloud_cover": 18,
       "visibility": 41880.0,
       "wind": {
         "speed": 15.1,
@@ -1036,7 +1036,7 @@
       "time": "2026-06-12T12:00",
       "temperature": 18.6,
       "rain": 0.0,
-      "cloud_cover": 100,
+      "cloud_cover": 99,
       "visibility": 41595.0,
       "wind": {
         "speed": 15.5,
@@ -1048,7 +1048,7 @@
       "time": "2026-06-12T13:00",
       "temperature": 18.9,
       "rain": 0.0,
-      "cloud_cover": 99,
+      "cloud_cover": 100,
       "visibility": 41920.0,
       "wind": {
         "speed": 17.1,
@@ -1072,7 +1072,7 @@
       "time": "2026-06-12T15:00",
       "temperature": 18.6,
       "rain": 0.0,
-      "cloud_cover": 98,
+      "cloud_cover": 100,
       "visibility": 40840.0,
       "wind": {
         "speed": 19.6,
@@ -1108,7 +1108,7 @@
       "time": "2026-06-12T18:00",
       "temperature": 16.7,
       "rain": 0.0,
-      "cloud_cover": 100,
+      "cloud_cover": 96,
       "visibility": 36740.0,
       "wind": {
         "speed": 18.9,
@@ -1120,7 +1120,7 @@
       "time": "2026-06-12T19:00",
       "temperature": 16.1,
       "rain": 0.0,
-      "cloud_cover": 100,
+      "cloud_cover": 99,
       "visibility": 34200.0,
       "wind": {
         "speed": 16.7,
@@ -1131,8 +1131,8 @@
     {
       "time": "2026-06-12T20:00",
       "temperature": 15.9,
-      "rain": 0.2,
-      "cloud_cover": 100,
+      "rain": 0.0,
+      "cloud_cover": 93,
       "visibility": 32500.0,
       "wind": {
         "speed": 15.6,
@@ -1143,8 +1143,8 @@
     {
       "time": "2026-06-12T21:00",
       "temperature": 15.6,
-      "rain": 0.1,
-      "cloud_cover": 100,
+      "rain": 0.03,
+      "cloud_cover": 99,
       "visibility": 29900.0,
       "wind": {
         "speed": 14.6,
@@ -1155,7 +1155,7 @@
     {
       "time": "2026-06-12T22:00",
       "temperature": 15.5,
-      "rain": 0.7,
+      "rain": 0.35,
       "cloud_cover": 100,
       "visibility": 27900.0,
       "wind": {
@@ -1167,7 +1167,7 @@
     {
       "time": "2026-06-12T23:00",
       "temperature": 15.6,
-      "rain": 0.7,
+      "rain": 0.52,
       "cloud_cover": 100,
       "visibility": 27620.0,
       "wind": {
@@ -2658,7 +2658,7 @@
         "daylight_duration": 57590.32
       },
       "uv_index_max": 6.25,
-      "precipitation_sum": 13.3
+      "precipitation_sum": 7.8
     },
     {
       "date": "2026-06-12",
@@ -2672,7 +2672,7 @@
         "daylight_duration": 57636.9
       },
       "uv_index_max": 6.8,
-      "precipitation_sum": 1.7
+      "precipitation_sum": 0.9
     },
     {
       "date": "2026-06-13",
