@@ -36,6 +36,25 @@ import HourlyPanels from './charts/HourlyPanels';
 import DailyPanels from './charts/DailyPanels';
 import NowcastPanels from './charts/NowcastPanels';
 
+// Shape guards: the data files in the repo (and in caches along the way) can
+// lag behind the frontend, so never assume a fetched payload matches types.ts.
+function isWeatherData(json: unknown): json is WeatherData {
+  const d = json as WeatherData | null;
+  return (
+    !!d &&
+    typeof d === 'object' &&
+    !!d.current &&
+    typeof d.current === 'object' &&
+    Array.isArray(d.hourly) &&
+    Array.isArray(d.daily)
+  );
+}
+
+function isNowcastData(json: unknown): json is GeosphereData {
+  const d = json as GeosphereData | null;
+  return !!d && typeof d === 'object' && Array.isArray(d.forecast_data);
+}
+
 const WeatherDashboard: React.FC = () => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [nowcast, setNowcast] = useState<GeosphereData | null>(null);
@@ -47,19 +66,34 @@ const WeatherDashboard: React.FC = () => {
   const t = translations[language];
 
   useEffect(() => {
-    fetch(dataUrl('processed_open_meteo.json'))
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then(setWeather)
-      .catch(() => setError(true));
+    // `no-cache` makes the browser revalidate against GitHub Pages instead of
+    // reusing a JSON file cached before the last data update. If a stale copy
+    // with an unexpected shape still slips through, retry once with a
+    // cache-busting query before giving up — never render a broken payload.
+    const loadWeather = async () => {
+      for (const bust of [false, true]) {
+        try {
+          const url = dataUrl('processed_open_meteo.json') + (bust ? `?v=${Date.now()}` : '');
+          const res = await fetch(url, { cache: 'no-cache' });
+          if (!res.ok) continue;
+          const json = await res.json();
+          if (isWeatherData(json)) {
+            setWeather(json);
+            return;
+          }
+        } catch {
+          // fall through to retry / error
+        }
+      }
+      setError(true);
+    };
+    loadWeather();
 
     // Nowcast is optional: when it fails, the section shows an
     // unavailable note instead of made-up data.
-    fetch(dataUrl('processed_geosphere.json'))
+    fetch(dataUrl('processed_geosphere.json'), { cache: 'no-cache' })
       .then((res) => (res.ok ? res.json() : null))
-      .then(setNowcast)
+      .then((json) => setNowcast(isNowcastData(json) ? json : null))
       .catch(() => setNowcast(null));
   }, []);
 
@@ -85,7 +119,7 @@ const WeatherDashboard: React.FC = () => {
 
   const todayEntry = useMemo(() => {
     const today = viennaNow().date;
-    return weather?.daily.find((d) => d.time === today) ?? null;
+    return weather?.daily?.find((d) => d.time === today) ?? null;
   }, [weather]);
 
   if (error) {

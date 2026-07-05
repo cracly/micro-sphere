@@ -29,7 +29,7 @@ const WeatherBriefing: React.FC<WeatherBriefingProps> = ({ language, t }) => {
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    fetch(dataUrl('weather_analysis.json'))
+    fetch(dataUrl('weather_analysis.json'), { cache: 'no-cache' })
       .then((res) => (res.ok ? res.json() : null))
       .then(setAnalysis)
       .catch(() => setAnalysis(null));
