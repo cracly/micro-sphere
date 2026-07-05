@@ -1,298 +1,323 @@
-import os
+"""Fetch and process weather data for Kledering.
+
+Sources:
+  - Open-Meteo forecast API (primary): current conditions, hourly and daily forecast
+  - GeoSphere Austria nowcast (secondary): 3-hour / 15-minute high-resolution nowcast
+
+Raw API responses are stored under data/raw_*.json, processed frontend-ready
+files under data/processed_*.json and mirrored into the frontend public dir.
+"""
+
+from __future__ import annotations
+
 import json
-import requests
-import shutil
+import sys
+import time
 from datetime import datetime
-import pytz  # For timezone handling
+from pathlib import Path
+from zoneinfo import ZoneInfo
 
-# Configuration
-# short term nowcast 3 hours
-GEOSPHERE_API_NOWCAST_URL = "https://dataset.api.hub.geosphere.at/v1/timeseries/forecast/nowcast-v1-15min-1km?parameters=t2m,rr,td,dd,ff,fx&lat_lon=48.133029,16.4277403"
-OPEN_METEO_API_URL = "https://api.open-meteo.com/v1/forecast?latitude=48.133&longitude=16.4366&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&hourly=temperature_2m,rain,cloud_cover,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&models=best_match&current=temperature_2m,apparent_temperature,rain,showers,precipitation,cloud_cover,wind_speed_10m,wind_gusts_10m,wind_direction_10m&timezone=auto&past_days=2"
+import requests
 
-# Path to frontend public directory
-FRONTEND_PUBLIC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "public", "backend", "data"))
+# Location: Kledering (Vienna outskirts)
+LATITUDE = 48.133029
+LONGITUDE = 16.4277403
+LOCATION_NAME = "Kledering"
+LOCAL_TZ = ZoneInfo("Europe/Vienna")
 
-# Define timezone for CEST
-TIMEZONE_CEST = pytz.timezone('Europe/Vienna')  # Vienna is in CEST timezone
+REQUEST_TIMEOUT = 30  # seconds
+RETRIES = 3
+RETRY_BACKOFF = 5  # seconds between attempts
 
-def fetch_geosphere_data():
-    """Fetch data from Geosphere API"""
-    try:
-        response = requests.get(GEOSPHERE_API_NOWCAST_URL)
-        response.raise_for_status()  # Raise exception for HTTP errors
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data from Geosphere: {e}")
-        return None
+BACKEND_DIR = Path(__file__).resolve().parent
+DATA_DIR = BACKEND_DIR / "data"
+FRONTEND_DATA_DIR = BACKEND_DIR.parent / "frontend" / "public" / "backend" / "data"
 
-def fetch_open_meteo_data():
-    """Fetch data from Open-Meteo API"""
-    try:
-        response = requests.get(OPEN_METEO_API_URL)
-        response.raise_for_status()  # Raise exception for HTTP errors
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data from Open-Meteo: {e}")
-        return None
+OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast"
+OPEN_METEO_PARAMS = {
+    "latitude": LATITUDE,
+    "longitude": LONGITUDE,
+    "timezone": "Europe/Vienna",
+    "past_days": 1,
+    "forecast_days": 8,
+    "models": "best_match",
+    "current": ",".join([
+        "temperature_2m",
+        "apparent_temperature",
+        "relative_humidity_2m",
+        "precipitation",
+        "weather_code",
+        "cloud_cover",
+        "pressure_msl",
+        "wind_speed_10m",
+        "wind_direction_10m",
+        "wind_gusts_10m",
+        "is_day",
+    ]),
+    "hourly": ",".join([
+        "temperature_2m",
+        "apparent_temperature",
+        "relative_humidity_2m",
+        "precipitation_probability",
+        "precipitation",
+        "weather_code",
+        "cloud_cover",
+        "visibility",
+        "uv_index",
+        "wind_speed_10m",
+        "wind_direction_10m",
+        "wind_gusts_10m",
+        "is_day",
+    ]),
+    "daily": ",".join([
+        "weather_code",
+        "temperature_2m_max",
+        "temperature_2m_min",
+        "apparent_temperature_max",
+        "apparent_temperature_min",
+        "sunrise",
+        "sunset",
+        "daylight_duration",
+        "sunshine_duration",
+        "uv_index_max",
+        "precipitation_sum",
+        "precipitation_probability_max",
+        "wind_speed_10m_max",
+        "wind_gusts_10m_max",
+        "wind_direction_10m_dominant",
+    ]),
+}
 
-def process_geosphere_data(data):
-    """Process Geosphere data for frontend consumption"""
-    if not data:
-        return None
+GEOSPHERE_URL = (
+    "https://dataset.api.hub.geosphere.at/v1/timeseries/forecast/nowcast-v1-15min-1km"
+)
+GEOSPHERE_PARAMS = {
+    "parameters": "t2m,rr,td,dd,ff,fx",
+    "lat_lon": f"{LATITUDE},{LONGITUDE}",
+}
 
-    processed_data = {
-        "location": "Kledering",
-        "last_updated": datetime.now(TIMEZONE_CEST).isoformat(),
-        "source": "Geosphere",
-        "forecast_type": "nowcast",
-        "forecast_period": "3 hour",
-        "resolution": "15 minute"
+MS_TO_KMH = 3.6
+
+
+def fetch_json(url: str, params: dict) -> dict | None:
+    """GET a JSON resource with retries; return None on persistent failure."""
+    for attempt in range(1, RETRIES + 1):
+        try:
+            response = requests.get(url, params=params, timeout=REQUEST_TIMEOUT)
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as exc:
+            print(f"  attempt {attempt}/{RETRIES} failed for {url}: {exc}")
+            if attempt < RETRIES:
+                time.sleep(RETRY_BACKOFF)
+    return None
+
+
+def columns_to_rows(block: dict, fields: dict[str, str], time_key: str = "time") -> list[dict]:
+    """Convert Open-Meteo's column-oriented block into a list of row dicts.
+
+    fields maps output name -> API column name. Missing columns yield None.
+    """
+    times = block.get(time_key, [])
+    columns = {out: block.get(src, []) for out, src in fields.items()}
+    rows = []
+    for i, timestamp in enumerate(times):
+        row = {"time": timestamp}
+        for out, column in columns.items():
+            row[out] = column[i] if i < len(column) else None
+        rows.append(row)
+    return rows
+
+
+def process_open_meteo(data: dict) -> dict:
+    """Shape the raw Open-Meteo response into the frontend data model."""
+    current = data.get("current", {})
+    processed = {
+        "location": {
+            "name": LOCATION_NAME,
+            "latitude": data.get("latitude", LATITUDE),
+            "longitude": data.get("longitude", LONGITUDE),
+            "elevation": data.get("elevation"),
+            "timezone": data.get("timezone", "Europe/Vienna"),
+        },
+        "source": "Open-Meteo",
+        "last_updated": datetime.now(LOCAL_TZ).isoformat(),
+        "units": {
+            "temperature": "°C",
+            "precipitation": "mm",
+            "wind": "km/h",
+            "pressure": "hPa",
+            "humidity": "%",
+            "cloud_cover": "%",
+            "visibility": "m",
+        },
+        "current": {
+            "time": current.get("time"),
+            "temperature": current.get("temperature_2m"),
+            "feels_like": current.get("apparent_temperature"),
+            "humidity": current.get("relative_humidity_2m"),
+            "precipitation": current.get("precipitation"),
+            "weather_code": current.get("weather_code"),
+            "cloud_cover": current.get("cloud_cover"),
+            "pressure": current.get("pressure_msl"),
+            "wind_speed": current.get("wind_speed_10m"),
+            "wind_direction": current.get("wind_direction_10m"),
+            "wind_gusts": current.get("wind_gusts_10m"),
+            "is_day": current.get("is_day"),
+        },
+        "hourly": columns_to_rows(data.get("hourly", {}), {
+            "temperature": "temperature_2m",
+            "feels_like": "apparent_temperature",
+            "humidity": "relative_humidity_2m",
+            "precipitation_probability": "precipitation_probability",
+            "precipitation": "precipitation",
+            "weather_code": "weather_code",
+            "cloud_cover": "cloud_cover",
+            "visibility": "visibility",
+            "uv_index": "uv_index",
+            "wind_speed": "wind_speed_10m",
+            "wind_direction": "wind_direction_10m",
+            "wind_gusts": "wind_gusts_10m",
+            "is_day": "is_day",
+        }),
+        "daily": columns_to_rows(data.get("daily", {}), {
+            "weather_code": "weather_code",
+            "temperature_max": "temperature_2m_max",
+            "temperature_min": "temperature_2m_min",
+            "feels_like_max": "apparent_temperature_max",
+            "feels_like_min": "apparent_temperature_min",
+            "sunrise": "sunrise",
+            "sunset": "sunset",
+            "daylight_duration": "daylight_duration",
+            "sunshine_duration": "sunshine_duration",
+            "uv_index_max": "uv_index_max",
+            "precipitation_sum": "precipitation_sum",
+            "precipitation_probability_max": "precipitation_probability_max",
+            "wind_speed_max": "wind_speed_10m_max",
+            "wind_gusts_max": "wind_gusts_10m_max",
+            "wind_direction_dominant": "wind_direction_10m_dominant",
+        }),
     }
+    return processed
 
+
+def process_geosphere(data: dict) -> dict | None:
+    """Shape the raw GeoSphere nowcast into the frontend data model.
+
+    Wind values arrive in m/s and are converted to km/h so they compare
+    directly with the Open-Meteo panels.
+    """
     timestamps = data.get("timestamps", [])
-
-    # Safely extract parameters from the first feature
     try:
         parameters = data["features"][0]["properties"]["parameters"]
     except (KeyError, IndexError, TypeError):
-        parameters = {}
-
-    temperature = parameters.get("t2m", {}).get("data", [])
-    precipitation = parameters.get("rr", {}).get("data", [])
-    dew_point = parameters.get("td", {}).get("data", [])
-    wind_direction = parameters.get("dd", {}).get("data", [])
-    wind_speed = parameters.get("ff", {}).get("data", [])
-    wind_gust = parameters.get("fx", {}).get("data", [])
-
-    forecast_data = []
-    for i, timestamp in enumerate(timestamps):
-        entry = {
-            "time": timestamp,
-            "temperature": temperature[i] if i < len(temperature) else None,
-            "precipitation": precipitation[i] if i < len(precipitation) else None,
-            "dew_point": dew_point[i] if i < len(dew_point) else None,
-            "wind_direction": wind_direction[i] if i < len(wind_direction) else None,
-            "wind_speed": wind_speed[i] if i < len(wind_speed) else None,
-            "wind_gust": wind_gust[i] if i < len(wind_gust) else None
-        }
-        forecast_data.append(entry)
-
-    processed_data["forecast_data"] = forecast_data
-
-    processed_data["units"] = {
-        "temperature": parameters.get("t2m", {}).get("unit", "°C"),
-        "precipitation": parameters.get("rr", {}).get("unit", "kg m-2"),
-        "dew_point": parameters.get("td", {}).get("unit", "°C"),
-        "wind_direction": parameters.get("dd", {}).get("unit", "m s-1"),
-        "wind_speed": parameters.get("ff", {}).get("unit", "m s-1"),
-        "wind_gust": parameters.get("fx", {}).get("unit", "m s-1")
-    }
-
-    return processed_data
-
-def process_data_for_frontend(data):
-    """Process and simplify the data for frontend consumption"""
-    if not data:
+        print("  unexpected GeoSphere response shape, skipping")
         return None
 
-    # Extract only the data we need for frontend
-    processed_data = {
-        "location": "Kledering",
-        "last_updated": datetime.now(TIMEZONE_CEST).isoformat(),
-        "current_weather": {
-            "time": data.get("current", {}).get("time"),
-            "temperature": {
-                "value": data.get("current", {}).get("temperature_2m"),
-                "unit": data.get("current_units", {}).get("temperature_2m", "°C"),
-                "feels_like": data.get("current", {}).get("apparent_temperature")
-            },
-            "precipitation": {
-                "value": data.get("current", {}).get("precipitation"),
-                "unit": data.get("current_units", {}).get("precipitation", "mm")
-            },
-            "wind": {
-                "speed": data.get("current", {}).get("wind_speed_10m"),
-                "gusts": data.get("current", {}).get("wind_gusts_10m"),
-                "direction": data.get("current", {}).get("wind_direction_10m"),
-                "unit": data.get("current_units", {}).get("wind_speed_10m", "km/h")
-            },
-            "cloud_cover": {
-                "value": data.get("current", {}).get("cloud_cover"),
-                "unit": data.get("current_units", {}).get("cloud_cover", "%")
-            }
-        },
-        "hourly_forecast": {}
+    def series(name: str) -> list:
+        return parameters.get(name, {}).get("data", [])
+
+    def kmh(value):
+        return round(value * MS_TO_KMH, 1) if value is not None else None
+
+    columns = {
+        "temperature": series("t2m"),
+        "precipitation": series("rr"),
+        "dew_point": series("td"),
+        "wind_direction": series("dd"),
+        "wind_speed": [kmh(v) for v in series("ff")],
+        "wind_gusts": [kmh(v) for v in series("fx")],
     }
 
-    # Process hourly data - combine related data into objects for easier frontend parsing
-    hourly = data.get("hourly", {})
-    times = hourly.get("time", [])
-    processed_hourly = []
+    forecast = []
+    for i, timestamp in enumerate(timestamps):
+        row = {"time": timestamp}
+        for name, column in columns.items():
+            row[name] = column[i] if i < len(column) else None
+        forecast.append(row)
 
-    for i in range(len(times)):
-        hour_data = {
-            "time": times[i],
-            "temperature": hourly.get("temperature_2m", [])[i] if "temperature_2m" in hourly and i < len(hourly["temperature_2m"]) else None,
-            "rain": hourly.get("rain", [])[i] if "rain" in hourly and i < len(hourly["rain"]) else None,
-            "cloud_cover": hourly.get("cloud_cover", [])[i] if "cloud_cover" in hourly and i < len(hourly["cloud_cover"]) else None,
-            "visibility": hourly.get("visibility", [])[i] if "visibility" in hourly and i < len(hourly["visibility"]) else None,
-            "wind": {
-                "speed": hourly.get("wind_speed_10m", [])[i] if "wind_speed_10m" in hourly and i < len(hourly["wind_speed_10m"]) else None,
-                "direction": hourly.get("wind_direction_10m", [])[i] if "wind_direction_10m" in hourly and i < len(hourly["wind_direction_10m"]) else None,
-                "gusts": hourly.get("wind_gusts_10m", [])[i] if "wind_gusts_10m" in hourly and i < len(hourly["wind_gusts_10m"]) else None
-            }
-        }
-        processed_hourly.append(hour_data)
-
-    processed_data["hourly_forecast"] = processed_hourly
-
-    # Process daily data
-    daily = data.get("daily", {})
-    if daily:
-        times = daily.get("time", [])
-        processed_daily = []
-
-        for i in range(len(times)):
-            day_data = {
-                "date": times[i],
-                "temperature": {
-                    "max": daily.get("temperature_2m_max", [])[i] if "temperature_2m_max" in daily and i < len(daily["temperature_2m_max"]) else None,
-                    "min": daily.get("temperature_2m_min", [])[i] if "temperature_2m_min" in daily and i < len(daily["temperature_2m_min"]) else None
-                },
-                "sun": {
-                    "sunrise": daily.get("sunrise", [])[i] if "sunrise" in daily and i < len(daily["sunrise"]) else None,
-                    "sunset": daily.get("sunset", [])[i] if "sunset" in daily and i < len(daily["sunset"]) else None,
-                    "daylight_duration": daily.get("daylight_duration", [])[i] if "daylight_duration" in daily and i < len(daily["daylight_duration"]) else None
-                },
-                "uv_index_max": daily.get("uv_index_max", [])[i] if "uv_index_max" in daily and i < len(daily["uv_index_max"]) else None,
-                "precipitation_sum": daily.get("precipitation_sum", [])[i] if "precipitation_sum" in daily and i < len(daily["precipitation_sum"]) else None
-            }
-            processed_daily.append(day_data)
-
-        processed_data["daily_forecast"] = processed_daily
-
-    return processed_data
-
-def ensure_directories():
-    """Ensure all required directories exist"""
-    os.makedirs("data", exist_ok=True)
-    os.makedirs("data/archive", exist_ok=True)
-
-def copy_to_frontend_public_dir(filename):
-    """Copy processed file to frontend public directory"""
-    if not os.path.exists(FRONTEND_PUBLIC_DIR):
-        os.makedirs(FRONTEND_PUBLIC_DIR, exist_ok=True)
-    shutil.copy(filename, os.path.join(FRONTEND_PUBLIC_DIR, os.path.basename(filename)))
-
-def save_data(data, filename, is_processed=False):
-    """Save data to JSON file"""
-    # Ensure directories exist
-    ensure_directories()
+    return {
+        "location": {
+            "name": LOCATION_NAME,
+            "latitude": LATITUDE,
+            "longitude": LONGITUDE,
+            "timezone": "Europe/Vienna",
+        },
+        "source": "GeoSphere Austria",
+        "forecast_type": "nowcast",
+        "resolution_minutes": 15,
+        "last_updated": datetime.now(LOCAL_TZ).isoformat(),
+        "units": {
+            # GeoSphere reports "degree_Celsius" / "kg m-2"; use display units
+            # (1 kg/m² of rain = 1 mm)
+            "temperature": "°C",
+            "precipitation": "mm",
+            "dew_point": "°C",
+            "wind_direction": "°",
+            "wind_speed": "km/h",
+            "wind_gusts": "km/h",
+        },
+        "forecast_data": forecast,
+    }
 
 
+def save_json(data: dict, path: Path, mirror_to_frontend: bool = False) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    print(f"  wrote {path.relative_to(BACKEND_DIR.parent)}")
+    if mirror_to_frontend:
+        mirror = FRONTEND_DATA_DIR / path.name
+        mirror.parent.mkdir(parents=True, exist_ok=True)
+        with open(mirror, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        print(f"  wrote {mirror.relative_to(BACKEND_DIR.parent)}")
 
-    # If this is processed data, also save to frontend directory
-    if is_processed:
-        processed_filename = f"data/processed_{filename}"
-        with open(processed_filename, "w") as f:
-            json.dump(data, f, indent=2)
-        print(f"Processed data saved to directory as processed_{filename}")
 
-        # Copy to frontend public directory
-        copy_to_frontend_public_dir(processed_filename)
-    else:
-        # Save as raw
-        with open(f"data/raw_{filename}", "w") as f:
-            json.dump(data, f, indent=2)
+def run_source(name: str, url: str, params: dict, processor, output_stem: str) -> bool:
+    """Fetch, process and persist one data source. Returns True on success."""
+    print(f"Fetching {name}...")
+    raw = fetch_json(url, params)
+    if raw is None:
+        print(f"  {name} unavailable")
+        return False
 
-def main():
-    try:
-        # Fetch Open-Meteo data
-        print("Fetching weather data from Open-Meteo...")
-        open_meteo_data = fetch_open_meteo_data()
+    save_json(raw, DATA_DIR / f"raw_{output_stem}.json")
+    processed = processor(raw)
+    if processed is None:
+        return False
+    save_json(processed, DATA_DIR / f"processed_{output_stem}.json", mirror_to_frontend=True)
+    return True
 
-        if open_meteo_data:
-            # Save raw data
-            save_data(open_meteo_data, "open_meteo.json")
-            print("Raw Open-Meteo data saved.")
 
-            # Process data for frontend
-            print("Processing Open-Meteo data for frontend...")
-            processed_open_meteo = process_data_for_frontend(open_meteo_data)
+def main() -> int:
+    results = {
+        "Open-Meteo": run_source(
+            "Open-Meteo forecast", OPEN_METEO_URL, OPEN_METEO_PARAMS,
+            process_open_meteo, "open_meteo",
+        ),
+        "GeoSphere Austria": run_source(
+            "GeoSphere nowcast", GEOSPHERE_URL, GEOSPHERE_PARAMS,
+            process_geosphere, "geosphere",
+        ),
+    }
 
-            # Save processed data for frontend
-            save_data(processed_open_meteo, "open_meteo.json", is_processed=True)
-            print("Open-Meteo data processing complete.")
-        else:
-            print("Failed to fetch Open-Meteo data.")
+    metadata = {
+        "last_update": datetime.now(LOCAL_TZ).isoformat(),
+        "status": "success" if any(results.values()) else "error",
+        "sources": [
+            {"name": name, "status": "success" if ok else "error"}
+            for name, ok in results.items()
+        ],
+    }
+    save_json(metadata, DATA_DIR / "processed_metadata.json", mirror_to_frontend=True)
 
-        # Fetch Geosphere data
-        print("Fetching weather data from Geosphere...")
-        geosphere_data = fetch_geosphere_data()
+    if not any(results.values()):
+        print("All sources failed.")
+        return 1
+    print("Done.")
+    return 0
 
-        if geosphere_data:
-            # Save raw data
-            save_data(geosphere_data, "geosphere.json")
-            print("Raw Geosphere data saved.")
-
-            # Process data for frontend
-            print("Processing Geosphere data for frontend...")
-            processed_geosphere = process_geosphere_data(geosphere_data)
-
-            # Save processed data for frontend
-            save_data(processed_geosphere, "geosphere.json", is_processed=True)
-            print("Geosphere data processing complete.")
-        else:
-            print("Failed to fetch Geosphere data.")
-
-        # Save metadata about this update
-        metadata = {
-            "last_update": datetime.now(TIMEZONE_CEST).isoformat(),
-            "sources": [],
-            "status": "success"
-        }
-
-        if open_meteo_data:
-            metadata["sources"].append({
-                "name": "Open-Meteo API",
-                "status": "success"
-            })
-        else:
-            metadata["sources"].append({
-                "name": "Open-Meteo API",
-                "status": "error"
-            })
-
-        if geosphere_data:
-            metadata["sources"].append({
-                "name": "Geosphere API",
-                "status": "success"
-            })
-        else:
-            metadata["sources"].append({
-                "name": "Geosphere API",
-                "status": "error"
-            })
-
-        save_data(metadata, "metadata.json", is_processed=True)
-
-        print("All weather data processing complete.")
-
-    except Exception as e:
-        print(f"Error in weather data processing: {e}")
-        # Save error metadata
-        metadata = {
-            "last_update": datetime.now(TIMEZONE_CEST).isoformat(),
-            "sources": [
-                {"name": "Open-Meteo API", "status": "unknown"},
-                {"name": "Geosphere API", "status": "unknown"}
-            ],
-            "status": "error",
-            "error_message": str(e)
-        }
-        save_data(metadata, "metadata.json")
 
 if __name__ == "__main__":
-    main()
-
+    sys.exit(main())

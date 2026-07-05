@@ -2,130 +2,76 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, ChevronUp, BrainCircuit } from 'lucide-react';
-
-interface WeatherAnalysis {
-  timestamp: string;
-  english?: string;
-  german?: string;
-  analysis?: string; // Keep for backward compatibility
-}
+import { ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
+import type { Language, WeatherAnalysis } from '@/lib/types';
+import type { Translation } from '@/lib/i18n';
+import { formatUpdatedAt } from '@/lib/weather-utils';
+import { dataUrl } from '@/lib/data-url';
 
 interface WeatherBriefingProps {
-  language: 'en' | 'de';
+  language: Language;
+  t: Translation;
 }
 
-// Translations for the component
-const translations = {
-  en: {
-    weatherBriefing: 'Weather Briefing',
-    poweredBy: 'Powered by',
-    expandBriefing: 'Show briefing',
-    collapseBriefing: 'Hide briefing',
-  },
-  de: {
-    weatherBriefing: 'Wetterbericht',
-    poweredBy: 'Bereitgestellt von',
-    expandBriefing: 'Bericht anzeigen',
-    collapseBriefing: 'Bericht ausblenden',
-  },
-};
+// The briefing HTML comes from our own Mistral pipeline, but strip active
+// content anyway before embedding it.
+function sanitizeHtml(html: string): string {
+  return html
+    .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
+    .replace(/<(iframe|object|embed|form)[\s\S]*?(<\/\1\s*>|\/>)/gi, '')
+    .replace(/\son\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '')
+    .replace(/(?:href|src)\s*=\s*(?:"javascript:[^"]*"|'javascript:[^']*')/gi, '');
+}
 
-/**
- * Weather Briefing component to display Mistral AI analysis
- *
- * This component fetches the AI-generated weather analysis and displays it in an
- * expandable/collapsible section with attribution to Mistral AI.
- */
-const WeatherBriefing: React.FC<WeatherBriefingProps> = ({ language }) => {
+/** Expandable AI-generated daily weather briefing (Mistral). */
+const WeatherBriefing: React.FC<WeatherBriefingProps> = ({ language, t }) => {
   const [analysis, setAnalysis] = useState<WeatherAnalysis | null>(null);
   const [expanded, setExpanded] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const t = translations[language];
 
   useEffect(() => {
-    // Fetch the analysis data
-    setLoading(true);
-    fetch('/backend/data/weather_analysis.json')
-      .then((res) => {
-        if (!res.ok) {
-          console.warn(`Could not load weather analysis: ${res.status}`);
-          // Instead of throwing an error, we'll handle this gracefully
-          return null;
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (data) {
-          setAnalysis(data);
-        } else {
-          // Set a fallback message when no data is available
-          setAnalysis({
-            timestamp: new Date().toISOString(),
-            analysis: "Weather analysis is currently unavailable. Check back later for AI-powered weather insights."
-          });
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to load weather analysis:", err);
-        // Set a fallback message when there's an error
-        setAnalysis({
-          timestamp: new Date().toISOString(),
-          analysis: "Weather analysis is currently unavailable. Check back later for AI-powered weather insights."
-        });
-        setLoading(false);
-      });
+    fetch(dataUrl('weather_analysis.json'))
+      .then((res) => (res.ok ? res.json() : null))
+      .then(setAnalysis)
+      .catch(() => setAnalysis(null));
   }, []);
 
-  if (loading) {
-    return null; // Don't show anything while loading
-  }
+  if (!analysis) return null;
 
-  if (!analysis) {
-    return null; // Don't show if there's no analysis data
-  }
+  const html =
+    (language === 'de' ? analysis.german : analysis.english) ||
+    analysis.analysis ||
+    '';
+  if (!html) return null;
 
-  // Format the timestamp
-  const analysisDate = new Date(analysis.timestamp);
-    analysisDate.toLocaleString(
-        language === 'de' ? 'de-AT' : undefined
-    );
-    return (
-    <div className="mt-6 mb-4">
+  return (
+    <Card className="gap-0 p-2">
       <Button
         variant="ghost"
-        onClick={() => setExpanded(!expanded)}
-        className="w-full flex justify-between items-center p-2 text-left border-b"
+        onClick={() => setExpanded((e) => !e)}
+        aria-expanded={expanded}
+        className="w-full justify-between px-3"
       >
-        <div className="flex items-center gap-2">
-          <BrainCircuit size={20} className="text-purple-600 dark:text-purple-400" />
-          <span className="font-semibold">{t.weatherBriefing}</span>
-        </div>
-        <div>
-          {expanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-        </div>
+        <span className="flex items-center gap-2 font-semibold">
+          <Sparkles size={16} aria-hidden />
+          {t.weatherBriefing}
+          <span className="text-xs font-normal text-muted-foreground">
+            {t.briefingFrom} {formatUpdatedAt(analysis.timestamp, language)}
+          </span>
+        </span>
+        {expanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
       </Button>
-
       {expanded && (
-        <Card className="mt-2 p-4 bg-white/40 dark:bg-neutral-800/40 backdrop-blur-md border border-white/30 dark:border-neutral-700/40 max-w-none">
-          <div className="text-sm leading-relaxed weather-content"
-               dangerouslySetInnerHTML={{
-                 __html: language === 'de'
-                   ? analysis.german || analysis.analysis || 'Weather analysis unavailable'
-                   : analysis.english || analysis.analysis || 'Weather analysis unavailable'
-               }}
+        <div className="px-4 pb-3 pt-1">
+          <div
+            className="text-sm leading-relaxed [&_h1]:text-base [&_h1]:font-semibold [&_h2]:text-sm [&_h2]:font-semibold [&_h3]:font-semibold [&_li]:ml-4 [&_li]:list-disc [&_p]:my-2"
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(html) }}
           />
-
-          <div className="mt-3 text-xs text-muted-foreground flex items-center justify-end gap-1">
-            <span>{t.poweredBy}</span>
-            <span className="font-semibold text-purple-600 dark:text-purple-400 flex items-center gap-1">
-              Mistral AI <BrainCircuit size={14} />
-            </span>
+          <div className="mt-2 text-right text-xs text-muted-foreground">
+            {t.poweredBy} Mistral AI
           </div>
-        </Card>
+        </div>
       )}
-    </div>
+    </Card>
   );
 };
 
