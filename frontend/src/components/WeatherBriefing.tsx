@@ -14,12 +14,18 @@ interface WeatherBriefingProps {
 }
 
 // The briefing HTML comes from our own Mistral pipeline, but strip active
-// content anyway before embedding it.
+// content anyway before embedding it. Inline styles are removed too: LLM
+// reports used to ship their own colors/backgrounds, which turn unreadable
+// against the page theme (white-on-white in dark mode) — the host page styles
+// the semantic tags instead.
 function sanitizeHtml(html: string): string {
   return html
     .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
+    .replace(/<style[\s\S]*?<\/style\s*>/gi, '')
     .replace(/<(iframe|object|embed|form)[\s\S]*?(<\/\1\s*>|\/>)/gi, '')
     .replace(/\son\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '')
+    .replace(/\sstyle\s*=\s*(?:"[^"]*"|'[^']*')/gi, '')
+    .replace(/\s(?:color|bgcolor|background)\s*=\s*(?:"[^"]*"|'[^']*')/gi, '')
     .replace(/(?:href|src)\s*=\s*(?:"javascript:[^"]*"|'javascript:[^']*')/gi, '');
 }
 

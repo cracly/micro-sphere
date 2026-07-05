@@ -17,7 +17,12 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import requests
-from mistralai import Mistral
+
+try:
+    # mistralai >= 2.0 moved the client class
+    from mistralai.client import Mistral
+except ImportError:
+    from mistralai import Mistral
 
 LOCAL_TZ = ZoneInfo("Europe/Vienna")
 MISTRAL_MODEL = os.environ.get("MISTRAL_MODEL", "mistral-small-latest")
@@ -70,6 +75,8 @@ Guidelines:
 
     Formatting:
         Respond with embeddable HTML only (headings, paragraphs, lists, bold where useful).
+        Use semantic tags only - the host page does all styling. No <style> blocks,
+        no style attributes, no colors, no fonts, no wrapper <div> with layout.
         No page-level headings like "Weather Report" - the report is embedded under its own title.
         No markdown, no explanations outside the HTML.
 """
