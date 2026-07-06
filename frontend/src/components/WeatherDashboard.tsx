@@ -27,6 +27,7 @@ import {
   windDirectionLabel,
 } from '@/lib/weather-utils';
 import { weatherCodeIcon, weatherCodeLabel } from '@/lib/weather-codes';
+import { deriveCurrent } from '@/lib/live-current';
 import WeatherIcon from './WeatherIcon';
 import StatTile from './StatTile';
 import DayStrip from './DayStrip';
@@ -70,7 +71,7 @@ const WeatherDashboard: React.FC = () => {
     // reusing a JSON file cached before the last data update. If a stale copy
     // with an unexpected shape still slips through, retry once with a
     // cache-busting query before giving up — never render a broken payload.
-    const loadWeather = async () => {
+    const loadWeather = async (initial: boolean) => {
       for (const bust of [false, true]) {
         try {
           const url = dataUrl('processed_open_meteo.json') + (bust ? `?v=${Date.now()}` : '');
@@ -85,16 +86,35 @@ const WeatherDashboard: React.FC = () => {
           // fall through to retry / error
         }
       }
-      setError(true);
+      // A failed background refresh keeps the data already on screen.
+      if (initial) setError(true);
     };
-    loadWeather();
 
     // Nowcast is optional: when it fails, the section shows an
     // unavailable note instead of made-up data.
-    fetch(dataUrl('processed_geosphere.json'), { cache: 'no-cache' })
-      .then((res) => (res.ok ? res.json() : null))
-      .then((json) => setNowcast(isNowcastData(json) ? json : null))
-      .catch(() => setNowcast(null));
+    const loadNowcast = () =>
+      fetch(dataUrl('processed_geosphere.json'), { cache: 'no-cache' })
+        .then((res) => (res.ok ? res.json() : null))
+        .then((json) => setNowcast((prev) => (isNowcastData(json) ? json : prev)))
+        .catch(() => undefined);
+
+    loadWeather(true);
+    loadNowcast();
+
+    // Long-lived tabs: refetch the data files every 10 minutes.
+    const refetch = setInterval(() => {
+      loadWeather(false);
+      loadNowcast();
+    }, 10 * 60 * 1000);
+    return () => clearInterval(refetch);
+  }, []);
+
+  // Re-derive the "now" estimate every minute so the hero card follows the
+  // forecast between data updates.
+  const [nowTick, setNowTick] = useState(() => viennaNow());
+  useEffect(() => {
+    const tick = setInterval(() => setNowTick(viennaNow()), 60 * 1000);
+    return () => clearInterval(tick);
   }, []);
 
   // Theme: the inline script in layout.tsx applies the class pre-hydration;
@@ -117,10 +137,15 @@ const WeatherDashboard: React.FC = () => {
     localStorage.setItem('language', lang);
   };
 
-  const todayEntry = useMemo(() => {
-    const today = viennaNow().date;
-    return weather?.daily?.find((d) => d.time === today) ?? null;
-  }, [weather]);
+  const todayEntry = useMemo(
+    () => weather?.daily?.find((d) => d.time === nowTick.date) ?? null,
+    [weather, nowTick.date]
+  );
+
+  const live = useMemo(
+    () => (weather ? deriveCurrent(weather, nowTick) : null),
+    [weather, nowTick]
+  );
 
   if (error) {
     return (
@@ -137,7 +162,8 @@ const WeatherDashboard: React.FC = () => {
     );
   }
 
-  const { current } = weather;
+  const current = live?.current ?? weather.current;
+  const estimated = live?.estimated ?? false;
 
   return (
     <div className="mx-auto flex min-h-screen max-w-4xl flex-col gap-6 px-4 py-6">
@@ -195,6 +221,7 @@ const WeatherDashboard: React.FC = () => {
             <div className="mt-2 text-lg">{weatherCodeLabel(current.weather_code, language)}</div>
             <div className="text-sm text-muted-foreground">
               {t.feelsLike} {formatTemperature(current.feels_like, 1)}
+              {estimated && <span title={t.estimatedHint}> · {t.estimated}</span>}
             </div>
           </div>
         </div>

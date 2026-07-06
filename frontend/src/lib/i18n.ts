@@ -44,6 +44,9 @@ export const translations = {
     darkMode: 'Dark mode',
     lightMode: 'Light mode',
     daySelector: 'Select forecast day',
+    estimated: 'forecast estimate',
+    estimatedHint:
+      'The last observation is older than 45 minutes; these values are interpolated from the hourly forecast.',
   },
   de: {
     tagline: 'Hyperlokales Wetter für Kledering',
@@ -88,6 +91,9 @@ export const translations = {
     darkMode: 'Dunkelmodus',
     lightMode: 'Hellmodus',
     daySelector: 'Vorhersagetag wählen',
+    estimated: 'aus Prognose geschätzt',
+    estimatedHint:
+      'Die letzte Beobachtung ist älter als 45 Minuten; diese Werte sind aus der stündlichen Vorhersage interpoliert.',
   },
 } as const satisfies Record<Language, Record<string, string>>;
 

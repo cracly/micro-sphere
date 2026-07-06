@@ -34,6 +34,7 @@ export interface HourlyEntry {
   cloud_cover: number | null;
   visibility: number | null;
   uv_index: number | null;
+  pressure?: number | null;
   wind_speed: number | null;
   wind_direction: number | null;
   wind_gusts: number | null;
