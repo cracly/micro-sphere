@@ -8,7 +8,7 @@
   "source": "GeoSphere Austria",
   "forecast_type": "nowcast",
   "resolution_minutes": 15,
-  "last_updated": "2026-07-18T20:10:42.853832+02:00",
+  "last_updated": "2026-07-18T21:32:47.926304+02:00",
   "units": {
     "temperature": "°C",
     "precipitation": "mm",
@@ -19,112 +19,103 @@
   },
   "forecast_data": [
     {
-      "time": "2026-07-18T18:00+00:00",
-      "temperature": 26.58,
-      "precipitation": 0.0,
-      "dew_point": 13.77,
-      "wind_direction": 316.8,
-      "wind_speed": 8.0,
-      "wind_gusts": 15.5
-    },
-    {
-      "time": "2026-07-18T18:15+00:00",
-      "temperature": 26.15,
-      "precipitation": 0.0,
-      "dew_point": 13.74,
-      "wind_direction": 312.3,
-      "wind_speed": 7.4,
-      "wind_gusts": 15.2
-    },
-    {
-      "time": "2026-07-18T18:30+00:00",
-      "temperature": 25.73,
-      "precipitation": 0.0,
-      "dew_point": 13.72,
-      "wind_direction": 307.2,
-      "wind_speed": 7.3,
-      "wind_gusts": 15.0
-    },
-    {
-      "time": "2026-07-18T18:45+00:00",
-      "temperature": 24.97,
-      "precipitation": 0.0,
-      "dew_point": 14.07,
-      "wind_direction": 303.5,
-      "wind_speed": 7.2,
-      "wind_gusts": 14.7
-    },
-    {
-      "time": "2026-07-18T19:00+00:00",
-      "temperature": 24.02,
-      "precipitation": 0.0,
-      "dew_point": 14.64,
-      "wind_direction": 300.4,
-      "wind_speed": 6.9,
-      "wind_gusts": 14.3
-    },
-    {
-      "time": "2026-07-18T19:15+00:00",
-      "temperature": 23.31,
-      "precipitation": 0.0,
-      "dew_point": 15.22,
-      "wind_direction": 298.9,
-      "wind_speed": 6.8,
-      "wind_gusts": 14.1
-    },
-    {
       "time": "2026-07-18T19:30+00:00",
-      "temperature": 22.73,
+      "temperature": 24.49,
       "precipitation": 0.0,
-      "dew_point": 15.66,
-      "wind_direction": 297.3,
-      "wind_speed": 6.8,
-      "wind_gusts": 14.0
+      "dew_point": 14.99,
+      "wind_direction": 306.0,
+      "wind_speed": 2.3,
+      "wind_gusts": 6.1
     },
     {
       "time": "2026-07-18T19:45+00:00",
-      "temperature": 22.3,
+      "temperature": 24.29,
       "precipitation": 0.0,
-      "dew_point": 15.92,
-      "wind_direction": 295.7,
-      "wind_speed": 6.7,
-      "wind_gusts": 13.9
+      "dew_point": 15.01,
+      "wind_direction": 298.4,
+      "wind_speed": 2.2,
+      "wind_gusts": 5.9
     },
     {
       "time": "2026-07-18T20:00+00:00",
-      "temperature": 21.99,
-      "precipitation": 0.0,
-      "dew_point": 16.06,
-      "wind_direction": 292.8,
-      "wind_speed": 6.7,
-      "wind_gusts": 13.9
+      "temperature": 23.76,
+      "precipitation": 0.01,
+      "dew_point": 15.21,
+      "wind_direction": 290.0,
+      "wind_speed": 2.1,
+      "wind_gusts": 5.7
     },
     {
       "time": "2026-07-18T20:15+00:00",
-      "temperature": 21.82,
-      "precipitation": 0.0,
-      "dew_point": 15.98,
-      "wind_direction": 294.8,
-      "wind_speed": 6.7,
-      "wind_gusts": 13.8
+      "temperature": 23.11,
+      "precipitation": 0.02,
+      "dew_point": 15.34,
+      "wind_direction": 301.9,
+      "wind_speed": 2.3,
+      "wind_gusts": 6.0
     },
     {
       "time": "2026-07-18T20:30+00:00",
-      "temperature": 21.67,
-      "precipitation": 0.0,
-      "dew_point": 15.87,
-      "wind_direction": 296.9,
-      "wind_speed": 6.7,
-      "wind_gusts": 13.6
+      "temperature": 22.46,
+      "precipitation": 0.03,
+      "dew_point": 15.48,
+      "wind_direction": 311.2,
+      "wind_speed": 2.5,
+      "wind_gusts": 6.4
     },
     {
       "time": "2026-07-18T20:45+00:00",
-      "temperature": 21.54,
+      "temperature": 21.95,
       "precipitation": 0.0,
-      "dew_point": 15.75,
-      "wind_direction": 299.2,
-      "wind_speed": 6.6,
-      "wind_gusts": 13.3
+      "dew_point": 15.55,
+      "wind_direction": 318.7,
+      "wind_speed": 2.7,
+      "wind_gusts": 6.7
+    },
+    {
+      "time": "2026-07-18T21:00+00:00",
+      "temperature": 21.58,
+      "precipitation": 0.0,
+      "dew_point": 15.54,
+      "wind_direction": 325.1,
+      "wind_speed": 2.9,
+      "wind_gusts": 6.7
+    },
+    {
+      "time": "2026-07-18T21:15+00:00",
+      "temperature": 21.38,
+      "precipitation": 0.0,
+      "dew_point": 15.61,
+      "wind_direction": 322.2,
+      "wind_speed": 3.1,
+      "wind_gusts": 6.6
+    },
+    {
+      "time": "2026-07-18T21:30+00:00",
+      "temperature": 21.25,
+      "precipitation": 0.0,
+      "dew_point": 15.65,
+      "wind_direction": 320.1,
+      "wind_speed": 3.3,
+      "wind_gusts": 6.7
+    },
+    {
+      "time": "2026-07-18T21:45+00:00",
+      "temperature": 21.14,
+      "precipitation": 0.0,
+      "dew_point": 15.68,
+      "wind_direction": 318.6,
+      "wind_speed": 3.6,
+      "wind_gusts": 6.9
+    },
+    {
+      "time": "2026-07-18T22:00+00:00",
+      "temperature": 21.04,
+      "precipitation": 0.0,
+      "dew_point": 15.7,
+      "wind_direction": 317.6,
+      "wind_speed": 3.8,
+      "wind_gusts": 7.1
     }
   ]
 }
