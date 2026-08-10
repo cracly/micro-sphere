@@ -7,7 +7,7 @@
     "timezone": "Europe/Vienna"
   },
   "source": "Open-Meteo",
-  "last_updated": "2026-08-10T07:43:59.143465+02:00",
+  "last_updated": "2026-08-10T08:57:41.824255+02:00",
   "units": {
     "temperature": "°C",
     "precipitation": "mm",
@@ -18,17 +18,17 @@
     "visibility": "m"
   },
   "current": {
-    "time": "2026-08-10T07:30",
-    "temperature": 21.1,
-    "feels_like": 22.6,
-    "humidity": 70,
+    "time": "2026-08-10T08:45",
+    "temperature": 23.3,
+    "feels_like": 24.8,
+    "humidity": 61,
     "precipitation": 0.0,
-    "weather_code": 1,
-    "cloud_cover": 44,
-    "pressure": 1015.7,
-    "wind_speed": 2.2,
-    "wind_direction": 9,
-    "wind_gusts": 4.3,
+    "weather_code": 2,
+    "cloud_cover": 58,
+    "pressure": 1016.0,
+    "wind_speed": 2.4,
+    "wind_direction": 117,
+    "wind_gusts": 6.5,
     "is_day": 1
   },
   "hourly": [
@@ -1463,7 +1463,7 @@
     {
       "time": "2026-08-12T12:00",
       "temperature": 25.8,
-      "feels_like": 24.3,
+      "feels_like": 24.2,
       "humidity": 29,
       "precipitation_probability": 0,
       "precipitation": 0.0,
@@ -1480,7 +1480,7 @@
     {
       "time": "2026-08-12T13:00",
       "temperature": 26.9,
-      "feels_like": 25.7,
+      "feels_like": 25.5,
       "humidity": 27,
       "precipitation_probability": 0,
       "precipitation": 0.0,
@@ -1497,7 +1497,7 @@
     {
       "time": "2026-08-12T14:00",
       "temperature": 27.8,
-      "feels_like": 26.6,
+      "feels_like": 26.5,
       "humidity": 26,
       "precipitation_probability": 0,
       "precipitation": 0.0,
@@ -1871,7 +1871,7 @@
     {
       "time": "2026-08-13T12:00",
       "temperature": 25.0,
-      "feels_like": 24.8,
+      "feels_like": 24.9,
       "humidity": 34,
       "precipitation_probability": 0,
       "precipitation": 0.0,
@@ -1888,7 +1888,7 @@
     {
       "time": "2026-08-13T13:00",
       "temperature": 26.5,
-      "feels_like": 26.5,
+      "feels_like": 26.6,
       "humidity": 31,
       "precipitation_probability": 0,
       "precipitation": 0.0,
@@ -1905,7 +1905,7 @@
     {
       "time": "2026-08-13T14:00",
       "temperature": 27.6,
-      "feels_like": 27.6,
+      "feels_like": 27.7,
       "humidity": 29,
       "precipitation_probability": 0,
       "precipitation": 0.0,
@@ -2262,7 +2262,7 @@
     {
       "time": "2026-08-14T11:00",
       "temperature": 25.3,
-      "feels_like": 25.0,
+      "feels_like": 25.1,
       "humidity": 36,
       "precipitation_probability": 0,
       "precipitation": 0.0,
@@ -3770,7 +3770,7 @@
       "sunrise": "2026-08-12T05:44",
       "sunset": "2026-08-12T20:13",
       "daylight_duration": 52149.41,
-      "sunshine_duration": 50172.37,
+      "sunshine_duration": 47177.84,
       "uv_index_max": 6.3,
       "precipitation_sum": 0.0,
       "precipitation_probability_max": 0,
