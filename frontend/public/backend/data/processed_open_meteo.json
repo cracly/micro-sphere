@@ -7,7 +7,7 @@
     "timezone": "Europe/Vienna"
   },
   "source": "Open-Meteo",
-  "last_updated": "2026-08-20T22:02:44.187146+02:00",
+  "last_updated": "2026-08-20T22:47:03.192081+02:00",
   "units": {
     "temperature": "°C",
     "precipitation": "mm",
@@ -18,17 +18,17 @@
     "visibility": "m"
   },
   "current": {
-    "time": "2026-08-20T22:00",
-    "temperature": 20.5,
-    "feels_like": 23.8,
-    "humidity": 94,
+    "time": "2026-08-20T22:45",
+    "temperature": 20.4,
+    "feels_like": 23.4,
+    "humidity": 93,
     "precipitation": 0.0,
     "weather_code": 3,
     "cloud_cover": 100,
-    "pressure": 1011.7,
-    "wind_speed": 2.1,
-    "wind_direction": 121,
-    "wind_gusts": 16.2,
+    "pressure": 1011.6,
+    "wind_speed": 3.8,
+    "wind_direction": 163,
+    "wind_gusts": 9.0,
     "is_day": 0
   },
   "hourly": [
