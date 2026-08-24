@@ -8,7 +8,7 @@
   "source": "GeoSphere Austria",
   "forecast_type": "nowcast",
   "resolution_minutes": 15,
-  "last_updated": "2026-08-24T09:37:30.138177+02:00",
+  "last_updated": "2026-08-24T10:27:09.323997+02:00",
   "units": {
     "temperature": "°C",
     "precipitation": "mm",
@@ -17,33 +17,5 @@
     "wind_speed": "km/h",
     "wind_gusts": "km/h"
   },
-  "forecast_data": [
-    {
-      "time": "2026-08-24T07:30+00:00",
-      "temperature": 18.44,
-      "precipitation": 0.0,
-      "dew_point": 10.16,
-      "wind_direction": 346.1,
-      "wind_speed": 6.8,
-      "wind_gusts": 12.3
-    },
-    {
-      "time": "2026-08-24T07:45+00:00",
-      "temperature": 18.66,
-      "precipitation": 0.0,
-      "dew_point": 10.23,
-      "wind_direction": 349.5,
-      "wind_speed": 6.3,
-      "wind_gusts": 11.6
-    },
-    {
-      "time": "2026-08-24T08:00+00:00",
-      "temperature": 18.88,
-      "precipitation": 0.0,
-      "dew_point": 10.29,
-      "wind_direction": 353.6,
-      "wind_speed": 5.8,
-      "wind_gusts": 10.7
-    }
-  ]
+  "forecast_data": []
 }
